@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@source "./*.{js,jsx,ts,tsx}";
+@source "./pages/**/*.{js,jsx,ts,tsx}";
+@source "./components/**/*.{js,jsx,ts,tsx}";
+@source "./utils/**/*.{js,jsx,ts,tsx}";
+
+@theme {
+  /* Institutional deep-green identity, inspired by Burundian research/NGO sites */
+  --color-forest-950: #14261f;
+  --color-forest-900: #17352a;
+  --color-forest-800: #1f4d3d;
+  --color-forest-700: #285e4a;
+  --color-forest-600: #2f6b4f;
+  --color-forest-100: #e3ece6;
+  --color-forest-50: #f0f5f1;
+
+  --color-gold-500: #c89b3c;
+  --color-gold-400: #d9af5d;
+  --color-gold-100: #f5e8c9;
+
+  --color-parchment: #f7f4ec;
+  --color-ink: #1c2321;
+  --color-ink-soft: #4b534f;
+
+  --font-serif: "Source Serif 4", Georgia, serif;
+  --font-sans: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-parchment);
+  color: var(--color-ink);
+}
+
+/* Small utility: uppercase mono "eyebrow" labels used throughout,
+   e.g. "▪ RESOURCES" above section headings — a recurring motif from
+   the reference sites' category tags. */
+.eyebrow {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
