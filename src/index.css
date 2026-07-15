@@ -7,22 +7,22 @@
 @source "./utils/**/*.{js,jsx,ts,tsx}";
 
 @theme {
-  /* Institutional deep-green identity, inspired by Burundian research/NGO sites */
-  --color-forest-950: #14261f;
-  --color-forest-900: #17352a;
-  --color-forest-800: #1f4d3d;
-  --color-forest-700: #285e4a;
-  --color-forest-600: #2f6b4f;
-  --color-forest-100: #e3ece6;
-  --color-forest-50: #f0f5f1;
+  /* Institutional green-black-white identity based strictly on the IRICA logo */
+  --color-forest-950: #08120d; /* Ultra dark green-black */
+  --color-forest-900: #0c1f16; /* Deep green-black */
+  --color-forest-800: #007A33; /* Main Logo Green */
+  --color-forest-700: #00662b; /* Slightly darker Logo Green */
+  --color-forest-600: #008f3c; /* Slightly brighter Logo Green */
+  --color-forest-100: #e6f6ee; /* Soft green-white tint */
+  --color-forest-50: #f2faf5;  /* Extremely soft green-white background */
 
-  --color-gold-500: #c89b3c;
-  --color-gold-400: #d9af5d;
-  --color-gold-100: #f5e8c9;
+  --color-gold-500: #007A33;   /* Remapped to Logo Green */
+  --color-gold-400: #008f3c;   /* Remapped to Logo Green */
+  --color-gold-100: #e6f6ee;   /* Remapped to soft green-white */
 
-  --color-parchment: #f7f4ec;
-  --color-ink: #1c2321;
-  --color-ink-soft: #4b534f;
+  --color-parchment: #ffffff;  /* Neutral clean white background */
+  --color-ink: #111111;        /* Logo Black */
+  --color-ink-soft: #4a524e;   /* Soft charcoal/gray-green */
 
   --font-serif: "Source Serif 4", Georgia, serif;
   --font-sans: "IBM Plex Sans", system-ui, sans-serif;
