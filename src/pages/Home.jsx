@@ -1,6 +1,31 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function Home() {
+  const heroImages = [
+    {
+      url: "/images/partnership.png",
+      caption: "Partenariats Stratégiques & Académiques"
+    },
+    {
+      url: "/images/conference.png",
+      caption: "Conférence « La Statistique après le Cursus Académique »"
+    },
+    {
+      url: "/images/training.png",
+      caption: "Formations Professionnelles Pratiques"
+    }
+  ];
+
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % heroImages.length);
+    }, 4500);
+    return () => clearInterval(interval);
+  }, []);
+
   const PILLARS = [
     {
       title: "Services, Conseil & Audit",
@@ -85,61 +110,82 @@ export default function Home() {
   return (
     <div className="bg-white text-ink overflow-x-hidden">
       {/* HERO SECTION / HELLO SECTION */}
-      <section className="relative bg-forest-950 text-white py-24 md:py-32 px-6 overflow-hidden">
+      <section className="relative bg-white text-ink py-20 md:py-28 px-6 overflow-hidden border-b border-forest-100">
         {/* Background Decorative Grid */}
-        <div className="absolute inset-0 opacity-15 bg-[linear-gradient(to_right,#007A33_1px,transparent_1px),linear-gradient(to_bottom,#007A33_1px,transparent_1px)] bg-[size:4rem_4rem]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-forest-800 rounded-full filter blur-[120px] opacity-30 pointer-events-none" />
-
-        <div className="max-w-6xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-8 space-y-6">
-            <div className="inline-flex items-center gap-2 bg-forest-900 border border-forest-800 px-3 py-1.5 rounded-full text-xs font-mono tracking-wider text-forest-100 uppercase">
-              <span className="w-2 h-2 rounded-full bg-forest-600 animate-ping" />
+        <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#007A33_1px,transparent_1px),linear-gradient(to_bottom,#007A33_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+        
+        <div className="max-w-6xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          <div className="lg:col-span-7 space-y-6">
+            <div className="inline-flex items-center gap-2 bg-forest-50 border border-forest-100 px-3 py-1.5 rounded-full text-xs font-mono tracking-wider text-forest-800 uppercase">
+              <span className="w-2 h-2 rounded-full bg-forest-800 animate-ping" />
               Cabinet de Conseil, Recherche & Développement
             </div>
             
-            <h1 className="font-serif text-4xl md:text-6xl font-bold leading-tight tracking-tight text-white">
-              De la rigueur analytique à <span className="text-forest-600">l'impact durable</span>.
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-ink">
+              De la rigueur analytique à <span className="text-forest-800">l'impact durable</span>.
             </h1>
             
-            <p className="text-forest-100/80 text-lg md:text-xl max-w-2xl font-light leading-relaxed">
+            <p className="text-ink-soft text-lg md:text-xl font-light leading-relaxed">
               L'<strong>Institute of Research and Immersive Career Advancement (IRICA)</strong> est un cabinet d'experts basé à Bujumbura, au Burundi. Nous accompagnons les organisations et développons le capital humain d'Afrique de l'Est.
             </p>
 
-            <div className="flex flex-wrap gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <a
                 href="#qui-sommes-nous"
-                className="bg-white text-forest-950 hover:bg-forest-100 transition px-8 py-3.5 rounded-lg font-semibold shadow-lg text-center w-full sm:w-auto"
+                className="bg-forest-800 hover:bg-forest-700 text-white transition duration-300 px-8 py-3.5 rounded-lg font-semibold shadow-md text-center"
               >
                 Découvrir l'Institut
               </a>
               <Link
                 to="/materials"
-                className="bg-forest-800 hover:bg-forest-700 text-white border border-forest-700 transition px-8 py-3.5 rounded-lg font-semibold text-center w-full sm:w-auto"
+                className="bg-white text-forest-850 hover:bg-forest-50 border border-forest-800/30 transition duration-300 px-8 py-3.5 rounded-lg font-semibold text-center"
               >
                 Accéder aux Ressources
               </Link>
             </div>
           </div>
 
-          <div className="lg:col-span-4 hidden lg:block">
-            {/* Elegant Emblem card with Logo Theme */}
-            <div className="bg-forest-900/40 border border-forest-800 p-8 rounded-2xl backdrop-blur-md relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-forest-800 rounded-full filter blur-[40px] opacity-50" />
-              
-              <div className="space-y-6">
-                <div className="w-16 h-16 rounded-xl bg-forest-800 flex items-center justify-center font-serif text-3xl font-bold text-white shadow-md">
-                  I
+          <div className="lg:col-span-5 w-full">
+            {/* Smooth Fading Image Slideshow Frame */}
+            <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden shadow-xl border border-forest-100/60 bg-forest-50">
+              {heroImages.map((image, index) => (
+                <div
+                  key={image.url}
+                  className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                    index === activeSlide ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+                  }`}
+                >
+                  <img
+                    src={image.url}
+                    alt={image.caption}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
+                  
+                  {/* Slide details */}
+                  <div className="absolute bottom-5 left-5 right-5 text-white">
+                    <p className="text-[10px] font-mono tracking-widest uppercase text-forest-100/90 mb-1.5">
+                      Activité Réalisée
+                    </p>
+                    <h4 className="text-base md:text-lg font-serif font-semibold leading-snug drop-shadow-md">
+                      {image.caption}
+                    </h4>
+                  </div>
                 </div>
-                <div className="space-y-2">
-                  <h3 className="text-xl font-serif font-bold text-white">Notre Rôle</h3>
-                  <p className="text-xs text-forest-100/70 leading-relaxed">
-                    Transformer la donnée en décision et la formation en carrière, grâce à un positionnement unique mariant recherche scientifique et conseil opérationnel.
-                  </p>
-                </div>
-                <div className="pt-4 border-t border-forest-800/80 flex items-center justify-between text-xs font-mono text-forest-100/60">
-                  <span>📍 Bujumbura, Burundi</span>
-                  <span>Est. 2026</span>
-                </div>
+              ))}
+
+              {/* Dot Indicators */}
+              <div className="absolute bottom-5 right-5 flex gap-2 z-20">
+                {heroImages.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setActiveSlide(index)}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      index === activeSlide ? "bg-white w-5" : "bg-white/40 hover:bg-white/65"
+                    }`}
+                    aria-label={`Slide ${index + 1}`}
+                  />
+                ))}
               </div>
             </div>
           </div>
@@ -193,7 +239,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CORE EXPERTISE PILLARS (THE SKETCH FROM HANDWRITTEN PHOTO) */}
+      {/* CORE EXPERTISE PILLARS */}
       <section className="bg-forest-50 py-20 px-6 border-y border-forest-100">
         <div className="max-w-6xl mx-auto">
           <div className="text-center space-y-4 mb-16">
@@ -234,21 +280,20 @@ export default function Home() {
         </div>
       </section>
 
-      {/* MISSION, VISION & VALEURS */}
+      {/* MISSION, VISION & ACTIONS (HUMANIZING ELEMENTS LIKE CDE GREAT LAKES) */}
       <section className="py-20 px-6 max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-stretch mb-16">
-          <div className="bg-forest-950 text-white p-10 md:p-12 rounded-3xl flex flex-col justify-between relative overflow-hidden">
-            <div className="absolute -top-12 -right-12 w-40 h-40 bg-forest-800 rounded-full filter blur-[50px] opacity-40" />
-            <div className="space-y-4 z-10">
-              <span className="text-xs font-mono uppercase text-forest-100">▪ Notre Mission</span>
-              <h3 className="font-serif text-3xl font-bold leading-tight">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-stretch mb-20">
+          <div className="bg-forest-50 border border-forest-100 p-10 md:p-12 rounded-3xl flex flex-col justify-between shadow-sm relative overflow-hidden">
+            <div className="space-y-4">
+              <span className="text-xs font-mono uppercase text-forest-800">▪ Notre Mission</span>
+              <h3 className="font-serif text-3xl font-bold text-ink leading-tight">
                 Accompagner les organisations et former les leaders de demain.
               </h3>
-              <p className="text-forest-100/80 leading-relaxed font-light">
-                Nous aidons les professionnels et les organisations à générer des connaissances rigoureuses, à renforcer leurs compétences techniques et à mettre en œuvre des systèmes de pilotage hautement performants.
+              <p className="text-ink-soft leading-relaxed">
+                Nous aidons les professionnels et les organisations à générer des connaissances rigoureuses, à renforcer leurs compétences techniques et à mettre en œuvre des systèmes de pilotage hautement performants pour un impact sociétal réel.
               </p>
             </div>
-            <div className="pt-8 font-mono text-xs text-forest-100/60 z-10">
+            <div className="pt-8 font-mono text-xs text-forest-800 font-semibold">
               Cabinet IRICA — Bujumbura
             </div>
           </div>
@@ -260,7 +305,7 @@ export default function Home() {
                 Devenir le partenaire de référence en Afrique de l'Est.
               </h3>
               <p className="text-ink-soft leading-relaxed">
-                Notre ambition est de s'imposer comme le partenaire technique de référence pour la recherche, l'évaluation de programmes et le développement du capital humain, en alignant les exigences locales avec les plus hauts standards internationaux.
+                Notre ambition est de s'imposer comme le partenaire technique de référence pour la recherche appliquée, l'évaluation indépendante de programmes et le développement intensif du capital humain en alignant les exigences locales avec les plus hauts standards.
               </p>
             </div>
             <div className="pt-8 font-mono text-xs text-ink-soft/60">
@@ -269,39 +314,84 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Values Sub-grid */}
+        {/* HUMANIZING ACTION BLOCKS (Inspired by CDE Great Lakes Ateliers, Recherches, Echanges, Reseautage) */}
         <div className="border-t border-forest-100 pt-16">
-          <h3 className="text-center font-serif text-2xl font-bold mb-10 text-ink">Nos Valeurs Fondamentales</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {VALUES.map((val) => (
-              <div key={val.title} className="space-y-3 p-4 rounded-xl hover:bg-forest-50 transition duration-300">
-                <span className="text-3xl block">{val.icon}</span>
-                <h4 className="font-serif text-lg font-bold text-ink">{val.title}</h4>
-                <p className="text-sm text-ink-soft leading-relaxed">{val.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* METHODOLOGY SECTION */}
-      <section className="bg-forest-900 text-white py-20 px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center space-y-4 mb-16">
-            <span className="text-xs font-mono uppercase text-forest-100">▪ Rigueur Méthodologique</span>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold">Notre Cycle d'Intervention en 5 Étapes</h2>
-            <p className="text-forest-100/70 max-w-xl mx-auto text-sm">
-              Chaque projet fait l'objet d'un suivi méthodique rigoureux pour garantir l'excellence et la reproductibilité des résultats.
+          <div className="text-center space-y-4 mb-12">
+            <h3 className="font-serif text-2xl md:text-3xl font-bold text-ink">
+              Engager le Changement par des Actions Concrètes
+            </h3>
+            <p className="text-ink-soft max-w-xl mx-auto text-sm">
+              Comment nous traduisons nos valeurs d'Intégrité et d'Impact sur le terrain au Burundi.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-px bg-forest-800 rounded-2xl overflow-hidden shadow-2xl">
-            {METHODOLOGY.map((step) => (
-              <div key={step.num} className="bg-forest-900 p-8 flex flex-col justify-between space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="bg-white p-6 rounded-2xl border border-forest-100 shadow-sm space-y-4 hover:border-forest-800/40 transition duration-300">
+              <div className="text-2xl">📚</div>
+              <h4 className="font-serif text-lg font-bold text-ink">Ateliers & Formations</h4>
+              <p className="text-xs text-ink-soft leading-relaxed">
+                Transfert intensif de compétences sur SPSS, Stata, R, Power BI et la gestion de projets (PMD Pro, référentiel Sphère).
+              </p>
+            </div>
+            <div className="bg-white p-6 rounded-2xl border border-forest-100 shadow-sm space-y-4 hover:border-forest-800/40 transition duration-300">
+              <div className="text-2xl">🔬</div>
+              <h4 className="font-serif text-lg font-bold text-ink">Recherches Appliquées</h4>
+              <p className="text-xs text-ink-soft leading-relaxed">
+                Enquêtes de terrain quantitatives et qualitatives, modélisations économétriques et analyses d'impact socio-économiques.
+              </p>
+            </div>
+            <div className="bg-white p-6 rounded-2xl border border-forest-100 shadow-sm space-y-4 hover:border-forest-800/40 transition duration-300">
+              <div className="text-2xl">🗣️</div>
+              <h4 className="font-serif text-lg font-bold text-ink">Échanges & Débats</h4>
+              <p className="text-xs text-ink-soft leading-relaxed">
+                Tables rondes, forums d'orientation académique et panels reliant jeunes statisticiens et recruteurs du secteur privé.
+              </p>
+            </div>
+            <div className="bg-white p-6 rounded-2xl border border-forest-100 shadow-sm space-y-4 hover:border-forest-800/40 transition duration-300">
+              <div className="text-2xl">🤝</div>
+              <h4 className="font-serif text-lg font-bold text-ink">Réseautage Stratégique</h4>
+              <p className="text-xs text-ink-soft leading-relaxed">
+                Partenariats actifs avec des institutions d'enseignement supérieur comme le Club Statistique de l'Université du Lac Tanganyika.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* NOS PROJETS EN COURS (Humanizing project showcase) */}
+      <section className="bg-forest-50 py-20 px-6 border-y border-forest-100">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center space-y-4 mb-16">
+            <div className="text-forest-800 font-mono text-sm font-semibold tracking-widest uppercase">
+              ▪ Impact Régional
+            </div>
+            <h2 className="font-serif text-3xl md:text-4xl font-bold text-ink">
+              Nos Activités & Projets en cours
+            </h2>
+            <p className="text-ink-soft max-w-xl mx-auto text-sm">
+              Découvrez nos initiatives actives concrétisant le lien entre théorie académique et employabilité.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {REALIZATIONS.map((real, idx) => (
+              <div key={real.title} className="bg-white rounded-2xl overflow-hidden border border-forest-100 shadow-sm flex flex-col justify-between hover:shadow-md transition duration-300">
                 <div>
-                  <span className="font-mono text-4xl font-bold text-forest-800 block mb-4">{step.num}</span>
-                  <h4 className="font-serif text-lg font-bold mb-2">{step.step}</h4>
-                  <p className="text-xs text-forest-100/75 leading-relaxed">{step.desc}</p>
+                  <div className="relative aspect-[16/10] overflow-hidden bg-forest-100">
+                    <img src={real.image} alt={real.alt} className="w-full h-full object-cover" />
+                    <span className="absolute top-4 left-4 bg-forest-800 text-white font-mono text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">
+                      Actif
+                    </span>
+                  </div>
+                  <div className="p-6 space-y-3">
+                    <h3 className="font-serif text-lg font-bold text-ink leading-snug">{real.title}</h3>
+                    <p className="text-xs text-ink-soft leading-relaxed">{real.desc}</p>
+                  </div>
+                </div>
+                <div className="p-6 pt-0">
+                  <Link to="/materials" className="inline-flex items-center gap-1 text-xs font-semibold text-forest-800 hover:text-forest-750 transition">
+                    Voir les rapports associés <span>→</span>
+                  </Link>
                 </div>
               </div>
             ))}
@@ -309,59 +399,178 @@ export default function Home() {
         </div>
       </section>
 
-      {/* REALIZATIONS & PHOTO GALLERY */}
+      {/* ANALYSES & REFLEXIONS (OP-ED STYLE) */}
       <section className="py-20 px-6 max-w-6xl mx-auto">
         <div className="text-center space-y-4 mb-16">
           <div className="text-forest-800 font-mono text-sm font-semibold tracking-widest uppercase">
-            ▪ Réalisations & Impact
+            ▪ Études de Recherche & Op-Ed
           </div>
           <h2 className="font-serif text-3xl md:text-4xl font-bold text-ink">
-            Notre Travail en Images
+            Analyses & Réflexions Récentes
           </h2>
-          <p className="text-ink-soft max-w-xl mx-auto">
-            Découvrez nos actions concrètes reliant le monde académique, les acteurs étatiques et le secteur privé burundais.
+          <p className="text-ink-soft max-w-xl mx-auto text-sm">
+            Les points de vue et contributions techniques de nos chercheurs et consultants sur les défis socio-économiques.
           </p>
         </div>
 
-        {/* Gallery Grid */}
-        <div className="space-y-16">
-          {REALIZATIONS.map((real, idx) => (
-            <div
-              key={real.title}
-              className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center ${
-                idx % 2 === 1 ? "lg:flex-row-reverse" : ""
-              }`}
-            >
-              <div className={`lg:col-span-7 ${idx % 2 === 1 ? "lg:order-2" : ""}`}>
-                <div className="relative rounded-2xl overflow-hidden shadow-lg border border-forest-100 group">
-                  <img
-                    src={real.image}
-                    alt={real.alt}
-                    className="w-full object-cover aspect-[16/10] group-hover:scale-105 transition duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60 pointer-events-none" />
-                </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <article className="p-6 rounded-2xl border border-forest-100 hover:border-forest-800/30 transition duration-300 flex flex-col justify-between space-y-6">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between text-xs font-mono text-ink-soft">
+                <span>Juillet 2026</span>
+                <span className="text-forest-800 uppercase font-semibold">Employabilité</span>
               </div>
+              <h3 className="font-serif text-xl font-bold text-ink leading-snug hover:text-forest-800 transition">
+                <a href="#qui-sommes-nous">Quand la statistique devient un levier d'employabilité pour la jeunesse burundaise</a>
+              </h3>
+              <p className="text-xs text-ink-soft leading-relaxed">
+                Dans un marché du travail régional concurrentiel, la maîtrise pratique de logiciels comme Stata, SPSS et R n'est plus un simple atout, mais un prérequis absolu pour l'insertion des jeunes cadres.
+              </p>
+            </div>
+            <div className="flex items-center gap-3 pt-4 border-t border-forest-50">
+              <div className="w-8 h-8 rounded-full bg-forest-800 text-white flex items-center justify-center font-mono text-xs font-bold">
+                PB
+              </div>
+              <div>
+                <h5 className="text-xs font-bold text-ink">Patrick BIZOZA</h5>
+                <p className="text-[10px] text-ink-soft font-mono">Directeur Exécutif</p>
+              </div>
+            </div>
+          </article>
 
-              <div className={`lg:col-span-5 space-y-4 ${idx % 2 === 1 ? "lg:order-1" : ""}`}>
-                <span className="font-mono text-forest-800 text-xs font-semibold">0{idx + 1}. ACCOMPAGNEMENT</span>
-                <h3 className="font-serif text-2xl font-bold text-ink">{real.title}</h3>
-                <p className="text-ink-soft leading-relaxed text-sm">{real.desc}</p>
-                <div className="pt-2">
-                  <Link
-                    to="/materials"
-                    className="inline-flex items-center gap-1 text-sm font-semibold text-forest-800 hover:text-forest-700 transition"
-                  >
-                    Voir nos publications associées <span>→</span>
-                  </Link>
-                </div>
+          <article className="p-6 rounded-2xl border border-forest-100 hover:border-forest-800/30 transition duration-300 flex flex-col justify-between space-y-6">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between text-xs font-mono text-ink-soft">
+                <span>Juin 2026</span>
+                <span className="text-forest-800 uppercase font-semibold">Suivi-Évaluation</span>
               </div>
+              <h3 className="font-serif text-xl font-bold text-ink leading-snug hover:text-forest-800 transition">
+                <a href="#qui-sommes-nous">Pourquoi le suivi-évaluation conditionne la réussite des projets de développement</a>
+              </h3>
+              <p className="text-xs text-ink-soft leading-relaxed">
+                Les organisations non gouvernementales doivent adopter des standards d'évaluation indépendants et rigoureux (OECD-DAC) pour mesurer objectivement l'impact de leurs programmes de terrain.
+              </p>
+            </div>
+            <div className="flex items-center gap-3 pt-4 border-t border-forest-50">
+              <div className="w-8 h-8 rounded-full bg-forest-900 text-white flex items-center justify-center font-mono text-xs font-bold">
+                JN
+              </div>
+              <div>
+                <h5 className="text-xs font-bold text-ink">Jean-Claude NDUWIMANA</h5>
+                <p className="text-[10px] text-ink-soft font-mono">Spécialiste Suivi-Éval</p>
+              </div>
+            </div>
+          </article>
+
+          <article className="p-6 rounded-2xl border border-forest-100 hover:border-forest-800/30 transition duration-300 flex flex-col justify-between space-y-6">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between text-xs font-mono text-ink-soft">
+                <span>Mai 2026</span>
+                <span className="text-forest-800 uppercase font-semibold">Audit & PME</span>
+              </div>
+              <h3 className="font-serif text-xl font-bold text-ink leading-snug hover:text-forest-800 transition">
+                <a href="#qui-sommes-nous">PME à Bujumbura : les clés d'une gestion financière saine et d'un audit transparent</a>
+              </h3>
+              <p className="text-xs text-ink-soft leading-relaxed">
+                L'audit organisationnel et financier n'est pas uniquement un exercice réglementaire, c'est un puissant outil de pilotage interne et un gage de confiance pour attirer les bailleurs internationaux.
+              </p>
+            </div>
+            <div className="flex items-center gap-3 pt-4 border-t border-forest-50">
+              <div className="w-8 h-8 rounded-full bg-forest-600 text-white flex items-center justify-center font-mono text-xs font-bold">
+                AN
+              </div>
+              <div>
+                <h5 className="text-xs font-bold text-ink">Aline NIYOMWUNGERE</h5>
+                <p className="text-[10px] text-ink-soft font-mono">Responsable Recherche</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      {/* NOTRE EQUIPE (HUMANIZING TEAM) */}
+      <section className="bg-forest-50 py-20 px-6 border-y border-forest-100">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center space-y-4 mb-16">
+            <div className="text-forest-800 font-mono text-sm font-semibold tracking-widest uppercase">
+              ▪ L'Équipe d'Experts
+            </div>
+            <h2 className="font-serif text-3xl md:text-4xl font-bold text-ink">
+              Qui se cache derrière IRICA ?
+            </h2>
+            <p className="text-ink-soft max-w-xl mx-auto text-sm">
+              Une équipe pluridisciplinaire unie par une vision commune du renforcement des capacités et du développement.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white p-8 rounded-2xl border border-forest-100 text-center space-y-4">
+              <div className="w-20 h-20 rounded-full bg-forest-800 text-white font-mono text-2xl font-bold flex items-center justify-center mx-auto shadow-sm">
+                PB
+              </div>
+              <div className="space-y-1">
+                <h4 className="font-serif text-xl font-bold text-ink">Patrick BIZOZA</h4>
+                <p className="text-xs font-mono text-forest-800 uppercase font-semibold">Directeur Exécutif</p>
+              </div>
+              <p className="text-xs text-ink-soft leading-relaxed">
+                Expert senior en économie du développement et statistiques. Patrick pilote la vision stratégique d'IRICA et les relations avec les partenaires académiques régionaux.
+              </p>
+            </div>
+
+            <div className="bg-white p-8 rounded-2xl border border-forest-100 text-center space-y-4">
+              <div className="w-20 h-20 rounded-full bg-forest-900 text-white font-mono text-2xl font-bold flex items-center justify-center mx-auto shadow-sm">
+                JN
+              </div>
+              <div className="space-y-1">
+                <h4 className="font-serif text-xl font-bold text-ink">Jean-Claude NDUWIMANA</h4>
+                <p className="text-xs font-mono text-forest-800 uppercase font-semibold">Spécialiste Suivi-Évaluation</p>
+              </div>
+              <p className="text-xs text-ink-soft leading-relaxed">
+                Fort de plus de 8 ans d'expérience dans les ONG, Jean-Claude dirige les évaluations d'impact de projets et forme la jeune génération aux outils de collecte comme KoBoToolbox.
+              </p>
+            </div>
+
+            <div className="bg-white p-8 rounded-2xl border border-forest-100 text-center space-y-4">
+              <div className="w-20 h-20 rounded-full bg-forest-600 text-white font-mono text-2xl font-bold flex items-center justify-center mx-auto shadow-sm">
+                AN
+              </div>
+              <div className="space-y-1">
+                <h4 className="font-serif text-xl font-bold text-ink">Aline NIYOMWUNGERE</h4>
+                <p className="text-xs font-mono text-forest-800 uppercase font-semibold">Responsable Recherche & Statistique</p>
+              </div>
+              <p className="text-xs text-ink-soft leading-relaxed">
+                Analyste de données spécialisée sur Stata et R. Aline supervise le contrôle qualité des bases de données et anime les cours d'économétrie appliquée au sein d'IRICA.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* METHODOLOGY SECTION (TIMELINE IN LIGHT THEME) */}
+      <section className="py-20 px-6 max-w-6xl mx-auto">
+        <div className="text-center space-y-4 mb-16">
+          <span className="text-forest-800 font-mono text-xs font-semibold tracking-widest uppercase">▪ Rigueur Méthodologique</span>
+          <h2 className="font-serif text-3xl md:text-4xl font-bold text-ink">Notre Cycle d'Intervention en 5 Étapes</h2>
+          <p className="text-ink-soft max-w-xl mx-auto text-sm">
+            Chaque mission fait l'objet d'un suivi méthodique rigoureux pour garantir l'excellence et la reproductibilité des résultats.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+          {METHODOLOGY.map((step, idx) => (
+            <div key={step.num} className="bg-white border border-forest-100/60 p-6 rounded-2xl relative shadow-sm hover:border-forest-800/30 transition duration-300">
+              <div className="flex justify-between items-center mb-4">
+                <span className="font-mono text-3xl font-bold text-forest-800">{step.num}</span>
+                {idx < 4 && <span className="hidden md:inline text-forest-100 text-lg">➔</span>}
+              </div>
+              <h4 className="font-serif text-base font-bold text-ink mb-2">{step.step}</h4>
+              <p className="text-xs text-ink-soft leading-relaxed">{step.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* WHY CHOOSE US */}
+      {/* WHY CHOOSE US (LIGHT THEME) */}
       <section className="bg-forest-50 py-20 px-6 border-t border-forest-100">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-6 space-y-6">
@@ -372,7 +581,7 @@ export default function Home() {
               Pourquoi faire confiance à IRICA ?
             </h2>
             <p className="text-ink-soft text-sm leading-relaxed">
-              Nous allions des experts pluridisciplinaires chevronnés avec une maîtrise parfaite des outils analytiques et logiciels de pointe pour garantir des résultats à fort impact.
+              Nous allions des experts pluridisciplinaires burundais chevronnés avec une maîtrise parfaite des outils analytiques et logiciels de pointe pour garantir des résultats à fort impact.
             </p>
 
             {/* List of tools */}
@@ -423,28 +632,28 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FINAL CALL TO ACTION */}
-      <section className="bg-forest-950 text-white py-24 px-6 text-center relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,white_1px,transparent_1px)] bg-[size:2rem_2rem]" />
+      {/* FINAL CALL TO ACTION (LIGHT & WARM BRAND GRADIENT) */}
+      <section className="bg-gradient-to-br from-forest-50 to-white text-ink py-20 px-6 text-center relative overflow-hidden border-t border-forest-100">
+        <div className="absolute inset-0 opacity-[0.02] bg-[radial-gradient(circle_at_center,#007A33_1px,transparent_1px)] bg-[size:2rem_2rem]" />
         <div className="max-w-3xl mx-auto space-y-8 relative z-10">
-          <span className="text-xs font-mono uppercase tracking-widest text-forest-100">▪ Rejoignez-nous</span>
-          <h2 className="font-serif text-3xl md:text-5xl font-bold leading-tight">
+          <span className="text-xs font-mono uppercase tracking-widest text-forest-800 font-semibold">▪ Rejoignez-nous</span>
+          <h2 className="font-serif text-3xl md:text-5xl font-bold leading-tight text-ink">
             Prêt à collaborer pour un impact durable ?
           </h2>
-          <p className="text-forest-100/80 text-base md:text-lg font-light leading-relaxed max-w-xl mx-auto">
-            Que vous représentiez une ONG, une université, une entreprise privée ou une institution publique, nous concevons des solutions sur mesure adaptées à vos défis.
+          <p className="text-ink-soft text-base md:text-lg font-light leading-relaxed max-w-xl mx-auto">
+            Que vous représentiez une ONG, une université, une entreprise privée ou une institution publique, nous concevons des solutions sur mesure adaptées à vos défis régionaux.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
             <Link
               to="/checkout"
-              className="bg-white text-forest-950 hover:bg-forest-100 transition px-8 py-4 rounded-lg font-bold shadow-lg"
+              className="bg-forest-800 text-white hover:bg-forest-750 transition duration-300 px-8 py-4 rounded-lg font-bold shadow-md"
             >
               Souscrire à nos Publications
             </Link>
             <a
               href="mailto:info.irica@gmail.com"
-              className="bg-transparent border border-white hover:bg-white/10 text-white transition px-8 py-4 rounded-lg font-bold"
+              className="bg-white text-forest-850 hover:bg-forest-50 border border-forest-800/30 transition duration-300 px-8 py-4 rounded-lg font-bold"
             >
               Devenir Partenaire
             </a>
