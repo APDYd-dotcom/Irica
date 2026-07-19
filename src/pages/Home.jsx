@@ -28,7 +28,7 @@ export default function Home() {
 
   const PILLARS = [
     {
-      title: "Services, Conseil & Audit",
+      title: "Services",
       subtitle: "Pôle Conseil & Audit — Stratégie & Performance",
       icon: (
         <svg className="w-8 h-8 text-forest-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -36,13 +36,13 @@ export default function Home() {
         </svg>
       ),
       items: [
-        "Audit organisationnel et financier pour les structures associatives et PME.",
+        "Audit organisationnel et financier pour les structures associatives, PME et institutions.",
         "Conseil stratégique pour une gestion financière optimisée.",
         "Consultance spécialisée : suivi-évaluation, gestion et création de proposals."
       ]
     },
     {
-      title: "Programmes & Formations",
+      title: "Programs",
       subtitle: "Pôle Formation & Langues — Capacité & Carrière",
       icon: (
         <svg className="w-8 h-8 text-forest-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -51,22 +51,22 @@ export default function Home() {
       ),
       items: [
         "Capstone Program & Internship Program : transition concrète du monde académique vers le milieu professionnel.",
-        "Formations certifiantes : gestion de projets, suivi-évaluation, et outils d'analyse de données.",
-        "Communication internationale : apprentissage et maîtrise des langues de travail, cours de traduction et d'interprétation."
+        "Formations certifiantes : management de projets, suivi-évaluation et outils d'analyse de données.",
+        "Conférences & Ateliers d'Orientation pour les étudiants et jeunes diplômés burundais."
       ]
     },
     {
-      title: "Recherche & Publications",
-      subtitle: "Pôle Recherche — Données & Connaissances",
+      title: "Publications",
+      subtitle: "Pôle Recherche & Interprétation — Données & Connaissances",
       icon: (
         <svg className="w-8 h-8 text-forest-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
         </svg>
       ),
       items: [
-        "Études approfondies sur les défis socio-économiques du développement en Afrique de l'Est.",
+        "Études de recherche approfondies et analyses sur les défis socio-économiques du développement.",
         "Organisation de conférences thématiques sur le Leadership & l'Entrepreneuriat.",
-        "Services linguistiques de haute précision : traduction et interprétation de documents techniques et scientifiques."
+        "Service linguistique professionnel : traduction et interprétation de documents techniques et scientifiques."
       ]
     }
   ];
@@ -358,43 +358,88 @@ export default function Home() {
         </div>
       </section>
 
-      {/* NOS PROJETS EN COURS (Humanizing project showcase) */}
-      <section className="bg-forest-50 py-20 px-6 border-y border-forest-100">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center space-y-4 mb-16">
-            <div className="text-forest-800 font-mono text-sm font-semibold tracking-widest uppercase">
-              ▪ Impact Régional
+      {/* METHODOLOGY SECTION (TIMELINE IN LIGHT THEME) */}
+      <section className="py-20 px-6 max-w-6xl mx-auto">
+        <div className="text-center space-y-4 mb-16">
+          <span className="text-forest-800 font-mono text-xs font-semibold tracking-widest uppercase">▪ Rigueur Méthodologique</span>
+          <h2 className="font-serif text-3xl md:text-4xl font-bold text-ink">Notre Cycle d'Intervention en 5 Étapes</h2>
+          <p className="text-ink-soft max-w-xl mx-auto text-sm">
+            Chaque mission fait l'objet d'un suivi méthodique rigoureux pour garantir l'excellence et la reproductibilité des résultats.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+          {METHODOLOGY.map((step, idx) => (
+            <div key={step.num} className="bg-white border border-forest-100/60 p-6 rounded-2xl relative shadow-sm hover:border-forest-800/30 transition duration-300">
+              <div className="flex justify-between items-center mb-4">
+                <span className="font-mono text-3xl font-bold text-forest-800">{step.num}</span>
+                {idx < 4 && <span className="hidden md:inline text-forest-100 text-lg">➔</span>}
+              </div>
+              <h4 className="font-serif text-base font-bold text-ink mb-2">{step.step}</h4>
+              <p className="text-xs text-ink-soft leading-relaxed">{step.desc}</p>
             </div>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold text-ink">
-              Nos Activités & Projets en cours
+          ))}
+        </div>
+      </section>
+
+      {/* WHY CHOOSE US (LIGHT THEME) */}
+      <section className="bg-forest-50 py-20 px-6 border-t border-forest-100">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="lg:col-span-6 space-y-6">
+            <span className="text-forest-800 font-mono text-sm font-semibold tracking-widest uppercase">
+              ▪ Excellence technique
+            </span>
+            <h2 className="font-serif text-3xl font-bold text-ink">
+              Pourquoi faire confiance à IRICA ?
             </h2>
-            <p className="text-ink-soft max-w-xl mx-auto text-sm">
-              Découvrez nos initiatives actives concrétisant le lien entre théorie académique et employabilité.
+            <p className="text-ink-soft text-sm leading-relaxed">
+              Nous allions des experts pluridisciplinaires burundais chevronnés avec une maîtrise parfaite des outils analytiques et logiciels de pointe pour garantir des résultats à fort impact.
             </p>
+
+            {/* List of tools */}
+            <div className="space-y-4 pt-2">
+              <div className="flex items-start gap-3">
+                <span className="bg-forest-100 text-forest-800 p-1.5 rounded-lg text-xs font-mono">Logiciels</span>
+                <p className="text-sm text-ink-soft">
+                  Maîtrise d'outils professionnels : <strong>SPSS</strong>, <strong>Stata</strong>, <strong>R / RStudio</strong>, <strong>Power BI</strong>, <strong>Excel avancé</strong>, <strong>KoBoToolbox</strong>.
+                </p>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="bg-forest-100 text-forest-800 p-1.5 rounded-lg text-xs font-mono">Méthodes</span>
+                <p className="text-sm text-ink-soft">
+                  Analyses quantitatives, modélisations économétriques, focus groups qualitatifs, théories du changement, et évaluations de performance.
+                </p>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="bg-forest-100 text-forest-800 p-1.5 rounded-lg text-xs font-mono">Normes</span>
+                <p className="text-sm text-ink-soft">
+                  Alignement strict avec les référentiels internationaux reconnus : <strong>OECD-DAC</strong>, <strong>PMD Pro</strong>, et standards humanitaires <strong>Sphère</strong>.
+                </p>
+              </div>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {REALIZATIONS.map((real, idx) => (
-              <div key={real.title} className="bg-white rounded-2xl overflow-hidden border border-forest-100 shadow-sm flex flex-col justify-between hover:shadow-md transition duration-300">
-                <div>
-                  <div className="relative aspect-[16/10] overflow-hidden bg-forest-100">
-                    <img src={real.image} alt={real.alt} className="w-full h-full object-cover" />
-                    <span className="absolute top-4 left-4 bg-forest-800 text-white font-mono text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">
-                      Actif
-                    </span>
-                  </div>
-                  <div className="p-6 space-y-3">
-                    <h3 className="font-serif text-lg font-bold text-ink leading-snug">{real.title}</h3>
-                    <p className="text-xs text-ink-soft leading-relaxed">{real.desc}</p>
-                  </div>
-                </div>
-                <div className="p-6 pt-0">
-                  <Link to="/materials" className="inline-flex items-center gap-1 text-xs font-semibold text-forest-800 hover:text-forest-750 transition">
-                    Voir les rapports associés <span>→</span>
-                  </Link>
-                </div>
-              </div>
-            ))}
+          <div className="lg:col-span-6 grid grid-cols-2 gap-4">
+            <div className="bg-white p-6 rounded-xl border border-forest-100 space-y-2">
+              <span className="text-2xl font-mono font-bold text-forest-800">100%</span>
+              <h5 className="font-bold text-xs text-ink uppercase">Confidentialité</h5>
+              <p className="text-xs text-ink-soft">Discrétion absolue et protocoles de protection stricts.</p>
+            </div>
+            <div className="bg-white p-6 rounded-xl border border-forest-100 space-y-2">
+              <span className="text-2xl font-mono font-bold text-forest-800">≥ 95%</span>
+              <h5 className="font-bold text-xs text-ink uppercase">Satisfaction</h5>
+              <p className="text-xs text-ink-soft">Taux d'approbation et recommandation de nos partenaires.</p>
+            </div>
+            <div className="bg-white p-6 rounded-xl border border-forest-100 space-y-2">
+              <span className="text-2xl font-mono font-bold text-forest-800">&lt; 72h</span>
+              <h5 className="font-bold text-xs text-ink uppercase">Réactivité</h5>
+              <p className="text-xs text-ink-soft">Délai maximal de réponse à toutes les requêtes.</p>
+            </div>
+            <div className="bg-white p-6 rounded-xl border border-forest-100 space-y-2">
+              <span className="text-2xl font-mono font-bold text-forest-800">Certifié</span>
+              <h5 className="font-bold text-xs text-ink uppercase">Formations</h5>
+              <p className="text-xs text-ink-soft">Attestations officielles remises après chaque programme.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -546,89 +591,42 @@ export default function Home() {
         </div>
       </section>
 
-      {/* METHODOLOGY SECTION (TIMELINE IN LIGHT THEME) */}
-      <section className="py-20 px-6 max-w-6xl mx-auto">
+      {/* NOS PROJETS EN COURS (Humanizing project showcase) */}
+      <section className="bg-white py-20 px-6 max-w-6xl mx-auto">
         <div className="text-center space-y-4 mb-16">
-          <span className="text-forest-800 font-mono text-xs font-semibold tracking-widest uppercase">▪ Rigueur Méthodologique</span>
-          <h2 className="font-serif text-3xl md:text-4xl font-bold text-ink">Notre Cycle d'Intervention en 5 Étapes</h2>
+          <div className="text-forest-800 font-mono text-sm font-semibold tracking-widest uppercase">
+            ▪ Impact Régional
+          </div>
+          <h2 className="font-serif text-3xl md:text-4xl font-bold text-ink">
+            Nos Activités & Projets en cours
+          </h2>
           <p className="text-ink-soft max-w-xl mx-auto text-sm">
-            Chaque mission fait l'objet d'un suivi méthodique rigoureux pour garantir l'excellence et la reproductibilité des résultats.
+            Découvrez nos initiatives actives concrétisant le lien entre théorie académique et employabilité.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
-          {METHODOLOGY.map((step, idx) => (
-            <div key={step.num} className="bg-white border border-forest-100/60 p-6 rounded-2xl relative shadow-sm hover:border-forest-800/30 transition duration-300">
-              <div className="flex justify-between items-center mb-4">
-                <span className="font-mono text-3xl font-bold text-forest-800">{step.num}</span>
-                {idx < 4 && <span className="hidden md:inline text-forest-100 text-lg">➔</span>}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {REALIZATIONS.map((real, idx) => (
+            <div key={real.title} className="bg-white rounded-2xl overflow-hidden border border-forest-100 shadow-sm flex flex-col justify-between hover:shadow-md transition duration-300">
+              <div>
+                <div className="relative aspect-[16/10] overflow-hidden bg-forest-100">
+                  <img src={real.image} alt={real.alt} className="w-full h-full object-cover" />
+                  <span className="absolute top-4 left-4 bg-forest-800 text-white font-mono text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">
+                    Actif
+                  </span>
+                </div>
+                <div className="p-6 space-y-3">
+                  <h3 className="font-serif text-lg font-bold text-ink leading-snug">{real.title}</h3>
+                  <p className="text-xs text-ink-soft leading-relaxed">{real.desc}</p>
+                </div>
               </div>
-              <h4 className="font-serif text-base font-bold text-ink mb-2">{step.step}</h4>
-              <p className="text-xs text-ink-soft leading-relaxed">{step.desc}</p>
+              <div className="p-6 pt-0">
+                <Link to="/materials" className="inline-flex items-center gap-1 text-xs font-semibold text-forest-800 hover:text-forest-750 transition">
+                  Voir les rapports associés <span>→</span>
+                </Link>
+              </div>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* WHY CHOOSE US (LIGHT THEME) */}
-      <section className="bg-forest-50 py-20 px-6 border-t border-forest-100">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-6 space-y-6">
-            <span className="text-forest-800 font-mono text-sm font-semibold tracking-widest uppercase">
-              ▪ Excellence technique
-            </span>
-            <h2 className="font-serif text-3xl font-bold text-ink">
-              Pourquoi faire confiance à IRICA ?
-            </h2>
-            <p className="text-ink-soft text-sm leading-relaxed">
-              Nous allions des experts pluridisciplinaires burundais chevronnés avec une maîtrise parfaite des outils analytiques et logiciels de pointe pour garantir des résultats à fort impact.
-            </p>
-
-            {/* List of tools */}
-            <div className="space-y-4 pt-2">
-              <div className="flex items-start gap-3">
-                <span className="bg-forest-100 text-forest-800 p-1.5 rounded-lg text-xs font-mono">Logiciels</span>
-                <p className="text-sm text-ink-soft">
-                  Maîtrise d'outils professionnels : <strong>SPSS</strong>, <strong>Stata</strong>, <strong>R / RStudio</strong>, <strong>Power BI</strong>, <strong>Excel avancé</strong>, <strong>KoBoToolbox</strong>.
-                </p>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="bg-forest-100 text-forest-800 p-1.5 rounded-lg text-xs font-mono">Méthodes</span>
-                <p className="text-sm text-ink-soft">
-                  Analyses quantitatives, modélisations économétriques, focus groups qualitatifs, théories du changement, et évaluations de performance.
-                </p>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="bg-forest-100 text-forest-800 p-1.5 rounded-lg text-xs font-mono">Normes</span>
-                <p className="text-sm text-ink-soft">
-                  Alignement strict avec les référentiels internationaux reconnus : <strong>OECD-DAC</strong>, <strong>PMD Pro</strong>, et standards humanitaires <strong>Sphère</strong>.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="lg:col-span-6 grid grid-cols-2 gap-4">
-            <div className="bg-white p-6 rounded-xl border border-forest-100 space-y-2">
-              <span className="text-2xl font-mono font-bold text-forest-800">100%</span>
-              <h5 className="font-bold text-xs text-ink uppercase">Confidentialité</h5>
-              <p className="text-xs text-ink-soft">Discrétion absolue et protocoles de protection stricts.</p>
-            </div>
-            <div className="bg-white p-6 rounded-xl border border-forest-100 space-y-2">
-              <span className="text-2xl font-mono font-bold text-forest-800">≥ 95%</span>
-              <h5 className="font-bold text-xs text-ink uppercase">Satisfaction</h5>
-              <p className="text-xs text-ink-soft">Taux d'approbation et recommandation de nos partenaires.</p>
-            </div>
-            <div className="bg-white p-6 rounded-xl border border-forest-100 space-y-2">
-              <span className="text-2xl font-mono font-bold text-forest-800">&lt; 72h</span>
-              <h5 className="font-bold text-xs text-ink uppercase">Réactivité</h5>
-              <p className="text-xs text-ink-soft">Délai maximal de réponse à toutes les requêtes.</p>
-            </div>
-            <div className="bg-white p-6 rounded-xl border border-forest-100 space-y-2">
-              <span className="text-2xl font-mono font-bold text-forest-800">Certifié</span>
-              <h5 className="font-bold text-xs text-ink uppercase">Formations</h5>
-              <p className="text-xs text-ink-soft">Attestations officielles remises après chaque programme.</p>
-            </div>
-          </div>
         </div>
       </section>
 
