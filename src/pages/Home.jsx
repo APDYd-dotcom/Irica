@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
+import HeroHome from "../components/HelloSection";
 export default function Home() {
   /* ──── Hero slideshow state ──── */
   const heroImages = [
@@ -163,8 +163,11 @@ export default function Home() {
   ];
 
   return (
-    <div className="bg-white text-ink overflow-x-hidden">
 
+    <div className="bg-white text-ink overflow-x-hidden">
+      
+      <HeroHome/> 
+       
       {/* ═══════════════════════════════════════════════════
           1. HELLO SECTION (HERO)
          ═══════════════════════════════════════════════════ */}
@@ -225,6 +228,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      
 
       {/* ═══════════════════════════════════════════════════
           2. SERVICES
