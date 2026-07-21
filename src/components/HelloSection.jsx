@@ -18,23 +18,25 @@ function HeroHome() {
     return(
         <>
               {/* HERO VIDEO SECTION */}
-            <section className="relative h-auto md:h-screen flex items-center justify-center overflow-hidden">
+            <section className="relative h-auto md:h-[75vh] lg:h-[65vh] flex items-center justify-center overflow-hidden">
                 {/* VIDEO */}
                 <video
                 autoPlay
                 loop
                 muted
                 playsInline
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-cover object-top"
+                style={{ objectPosition: 'top center' }}
                 >
                 <source src={videoBg} type="video/mp4" />
                 </video>
 
                 {/* GRADIENT OVERLAY */}
-                <div className="absolute inset-0 bg-linear-to-b from-black/80 via-black/60 to-black/90" />
+                 
+                {/* <div className="absolute inset-0 bg-linear-to-b from-black/80 via-black/60 to-black/90" /> */}
 
                 {/* CONTENT */}
-                <div className="relative z-10 text-center text-white max-w-5xl px-4 sm:px-6 animate-fade py-20 md:py-0">
+                {/* <div className="relative z-10 text-center text-white max-w-5xl px-4 sm:px-6 animate-fade py-20 md:py-0">
                 <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold mb-4 sm:mb-6 leading-tight">
                     IRICA : recherche, formation et analyse au service de l'impact
                 </h1>
@@ -49,37 +51,37 @@ function HeroHome() {
                     Contactez-nous
                     </a>
                 </div>
-                </div>
+                </div> */}
 
             </section>
 
-            {/* INTRO WITH SLIDESHOW SECTION */}
-            <section id="hello" className="relative bg-transparent text-white py-20 md:py-28 px-6 overflow-hidden">
-              <div className="absolute inset-0 opacity-[0.02] bg-[linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] bg-size-[4rem_4rem]" />
+              {/* INTRO WITH SLIDESHOW SECTION */}
+            <section id="hello" className="relative bg-white text-ink py-20 md:py-28 px-6 overflow-hidden border-b border-forest-100">
+              <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#007A33_1px,transparent_1px),linear-gradient(to_bottom,#007A33_1px,transparent_1px)] bg-size-[4rem_4rem]" />
               <div className="max-w-6xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
                 <div className="lg:col-span-7 space-y-6">
-                  <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 px-3 py-1.5 rounded-full text-xs font-mono tracking-wider text-white/90 uppercase">
-                    <span className="w-2 h-2 rounded-full bg-green-400 animate-ping" />
+                  <div className="inline-flex items-center gap-2 bg-forest-50 border border-forest-100 px-3 py-1.5 rounded-full text-xs font-mono tracking-wider text-forest-800 uppercase">
+                    <span className="w-2 h-2 rounded-full bg-forest-800 animate-ping" />
                     Cabinet de Conseil, Recherche & Développement
                   </div>
-                  <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-white">
-                    De la rigueur analytique à <span className="text-green-400">l'impact durable</span>.
+                  <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-ink">
+                    De la rigueur analytique à <span className="text-forest-800">l'impact durable</span>.
                   </h1>
-                  <p className="text-white/80 text-lg md:text-xl font-light leading-relaxed">
+                  <p className="text-ink-soft text-lg md:text-xl font-light leading-relaxed">
                     L'<strong>Institute of Research and Immersive Career Advancement (IRICA)</strong> est un cabinet d'experts basé à Bujumbura, au Burundi. Nous accompagnons les organisations et développons le capital humain d'Afrique de l'Est.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                    <a href="#services" className="bg-green-600 hover:bg-green-700 text-white transition duration-300 px-8 py-3.5 rounded-lg font-semibold shadow-md text-center">
+                    <a href="#services" className="bg-forest-800 hover:bg-forest-700 text-white transition duration-300 px-8 py-3.5 rounded-lg font-semibold shadow-md text-center">
                       Découvrir nos Services
                     </a>
-                    <a href="mailto:info.irica@gmail.com" className="bg-white/20 text-white hover:bg-white/30 border border-white/50 transition duration-300 px-8 py-3.5 rounded-lg font-semibold text-center">
+                    <a href="mailto:info.irica@gmail.com" className="bg-white text-forest-850 hover:bg-forest-50 border border-forest-800/30 transition duration-300 px-8 py-3.5 rounded-lg font-semibold text-center">
                       Contactez-nous
                     </a>
                   </div>
                 </div>
 
                 <div className="lg:col-span-5 w-full">
-                  <div className="relative aspect-4/3 w-full rounded-2xl overflow-hidden shadow-xl border border-white/20 bg-white/10">
+                  <div className="relative aspect-4/3 w-full rounded-2xl overflow-hidden shadow-xl border border-forest-100/60 bg-forest-50">
                     {heroImages.map((image, index) => (
                       <div
                         key={image.url}
@@ -90,7 +92,7 @@ function HeroHome() {
                         <img src={image.url} alt={image.caption} className="w-full h-full object-cover" />
                         <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/10 to-transparent" />
                         <div className="absolute bottom-5 left-5 right-5 text-white">
-                          <p className="text-[10px] font-mono tracking-widest uppercase text-green-300/90 mb-1.5">Activité Réalisée</p>
+                          <p className="text-[10px] font-mono tracking-widest uppercase text-forest-100/90 mb-1.5">Activité Réalisée</p>
                           <h4 className="text-base md:text-lg font-serif font-semibold leading-snug drop-shadow-md">{image.caption}</h4>
                         </div>
                       </div>
@@ -101,7 +103,7 @@ function HeroHome() {
                           key={index}
                           onClick={() => setActiveSlide(index)}
                           className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                            index === activeSlide ? "bg-green-400 w-5" : "bg-white/40 hover:bg-white/65"
+                            index === activeSlide ? "bg-white w-5" : "bg-white/40 hover:bg-white/65"
                           }`}
                           aria-label={`Slide ${index + 1}`}
                         />
