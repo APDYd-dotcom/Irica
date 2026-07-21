@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Logo from "./Logo";
+// Use real PNG logo from public/images
 
 function Footer() {
   const currentYear = new Date().getFullYear();
@@ -11,7 +11,9 @@ function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Brand Section */}
           <div className="md:col-span-1">
-            <Logo className="h-10 mb-4" showText={true} light={true} />
+            <Link to="/" className="inline-block mb-4">
+              <span className="text-2xl font-extrabold tracking-tight text-white">IRICA</span>
+            </Link>
             <p className="text-sm text-forest-200/80 leading-relaxed">
               Cabinet de recherche et développement en Afrique de l'Est.
             </p>
