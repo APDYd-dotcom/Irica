@@ -42,7 +42,7 @@ function Footer() {
           </div>
 
           {/* Contact Info */}
-          <div>
+          <div id="Contact">
             <h3 className="text-sm font-semibold text-white mb-4 uppercase tracking-wide">Contact</h3>
             <div className="space-y-3 text-sm text-forest-200/70">
               <div>

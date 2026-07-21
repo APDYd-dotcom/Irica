@@ -15,7 +15,7 @@ function Navbar() {
     <header className="bg-parchment border-b border-ink/10">
       <nav className="max-w-6xl mx-auto px-6 h-20 flex items-center gap-8">
         <Link to="/" className="flex items-center">
-          <img src="/images/logo.png" alt="IRICA" className="h-11 block" />
+          <img src="/images/logo.png" alt="IRICA" className="h-20 block" />
         </Link>
 
         <div className="hidden md:flex items-center gap-6 eyebrow text-ink-soft">

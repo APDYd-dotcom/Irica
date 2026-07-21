@@ -2,9 +2,12 @@ import videoBg from "../assets/background.mp4";
 import { useState, useEffect } from "react";
 
 const heroImages = [
-  { url: "/images/partnership.png", caption: "Partenariats Stratégiques & Académiques" },
-  { url: "/images/conference.png", caption: "Conférence « La Statistique après le Cursus Académique »" },
-  { url: "/images/training.png", caption: "Formations Professionnelles Pratiques" },
+  { url: "/images/1.jpg", caption: "" },
+  { url: "/images/2.jpg", caption: "" },
+  { url: "/images/3.jpg", caption: ""},
+  { url: "/images/4.jpg", caption: "" },
+  { url: "/images/5.jpg", caption: "Conférence « La Statistique après le Cursus Académique »" },
+  { url: "/images/6.jpg", caption: "Formations Professionnelles Pratiques" },
 ];
 
 function HeroHome() {
@@ -62,19 +65,19 @@ function HeroHome() {
                 <div className="lg:col-span-7 space-y-6">
                   <div className="inline-flex items-center gap-2 bg-forest-50 border border-forest-100 px-3 py-1.5 rounded-full text-xs font-mono tracking-wider text-forest-800 uppercase">
                     <span className="w-2 h-2 rounded-full bg-forest-800 animate-ping" />
-                    Cabinet de Conseil, Recherche & Développement
+                    IRICA-Institute of Research and Immersive Career Advancement
                   </div>
                   <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-ink">
                     De la rigueur analytique à <span className="text-forest-800">l'impact durable</span>.
                   </h1>
                   <p className="text-ink-soft text-lg md:text-xl font-light leading-relaxed">
-                    L'<strong>Institute of Research and Immersive Career Advancement (IRICA)</strong> est un cabinet d'experts basé à Bujumbura, au Burundi. Nous accompagnons les organisations et développons le capital humain d'Afrique de l'Est.
+                    <strong>IRICA</strong> est un cabinet spécialisé dans la recherche appliquée, les statistiques et l'analyse de données, la gestion de projets et le suivi-évaluation, le développement des capacités, ainsi que l'audit et la consultance institutionnelle.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 pt-4">
                     <a href="#services" className="bg-forest-800 hover:bg-forest-700 text-white transition duration-300 px-8 py-3.5 rounded-lg font-semibold shadow-md text-center">
                       Découvrir nos Services
                     </a>
-                    <a href="mailto:info.irica@gmail.com" className="bg-white text-forest-850 hover:bg-forest-50 border border-forest-800/30 transition duration-300 px-8 py-3.5 rounded-lg font-semibold text-center">
+                    <a href="#Contact" className="bg-white text-forest-850 hover:bg-forest-50 border border-forest-800/30 transition duration-300 px-8 py-3.5 rounded-lg font-semibold text-center">
                       Contactez-nous
                     </a>
                   </div>
@@ -93,7 +96,7 @@ function HeroHome() {
                         <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/10 to-transparent" />
                         <div className="absolute bottom-5 left-5 right-5 text-white">
                           <p className="text-[10px] font-mono tracking-widest uppercase text-forest-100/90 mb-1.5">Activité Réalisée</p>
-                          <h4 className="text-base md:text-lg font-serif font-semibold leading-snug drop-shadow-md">{image.caption}</h4>
+                          <h4 className="text-base md:text-lg font-serif font-semibold leading-snug drop-shadow-md"></h4>
                         </div>
                       </div>
                     ))}
