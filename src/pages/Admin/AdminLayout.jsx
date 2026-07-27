@@ -18,8 +18,13 @@ function AdminLayout() {
         </div>
 
         <nav className="space-y-1">
+          <p className="px-4 py-2 text-xs uppercase tracking-wide text-ink-soft/70 font-semibold mt-4">Content</p>
           <NavLink to="/admin/materials" end className={linkClass}>📚 Materials</NavLink>
           <NavLink to="/admin/materials/new" className={linkClass}>➕ Add Material</NavLink>
+          
+          <p className="px-4 py-2 text-xs uppercase tracking-wide text-ink-soft/70 font-semibold mt-4">Programs</p>
+          <NavLink to="/admin/programs" end className={linkClass}>🎓 Programs</NavLink>
+          <NavLink to="/admin/programs/new" className={linkClass}>➕ Add Program</NavLink>
         </nav>
       </aside>
 

@@ -18,6 +18,8 @@ import AdminRoute from "./components/AdminRoute";
 import AdminLayout from "./pages/Admin/AdminLayout";
 import AdminMaterialsList from "./pages/Admin/AdminMaterialsList";
 import AdminMaterialForm from "./pages/Admin/AdminMaterialForm";
+import AdminProgramsList from "./pages/Admin/AdminProgramsList";
+import AdminProgramForm from "./pages/Admin/AdminProgramForm";
 
 function App() {
   return (
@@ -39,12 +41,16 @@ function App() {
           </Route>
         </Route>
 
-        {/* Admin-only — is_staff users can post/edit/delete materials */}
+        {/* Admin-only — is_staff users can post/edit/delete materials and programs */}
         <Route element={<AdminRoute />}>
           <Route path="/admin" element={<AdminLayout />}>
             <Route path="materials" element={<AdminMaterialsList />} />
             <Route path="materials/new" element={<AdminMaterialForm />} />
             <Route path="materials/:id/edit" element={<AdminMaterialForm />} />
+            
+            <Route path="programs" element={<AdminProgramsList />} />
+            <Route path="programs/new" element={<AdminProgramForm />} />
+            <Route path="programs/:id/edit" element={<AdminProgramForm />} />
           </Route>
         </Route>
 

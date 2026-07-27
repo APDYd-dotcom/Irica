@@ -18,7 +18,7 @@ function Navbar() {
           <img src="/images/logo.png" alt="IRICA" className="h-20 block" />
         </Link>
 
-        <div className="hidden md:flex items-center gap-6 eyebrow text-ink-soft">
+        {/* <div className="hidden md:flex items-center gap-6 eyebrow text-ink-soft">
           <Link to="/materials" className="hover:text-forest-800">Materials</Link>
           {user && (
             <Link to="/dashboard/materials" className="hover:text-forest-800">Dashboard</Link>
@@ -26,9 +26,9 @@ function Navbar() {
           {user?.is_staff && (
             <Link to="/admin/materials" className="hover:text-forest-800">Admin</Link>
           )}
-        </div>
+        </div> */}
 
-        <div className="ml-auto flex items-center gap-4">
+        {/* <div className="ml-auto flex items-center gap-4">
           {user ? (
             <button
               onClick={handleLogout}
@@ -48,7 +48,7 @@ function Navbar() {
           >
             Subscribe
           </Link>
-        </div>
+        </div> */}
       </nav>
     </header>
   );
