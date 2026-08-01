@@ -1,7 +1,7 @@
 import useFetch from "../hooks/useFetch";
 
 function ProgramsSection() {
-  const { data, loading, error } = useFetch("/access-programs/");
+  const { data, loading, error } = useFetch("/programs/");
   const programs = data?.results || [];
 
   const statusStyles = (status) => {
