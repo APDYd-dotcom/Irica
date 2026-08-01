@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import Layout from "./pages/Layout";
 import Home from "./pages/Home";
@@ -35,6 +35,7 @@ function App() {
         {/* Protected — only visible when logged in */}
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<DashboardLayout />}>
+            <Route index element={<Navigate to="materials" replace />} />
             <Route path="profile" element={<Profile />} />
             <Route path="materials" element={<Materials />} />
             <Route path="subscription" element={<Subscription />} />

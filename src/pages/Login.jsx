@@ -7,11 +7,11 @@ import { useAuth } from "../hooks/useAuth";
 import ErrorMessage from "../components/ErrorMessage";
 
 function Login() {
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [formData, setFormData] = useState({ username: "", password: "" });
   const [sending, setSending] = useState(false);
   const [error, setError] = useState(null);
 
-  const { login } = useAuth();
+  const { login, updateUser } = useAuth();
   const navigate = useNavigate();
 
   function handleSubmit(e) {
@@ -24,10 +24,16 @@ function Login() {
       .then((response) => {
         const tokens = response.data;
         axiosClient.defaults.headers.Authorization = `Bearer ${tokens.access}`;
-        return axiosClient.get("/auth/profile/").then((profileRes) => {
-          login(tokens, profileRes.data);
-          navigate("/dashboard/materials");
-        });
+        // Set tokens and a temporary user so ProtectedRoute won't redirect back to login.
+        login(tokens, { username: formData.username });
+
+        // Fetch full profile in background and update auth state when available.
+        axiosClient
+          .get("/auth/profile/")
+          .then((res) => updateUser(res.data))
+          .catch(() => {});
+
+        navigate("/dashboard/");
       })
       .catch((err) => setError(getErrorMessage(err)))
       .finally(() => setSending(false));
@@ -40,7 +46,7 @@ function Login() {
           <p className="eyebrow text-gold-500 mb-3">▪ Members</p>
           <h1 className="font-serif text-3xl text-ink">Log In</h1>
           <p className="text-sm text-ink-soft mt-2">
-            Use the credentials sent to your email after subscribing.
+            Use your username and password to log in.
           </p>
         </div>
 
@@ -53,11 +59,11 @@ function Login() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-ink mb-1">Email</label>
+              <label className="block text-sm font-medium text-ink mb-1">Username</label>
               <input
-                type="email"
-                name="email"
-                value={formData.email}
+                type="text"
+                name="username"
+                value={formData.username}
                 onChange={(e) => handleChange(e, setFormData)}
                 required
                 className="w-full border border-ink/15 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-forest-800/40"
