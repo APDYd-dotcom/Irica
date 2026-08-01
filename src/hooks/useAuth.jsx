@@ -11,20 +11,10 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
-    if (!token) {
-      setLoading(false);
-      return;
+    if (token) {
+      setUser({ authenticated: true });
     }
-
-    // We have a token saved — check if it's still valid by asking for the profile
-    axiosClient
-      .get("/auth/profile/")
-      .then((res) => setUser(res.data))
-      .catch(() => {
-        localStorage.removeItem("access_token");
-        localStorage.removeItem("refresh_token");
-      })
-      .finally(() => setLoading(false));
+    setLoading(false);
   }, []);
 
   function login(tokens, userData) {

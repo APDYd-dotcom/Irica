@@ -10,6 +10,7 @@ import NotFound from "./pages/NotFound";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import DashboardLayout from "./pages/Dashboard/DashboardLayout";
+import DashboardHome from "./pages/Dashboard/DashboardHome";
 import Profile from "./pages/Dashboard/Profile";
 import Materials from "./pages/Dashboard/Materials";
 import Subscription from "./pages/Dashboard/Subscription";
@@ -35,7 +36,7 @@ function App() {
         {/* Protected — only visible when logged in */}
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<DashboardLayout />}>
-            <Route index element={<Navigate to="materials" replace />} />
+            <Route index element={<DashboardHome />} />
             <Route path="profile" element={<Profile />} />
             <Route path="materials" element={<Materials />} />
             <Route path="subscription" element={<Subscription />} />

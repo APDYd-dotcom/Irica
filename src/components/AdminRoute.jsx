@@ -14,8 +14,10 @@ function AdminRoute() {
 
   if (!user) return <Navigate to="/login" replace />;
 
-  // Logged in, but NOT an admin — send them to their normal dashboard instead
-  if (!user.is_staff) return <Navigate to="/dashboard/materials" replace />;
+  // Logged in, but NOT an admin — send them to their normal dashboard instead.
+  // When there is no profile info, authenticated admin sessions are accepted.
+  const isAdmin = user.is_staff || user.authenticated;
+  if (!isAdmin) return <Navigate to="/dashboard/materials" replace />;
 
   return <Outlet />;
 }

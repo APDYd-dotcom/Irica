@@ -33,48 +33,74 @@ function AdminMaterialsList() {
   if (error) return <ErrorMessage message={error} />;
 
   return (
-    <div>
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-xl font-serif text-ink">Materials</h1>
+    <div className="space-y-6">
+      <div className="grid gap-4 md:grid-cols-[1fr_220px] items-start">
+        <div>
+          <p className="text-sm uppercase tracking-[0.24em] text-ink-soft/70 font-semibold mb-2">
+            Content management
+          </p>
+          <h1 className="text-3xl font-serif text-ink">Materials</h1>
+          <p className="mt-2 text-sm text-ink-soft max-w-2xl">
+            Review, edit, or remove materials available in the platform.
+          </p>
+        </div>
+
         <Link
           to="/admin/materials/new"
-          className="bg-forest-800 hover:bg-forest-700 text-white text-sm px-4 py-2 rounded-lg font-medium"
+          className="inline-flex items-center justify-center rounded-full bg-forest-800 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-forest-700"
         >
-          + Add Material
+          + Add material
         </Link>
       </div>
 
-      {deleteError && <div className="mb-4"><ErrorMessage message={deleteError} /></div>}
+      {deleteError && <div className="rounded-3xl border border-red-100 bg-red-50 p-4 text-red-700"><ErrorMessage message={deleteError} /></div>}
 
-      <div className="bg-white rounded-2xl border border-ink/10 shadow-sm divide-y divide-ink/10">
-        {materials?.length === 0 && (
-          <p className="p-6 text-ink-soft/70 text-sm">No materials yet — add your first one.</p>
-        )}
-
-        {materials?.map((material) => (
-          <div key={material.id} className="flex items-center gap-4 p-4">
-            <span className="text-2xl">{TYPE_ICONS[material.material_type] || "📄"}</span>
-
-            <div className="flex-1">
-              <p className="font-medium text-ink">{material.title}</p>
-              <p className="text-sm text-ink-soft/70 capitalize">{material.material_type}</p>
+      <div className="grid gap-4">
+        <div className="rounded-3xl border border-ink/10 bg-white p-5 shadow-sm">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-sm text-ink-soft">Total materials</p>
+              <p className="text-4xl font-semibold text-ink">{materials?.length ?? 0}</p>
             </div>
-
-            <Link
-              to={`/admin/materials/${material.id}/edit`}
-              className="text-sm text-forest-800 hover:underline"
-            >
-              Edit
-            </Link>
-
-            <button
-              onClick={() => handleRemove(material.id)}
-              className="text-sm text-red-500 hover:underline"
-            >
-              Delete
-            </button>
+            <p className="rounded-full bg-forest-50 px-4 py-2 text-sm font-medium text-forest-800 w-fit">
+              Manage content with confidence
+            </p>
           </div>
-        ))}
+        </div>
+
+        <div className="overflow-hidden rounded-3xl border border-ink/10 bg-white shadow-sm">
+          <div className="grid grid-cols-[56px_1.5fr_1fr_110px_110px] gap-4 px-5 py-4 text-xs uppercase tracking-[0.25em] text-ink-soft bg-slate-50 border-b border-ink/10">
+            <span>#</span>
+            <span>Title</span>
+            <span>Type</span>
+            <span className="text-right">Edit</span>
+            <span className="text-right">Delete</span>
+          </div>
+
+          {materials?.length === 0 ? (
+            <div className="px-5 py-10 text-center text-sm text-ink-soft">No materials yet — add your first one.</div>
+          ) : (
+            materials.map((material, index) => (
+              <div key={material.id} className="grid grid-cols-[56px_1.5fr_1fr_110px_110px] gap-4 items-center px-5 py-4 hover:bg-slate-50 transition">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-forest-50 text-xl">{TYPE_ICONS[material.material_type] || "📄"}</div>
+                <div>
+                  <p className="font-medium text-ink">{material.title}</p>
+                  <p className="text-sm text-ink-soft/70 capitalize">{material.material_type}</p>
+                </div>
+                <div className="text-sm text-ink-soft capitalize">{material.material_type}</div>
+                <Link to={`/admin/materials/${material.id}/edit`} className="text-sm font-medium text-forest-800 hover:underline text-right">
+                  Edit
+                </Link>
+                <button
+                  onClick={() => handleRemove(material.id)}
+                  className="text-sm font-medium text-red-600 hover:underline text-right"
+                >
+                  Delete
+                </button>
+              </div>
+            ))
+          )}
+        </div>
       </div>
     </div>
   );

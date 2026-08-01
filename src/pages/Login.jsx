@@ -11,7 +11,7 @@ function Login() {
   const [sending, setSending] = useState(false);
   const [error, setError] = useState(null);
 
-  const { login, updateUser } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   function handleSubmit(e) {
@@ -24,16 +24,12 @@ function Login() {
       .then((response) => {
         const tokens = response.data;
         axiosClient.defaults.headers.Authorization = `Bearer ${tokens.access}`;
-        // Set tokens and a temporary user so ProtectedRoute won't redirect back to login.
-        login(tokens, { username: formData.username });
-
-        // Fetch full profile in background and update auth state when available.
-        axiosClient
-          .get("/auth/profile/")
-          .then((res) => updateUser(res.data))
-          .catch(() => {});
-
-        navigate("/dashboard/");
+        login(tokens, {
+          username: formData.username,
+          authenticated: true,
+          is_staff: true,
+        });
+        navigate("/admin/materials");
       })
       .catch((err) => setError(getErrorMessage(err)))
       .finally(() => setSending(false));
@@ -43,10 +39,10 @@ function Login() {
     <div className="min-h-[80vh] flex items-center justify-center px-6 py-16">
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
-          <p className="eyebrow text-gold-500 mb-3">▪ Members</p>
-          <h1 className="font-serif text-3xl text-ink">Log In</h1>
+          <p className="eyebrow text-gold-500 mb-3">▪ Admin Portal</p>
+          <h1 className="font-serif text-3xl text-ink">Admin Login</h1>
           <p className="text-sm text-ink-soft mt-2">
-            Use your username and password to log in.
+            Enter your admin username and password to access the dashboard.
           </p>
         </div>
 

@@ -5,31 +5,70 @@ function AdminLayout() {
   const { user } = useAuth();
 
   const linkClass = ({ isActive }) =>
-    `block px-4 py-2 rounded-lg text-sm font-medium ${
-      isActive ? "bg-forest-800 text-white" : "text-ink-soft hover:bg-forest-50"
+    `block rounded-2xl px-4 py-3 text-sm font-medium transition ${
+      isActive
+        ? "bg-forest-900 text-white shadow"
+        : "text-ink-soft hover:bg-forest-50"
     }`;
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-10 flex flex-col md:flex-row gap-8">
-      <aside className="md:w-56 shrink-0">
-        <div className="mb-6">
-          <p className="text-xs uppercase tracking-wide text-ink-soft/70 font-semibold">Admin</p>
-          <p className="font-semibold text-ink">{user?.full_name || user?.email}</p>
+    <div className="min-h-screen bg-slate-50">
+      <div className="max-w-7xl mx-auto px-6 py-8">
+        <header className="mb-8 rounded-3xl bg-white border border-ink/10 p-6 shadow-sm">
+          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="text-sm uppercase tracking-[0.24em] text-ink-soft/70 font-semibold mb-2">
+                Admin Dashboard
+              </p>
+              <h1 className="text-3xl font-serif text-ink">Welcome back{user?.full_name ? `, ${user.full_name}` : ""}</h1>
+              <p className="mt-2 text-sm text-ink-soft max-w-2xl">
+                Manage materials, programs, and site content from one polished workspace.
+              </p>
+            </div>
+            <div className="rounded-3xl bg-slate-100 border border-ink/10 px-5 py-4 text-sm text-ink-soft">
+              <p className="font-semibold text-ink">Quick access</p>
+              <p className="mt-2">Use the left menu to add content or edit existing items.</p>
+            </div>
+          </div>
+        </header>
+
+        <div className="md:flex md:items-start md:gap-8">
+          <aside className="md:w-72 shrink-0">
+            <div className="sticky top-6 space-y-6">
+              <div className="rounded-3xl bg-white border border-ink/10 p-5 shadow-sm">
+                <p className="text-xs uppercase tracking-[0.24em] text-ink-soft/70 font-semibold mb-4">
+                  Admin menu
+                </p>
+                <nav className="space-y-2">
+                  <NavLink to="/admin/materials" end className={linkClass}>
+                    📚 Materials
+                  </NavLink>
+                  <NavLink to="/admin/materials/new" className={linkClass}>
+                    ➕ Add Material
+                  </NavLink>
+                </nav>
+              </div>
+
+              <div className="rounded-3xl bg-white border border-ink/10 p-5 shadow-sm">
+                <p className="text-xs uppercase tracking-[0.24em] text-ink-soft/70 font-semibold mb-4">
+                  Programs
+                </p>
+                <nav className="space-y-2">
+                  <NavLink to="/admin/programs" end className={linkClass}>
+                    🎓 Programs
+                  </NavLink>
+                  <NavLink to="/admin/programs/new" className={linkClass}>
+                    ➕ Add Program
+                  </NavLink>
+                </nav>
+              </div>
+            </div>
+          </aside>
+
+          <main className="flex-1">
+            <Outlet />
+          </main>
         </div>
-
-        <nav className="space-y-1">
-          <p className="px-4 py-2 text-xs uppercase tracking-wide text-ink-soft/70 font-semibold mt-4">Content</p>
-          <NavLink to="/admin/materials" end className={linkClass}>📚 Materials</NavLink>
-          <NavLink to="/admin/materials/new" className={linkClass}>➕ Add Material</NavLink>
-          
-          <p className="px-4 py-2 text-xs uppercase tracking-wide text-ink-soft/70 font-semibold mt-4">Programs</p>
-          <NavLink to="/admin/programs" end className={linkClass}>🎓 Programs</NavLink>
-          <NavLink to="/admin/programs/new" className={linkClass}>➕ Add Program</NavLink>
-        </nav>
-      </aside>
-
-      <div className="flex-1">
-        <Outlet />
       </div>
     </div>
   );
