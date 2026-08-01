@@ -1,14 +1,23 @@
 import { Link } from "react-router-dom";
 import activityImg from "../assets/activity.jpeg";
+import useFetch from "../hooks/useFetch";
 
 function ActivitiesSection() {
+    const { data, loading, error } = useFetch("/activities/");
+    const activity = data?.results?.[0] || null;
+
+    const bgSrc = activity?.image || activity?.photo || activityImg;
+    const title = activity?.title || activity?.name || "Initiatives Actives & Projets en cours";
+    const desc = activity?.description || activity?.desc || "Découvrez comment IRICA concrétise le lien entre théorie académique et employabilité en Afrique de l'Est par des projets innovants et des partenariats stratégiques.";
+    const link = activity?.url || activity?.link || "#publications";
+
     return (
         <section id="activities" className="py-0 px-0">
             <div className="relative w-full h-80 md:h-96 lg:h-[32rem] overflow-hidden">
                 {/* Background Image */}
                 <img
-                    src={activityImg}
-                    alt="IRICA Activities"
+                    src={bgSrc}
+                    alt={title}
                     className="absolute inset-0 w-full h-full object-cover"
                 />
 
@@ -20,12 +29,12 @@ function ActivitiesSection() {
                     <div className="text-white space-y-5 max-w-2xl">
                         <p className="text-green-400 uppercase text-xs md:text-sm tracking-widest font-bold">▪ Nos Activités</p>
                         <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl font-bold leading-tight drop-shadow-lg">
-                            Initiatives Actives & Projets en cours
+                            {loading ? "Chargement…" : title}
                         </h2>
                         <p className="text-white/95 text-base md:text-lg font-light leading-relaxed max-w-xl drop-shadow-md">
-                            Découvrez comment IRICA concrétise le lien entre théorie académique et employabilité en Afrique de l'Est par des projets innovants et des partenariats stratégiques.
+                            {error ? "Impossible de charger les activités." : desc}
                         </p>
-                        <a href="#publications" className="bg-forest-800 hover:bg-forest-700 text-white transition duration-300 px-8 py-3.5 rounded-lg font-semibold shadow-md text-center mt-4">
+                        <a href={link} className="bg-forest-800 hover:bg-forest-700 text-white transition duration-300 px-8 py-3.5 rounded-lg font-semibold shadow-md text-center mt-4">
                             Voir nos rapports <span>→</span>
                         </a>
                     </div>
