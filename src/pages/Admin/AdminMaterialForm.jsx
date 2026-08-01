@@ -64,7 +64,7 @@ function AdminMaterialForm() {
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-ink/10 p-6 max-w-lg">
       <h1 className="text-lg font-serif text-ink mb-4">
-        {isEditing ? "Edit Material" : "Add New Material"}
+        {isEditing ? "Edit Resource" : "Add New Resource"}
       </h1>
 
       {success && <div className="mb-4"><SuccessMessage message="Saved successfully!" /></div>}

@@ -13,7 +13,7 @@ function MaterialsPreview() {
   return (
     <div className="max-w-6xl mx-auto px-6 py-16">
       <p className="eyebrow text-gold-500 mb-3">▪ The Shelf</p>
-      <h1 className="font-serif text-3xl text-ink mb-3">Materials</h1>
+      <h1 className="font-serif text-3xl text-ink mb-3">Resources</h1>
       <p className="text-ink-soft max-w-2xl mb-10">
         Subscribe for one month of full access to every book, video, and link below.
       </p>

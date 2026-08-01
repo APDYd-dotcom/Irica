@@ -39,9 +39,9 @@ function AdminMaterialsList() {
           <p className="text-sm uppercase tracking-[0.24em] text-ink-soft/70 font-semibold mb-2">
             Content management
           </p>
-          <h1 className="text-3xl font-serif text-ink">Materials</h1>
+          <h1 className="text-3xl font-serif text-ink">Resources</h1>
           <p className="mt-2 text-sm text-ink-soft max-w-2xl">
-            Review, edit, or remove materials available in the platform.
+            Review, edit, or remove resources available in the platform.
           </p>
         </div>
 
@@ -49,7 +49,7 @@ function AdminMaterialsList() {
           to="/admin/materials/new"
           className="inline-flex items-center justify-center rounded-full bg-forest-800 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-forest-700"
         >
-          + Add material
+          + Add resource
         </Link>
       </div>
 
@@ -59,7 +59,7 @@ function AdminMaterialsList() {
         <div className="rounded-3xl border border-ink/10 bg-white p-5 shadow-sm">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="text-sm text-ink-soft">Total materials</p>
+              <p className="text-sm text-ink-soft">Total resources</p>
               <p className="text-4xl font-semibold text-ink">{materials?.length ?? 0}</p>
             </div>
             <p className="rounded-full bg-forest-50 px-4 py-2 text-sm font-medium text-forest-800 w-fit">

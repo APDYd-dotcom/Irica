@@ -19,17 +19,6 @@ function Footer() {
             </p>
           </div>
 
-          {/* Navigation */}
-          <div>
-            <h3 className="text-sm font-semibold text-white mb-4 uppercase tracking-wide">Navigation</h3>
-            <ul className="space-y-3 text-sm text-forest-200/70">
-              <li><Link to="/" className="hover:text-white transition duration-200">Accueil</Link></li>
-              <li><Link to="/materials" className="hover:text-white transition duration-200">Ressources</Link></li>
-              <li><Link to="/checkout" className="hover:text-white transition duration-200">S'abonner</Link></li>
-              <li><Link to="/login" className="hover:text-white transition duration-200">Se connecter</Link></li>
-            </ul>
-          </div>
-
           {/* Services */}
           <div>
             <h3 className="text-sm font-semibold text-white mb-4 uppercase tracking-wide">Services</h3>

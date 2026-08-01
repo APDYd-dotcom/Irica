@@ -14,7 +14,7 @@ function Materials() {
 
   return (
     <div>
-      <h1 className="text-xl font-bold text-ink mb-6">Your Materials</h1>
+      <h1 className="text-xl font-bold text-ink mb-6">Your Resources</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         {data?.map((material) => (

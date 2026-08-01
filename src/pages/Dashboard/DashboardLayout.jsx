@@ -19,7 +19,7 @@ function DashboardLayout() {
         </div>
 
         <nav className="space-y-1">
-          <NavLink to="/dashboard/materials" className={linkClass}>📚 Materials</NavLink>
+          <NavLink to="/dashboard/materials" className={linkClass}>📚 Resources</NavLink>
           <NavLink to="/dashboard/profile" className={linkClass}>👤 Profile</NavLink>
           <NavLink to="/dashboard/subscription" className={linkClass}>💳 Subscription</NavLink>
         </nav>

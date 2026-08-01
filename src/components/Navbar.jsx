@@ -19,7 +19,7 @@ function Navbar() {
         </Link>
 
         {/* <div className="hidden md:flex items-center gap-6 eyebrow text-ink-soft">
-          <Link to="/materials" className="hover:text-forest-800">Materials</Link>
+          <Link to="/materials" className="hover:text-forest-800">Resources</Link>
           {user && (
             <Link to="/dashboard/materials" className="hover:text-forest-800">Dashboard</Link>
           )}

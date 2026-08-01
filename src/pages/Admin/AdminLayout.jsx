@@ -1,8 +1,16 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import useFetch from "../../hooks/useFetch";
 
 function AdminLayout() {
   const { user } = useAuth();
+  const { data: resourcesData } = useFetch("/materials/");
+  const { data: programsData } = useFetch("/programs/");
+  const { data: publicationsData } = useFetch("/publications/");
+
+  const resourcesCount = resourcesData?.length ?? resourcesData?.results?.length ?? 0;
+  const programsCount = programsData?.length ?? programsData?.results?.length ?? 0;
+  const publicationsCount = publicationsData?.length ?? publicationsData?.results?.length ?? 0;
 
   const linkClass = ({ isActive }) =>
     `block rounded-2xl px-4 py-3 text-sm font-medium transition ${
@@ -22,12 +30,27 @@ function AdminLayout() {
               </p>
               <h1 className="text-3xl font-serif text-ink">Welcome back{user?.full_name ? `, ${user.full_name}` : ""}</h1>
               <p className="mt-2 text-sm text-ink-soft max-w-2xl">
-                Manage materials, programs, and site content from one polished workspace.
+                Manage resources, programs, and publications from one polished workspace.
               </p>
             </div>
             <div className="rounded-3xl bg-slate-100 border border-ink/10 px-5 py-4 text-sm text-ink-soft">
               <p className="font-semibold text-ink">Quick access</p>
               <p className="mt-2">Use the left menu to add content or edit existing items.</p>
+            </div>
+          </div>
+
+          <div className="mt-6 grid gap-4 sm:grid-cols-3">
+            <div className="rounded-3xl bg-slate-50 border border-ink/10 p-4 text-sm">
+              <p className="text-ink-soft uppercase tracking-[0.24em] font-semibold">Resources</p>
+              <p className="mt-3 text-3xl font-semibold text-ink">{resourcesCount}</p>
+            </div>
+            <div className="rounded-3xl bg-slate-50 border border-ink/10 p-4 text-sm">
+              <p className="text-ink-soft uppercase tracking-[0.24em] font-semibold">Programs</p>
+              <p className="mt-3 text-3xl font-semibold text-ink">{programsCount}</p>
+            </div>
+            <div className="rounded-3xl bg-slate-50 border border-ink/10 p-4 text-sm">
+              <p className="text-ink-soft uppercase tracking-[0.24em] font-semibold">Publications</p>
+              <p className="mt-3 text-3xl font-semibold text-ink">{publicationsCount}</p>
             </div>
           </div>
         </header>
@@ -37,14 +60,14 @@ function AdminLayout() {
             <div className="sticky top-6 space-y-6">
               <div className="rounded-3xl bg-white border border-ink/10 p-5 shadow-sm">
                 <p className="text-xs uppercase tracking-[0.24em] text-ink-soft/70 font-semibold mb-4">
-                  Admin menu
+                  Resources
                 </p>
                 <nav className="space-y-2">
                   <NavLink to="/admin/materials" end className={linkClass}>
-                    📚 Materials
+                    📚 Resources
                   </NavLink>
                   <NavLink to="/admin/materials/new" className={linkClass}>
-                    ➕ Add Material
+                    ➕ Add Resource
                   </NavLink>
                 </nav>
               </div>
@@ -59,6 +82,17 @@ function AdminLayout() {
                   </NavLink>
                   <NavLink to="/admin/programs/new" className={linkClass}>
                     ➕ Add Program
+                  </NavLink>
+                </nav>
+              </div>
+
+              <div className="rounded-3xl bg-white border border-ink/10 p-5 shadow-sm">
+                <p className="text-xs uppercase tracking-[0.24em] text-ink-soft/70 font-semibold mb-4">
+                  Publications
+                </p>
+                <nav className="space-y-2">
+                  <NavLink to="/admin/publications" end className={linkClass}>
+                    📄 Publications
                   </NavLink>
                 </nav>
               </div>

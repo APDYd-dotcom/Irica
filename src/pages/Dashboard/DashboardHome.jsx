@@ -39,7 +39,7 @@ export default function DashboardHome() {
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="p-5 bg-white border border-ink/10 rounded-lg">
-          <p className="text-sm text-ink-soft">Materials</p>
+          <p className="text-sm text-ink-soft">Resources</p>
           <p className="text-2xl font-semibold text-ink">{materials?.count ?? matList.length ?? 0}</p>
           <p className="text-sm text-ink-soft mt-2">Your resources available</p>
         </div>
@@ -61,7 +61,7 @@ export default function DashboardHome() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <section className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-serif">Recent Materials</h2>
+            <h2 className="text-lg font-serif">Recent Resources</h2>
             <Link to="materials" className="text-sm text-forest-800">See all</Link>
           </div>
 
