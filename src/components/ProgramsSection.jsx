@@ -83,7 +83,7 @@ function ProgramsSection() {
                     <span className="bg-slate-50 px-2 py-1 rounded-full">Email + Code</span>
                   </div>
                   <a href={link} className="inline-flex items-center justify-center w-full rounded-2xl bg-forest-800 px-4 py-3 text-sm font-semibold text-white transition hover:bg-forest-900">
-                    Voir le programme
+                    Voir le programme   
                   </a>
                 </div>
               </div>
