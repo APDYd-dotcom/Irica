@@ -1,8 +1,15 @@
+import { useRef } from "react";
 import useFetch from "../hooks/useFetch";
 
 function ProgramsSection() {
   const { data, loading, error } = useFetch("/programs/");
   const programs = data?.results || [];
+  const rowRef = useRef(null);
+
+  function scrollNext() {
+    if (!rowRef.current) return;
+    rowRef.current.scrollBy({ left: rowRef.current.clientWidth, behavior: "smooth" });
+  }
 
   const statusStyles = (status) => {
     switch (status) {
@@ -33,7 +40,7 @@ function ProgramsSection() {
             Accès aux programmes gratuits ou payants. Inscription via Google Form avec email et code d'accès.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div ref={rowRef} className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hidden">
           {programs.map((prog) => {
             const title = prog.title || prog.name || prog.program_title || "Programme";
             const desc = prog.desc || prog.description || "";
@@ -45,7 +52,7 @@ function ProgramsSection() {
             const createdAt = prog.created_at || prog.createdAt || null;
 
             return (
-              <div key={prog.id || title} className="bg-white rounded-3xl border border-forest-100 shadow-sm overflow-hidden transition hover:-translate-y-1 hover:shadow-lg duration-300">
+              <div key={prog.id || title} className="w-[22rem] h-[32rem] flex-none bg-white rounded-3xl border border-forest-100 shadow-sm overflow-hidden transition hover:-translate-y-1 hover:shadow-lg duration-300 snap-start">
                 <div className="h-44 overflow-hidden">
                   <img src={photo} alt={title} className="w-full h-full object-cover" />
                 </div>
@@ -82,6 +89,18 @@ function ProgramsSection() {
               </div>
             );
           })}
+        </div>
+        <div className="mt-8 flex flex-col gap-4">
+          <div className="flex items-center gap-4">
+            <button
+              onClick={scrollNext}
+              className="inline-flex items-center gap-2 rounded-full bg-forest-800 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-forest-900/20 transition hover:bg-forest-700"
+            >
+              <span>Voir autres</span>
+              <span className="text-lg">→</span>
+            </button>
+            <div className="text-forest-800 text-sm font-medium">Faites défiler les programmes disponibles</div>
+          </div>
         </div>
       </div>
     </section>
