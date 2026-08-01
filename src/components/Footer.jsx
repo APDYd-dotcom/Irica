@@ -8,7 +8,7 @@ function Footer() {
     <footer className="bg-forest-950 text-forest-100 border-t border-forest-900">
       {/* Main Content */}
       <div className="max-w-6xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-12">
           {/* Brand Section */}
           <div className="md:col-span-1">
             <Link to="/" className="inline-block mb-4">
@@ -17,6 +17,17 @@ function Footer() {
             <p className="text-sm text-forest-200/80 leading-relaxed">
               Cabinet de recherche et développement en Afrique de l'Est.
             </p>
+          </div>
+
+          {/* About Us */}
+          <div>
+            <h3 className="text-sm font-semibold text-white mb-4 uppercase tracking-wide">À propos</h3>
+            <ul className="space-y-3 text-sm text-forest-200/70">
+              <li><a href="#" className="hover:text-white transition duration-200">Qui sommes-nous</a></li>
+              <li><a href="#" className="hover:text-white transition duration-200">Notre mission</a></li>
+              <li><a href="#" className="hover:text-white transition duration-200">Équipe</a></li>
+              <li><a href="#" className="hover:text-white transition duration-200">Partenaires</a></li>
+            </ul>
           </div>
 
           {/* Services */}
