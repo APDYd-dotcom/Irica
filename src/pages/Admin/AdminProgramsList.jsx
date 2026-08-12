@@ -16,16 +16,15 @@ function AdminProgramsList() {
   const [items, setItems] = useState(null);
   const [deleteError, setDeleteError] = useState(null);
 
-  // Keep a LOCAL copy we can remove from instantly, instead of re-fetching
-  // the whole list every time something is deleted.
-  const programs = items ?? data;
+  // Handle both paginated { count, results: [] } and flat array responses
+  const programs = items ?? data?.results ?? data ?? [];
 
   function handleRemove(id) {
     if (!window.confirm("Delete this program? This can't be undone.")) return;
 
     handleDelete(
       `/programs/${id}/`,
-      () => setItems((programs ?? data).filter((p) => p.id !== id)),
+      () => setItems((programs ?? []).filter((p) => p.id !== id)),
       (message) => setDeleteError(message)
     );
   }
@@ -86,7 +85,7 @@ function AdminProgramsList() {
                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-50 text-xl">🎓</div>
                 <div>
                   <p className="font-medium text-ink">{program.title}</p>
-                  <p className="text-sm text-ink-soft/70 line-clamp-1">{program.description || program.summary || "Program details"}</p>
+                  <p className="text-sm text-ink-soft/70 line-clamp-1">{program.descr || "No description"}</p>
                 </div>
                 <span className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${STATUS_COLORS[program.status] || "bg-slate-50 text-slate-700"}`}>
                   {program.status || "Draft"}

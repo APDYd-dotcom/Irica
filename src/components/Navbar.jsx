@@ -22,7 +22,7 @@ function Navbar() {
     { to: "/#team", label: "Équipe" },
     { to: "/materials", label: "Resources" },
     user && { to: "/dashboard/materials", label: "Dashboard" },
-    user?.is_staff && { to: "/admin/materials", label: "Admin" },
+    user?.is_staff && { to: "/admin/articles", label: "Admin" },
   ].filter(Boolean);
 
   useEffect(() => {

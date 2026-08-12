@@ -72,12 +72,20 @@ export const handlePatch = (url, setSending, setSuccess, setError, formData) => 
 // Same as handleSubmit, but sends a FormData "envelope" instead of plain JSON —
 // required whenever the form includes a file input (like a book's PDF or a thumbnail).
 // Axios automatically sets the correct multipart Content-Type when it sees a FormData object.
-export const handleSubmitMultipart = (url, setSending, setSuccess, setError, formData, setFormData, initialFormState) => {
+// onUploadProgress is optional — if provided, Axios will call it with { loaded, total }
+// so you can compute the upload % and show a progress bar in the UI.
+export const handleSubmitMultipart = (url, setSending, setSuccess, setError, formData, setFormData, initialFormState, onUploadProgress) => {
   setSending(true);
   setSuccess(false);
   setError(null);
 
-  return axiosClient.post(url, buildFormData(formData))
+  return axiosClient.post(url, buildFormData(formData), {
+    onUploadProgress: onUploadProgress
+      ? (evt) => {
+          if (evt.total) onUploadProgress(Math.round((evt.loaded * 100) / evt.total));
+        }
+      : undefined,
+  })
     .then((response) => {
       setSuccess(true);
       if (initialFormState) setFormData(initialFormState);
@@ -93,12 +101,18 @@ export const handleSubmitMultipart = (url, setSending, setSuccess, setError, for
 };
 
 // Multipart version of PATCH — used when EDITING a material that might include a new file.
-export const handlePatchMultipart = (url, setSending, setSuccess, setError, formData) => {
+export const handlePatchMultipart = (url, setSending, setSuccess, setError, formData, onUploadProgress) => {
   setSending(true);
   setSuccess(false);
   setError(null);
 
-  return axiosClient.patch(url, buildFormData(formData))
+  return axiosClient.patch(url, buildFormData(formData), {
+    onUploadProgress: onUploadProgress
+      ? (evt) => {
+          if (evt.total) onUploadProgress(Math.round((evt.loaded * 100) / evt.total));
+        }
+      : undefined,
+  })
     .then((response) => {
       setSuccess(true);
       return response.data;

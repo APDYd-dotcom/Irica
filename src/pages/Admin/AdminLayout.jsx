@@ -4,11 +4,11 @@ import useFetch from "../../hooks/useFetch";
 
 function AdminLayout() {
   const { user } = useAuth();
-  const { data: resourcesData } = useFetch("/materials/");
+  const { data: resourcesData } = useFetch("/articles/");
   const { data: programsData } = useFetch("/programs/");
   const { data: publicationsData } = useFetch("/publications/");
 
-  const resourcesCount = resourcesData?.length ?? resourcesData?.results?.length ?? 0;
+  const resourcesCount = resourcesData?.results?.length ?? resourcesData?.length ?? 0;
   const programsCount = programsData?.length ?? programsData?.results?.length ?? 0;
   const publicationsCount = publicationsData?.length ?? publicationsData?.results?.length ?? 0;
 
@@ -41,7 +41,7 @@ function AdminLayout() {
 
           <div className="mt-6 grid gap-4 sm:grid-cols-3">
             <div className="rounded-3xl bg-slate-50 border border-ink/10 p-4 text-sm">
-              <p className="text-ink-soft uppercase tracking-[0.24em] font-semibold">Resources</p>
+              <p className="text-ink-soft uppercase tracking-[0.24em] font-semibold">Articles</p>
               <p className="mt-3 text-3xl font-semibold text-ink">{resourcesCount}</p>
             </div>
             <div className="rounded-3xl bg-slate-50 border border-ink/10 p-4 text-sm">
@@ -60,14 +60,14 @@ function AdminLayout() {
             <div className="sticky top-6 space-y-6">
               <div className="rounded-3xl bg-white border border-ink/10 p-5 shadow-sm">
                 <p className="text-xs uppercase tracking-[0.24em] text-ink-soft/70 font-semibold mb-4">
-                  Resources
+                  Articles
                 </p>
                 <nav className="space-y-2">
-                  <NavLink to="/admin/materials" end className={linkClass}>
-                    📚 Resources
+                  <NavLink to="/admin/articles" end className={linkClass}>
+                    📚 Articles
                   </NavLink>
-                  <NavLink to="/admin/materials/new" className={linkClass}>
-                    ➕ Add Resource
+                  <NavLink to="/admin/articles/new" className={linkClass}>
+                    ➕ Add Article
                   </NavLink>
                 </nav>
               </div>
@@ -93,6 +93,9 @@ function AdminLayout() {
                 <nav className="space-y-2">
                   <NavLink to="/admin/publications" end className={linkClass}>
                     📄 Publications
+                  </NavLink>
+                  <NavLink to="/admin/publications/new" className={linkClass}>
+                    ➕ Add Publication
                   </NavLink>
                 </nav>
               </div>

@@ -29,7 +29,7 @@ function Login() {
           authenticated: true,
           is_staff: true,
         });
-        navigate("/admin/materials");
+        navigate("/admin/articles");
       })
       .catch((err) => setError(getErrorMessage(err)))
       .finally(() => setSending(false));

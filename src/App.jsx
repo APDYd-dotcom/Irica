@@ -16,11 +16,12 @@ import Subscription from "./pages/Dashboard/Subscription";
 
 import AdminRoute from "./components/AdminRoute";
 import AdminLayout from "./pages/Admin/AdminLayout";
-import AdminMaterialsList from "./pages/Admin/AdminMaterialsList";
-import AdminMaterialForm from "./pages/Admin/AdminMaterialForm";
+import AdminArticlesList from "./pages/Admin/AdminArticlesList";
+import AdminArticleForm from "./pages/Admin/AdminArticleForm";
 import AdminProgramsList from "./pages/Admin/AdminProgramsList";
 import AdminProgramForm from "./pages/Admin/AdminProgramForm";
 import AdminPublicationsList from "./pages/Admin/AdminPublicationsList";
+import AdminPublicationForm from "./pages/Admin/AdminPublicationForm";
 import AdminSubscriptions from "./pages/Admin/AdminSubscriptions";
 
 function App() {
@@ -46,14 +47,20 @@ function App() {
         {/* Admin-only — is_staff users can post/edit/delete materials and programs */}
         <Route element={<AdminRoute />}>
           <Route path="/admin" element={<AdminLayout />}>
-            <Route path="materials" element={<AdminMaterialsList />} />
-            <Route path="materials/new" element={<AdminMaterialForm />} />
-            <Route path="materials/:id/edit" element={<AdminMaterialForm />} />
-            
+            <Route index element={<Navigate to="articles" replace />} />
+
+            <Route path="articles" element={<AdminArticlesList />} />
+            <Route path="articles/new" element={<AdminArticleForm />} />
+            <Route path="articles/:id/edit" element={<AdminArticleForm />} />
+
             <Route path="programs" element={<AdminProgramsList />} />
             <Route path="programs/new" element={<AdminProgramForm />} />
             <Route path="programs/:id/edit" element={<AdminProgramForm />} />
+
             <Route path="publications" element={<AdminPublicationsList />} />
+            <Route path="publications/new" element={<AdminPublicationForm />} />
+            <Route path="publications/:id/edit" element={<AdminPublicationForm />} />
+
             <Route path="subscriptions" element={<AdminSubscriptions />} />
           </Route>
         </Route>

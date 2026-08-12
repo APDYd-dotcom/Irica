@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { handleDelete } from "../../utils/formHandles";
 import Loader from "../../components/Loader";
@@ -9,7 +10,7 @@ function AdminPublicationsList() {
   const [items, setItems] = useState(null);
   const [deleteError, setDeleteError] = useState(null);
 
-  const publications = items ?? data;
+  const publications = items ?? data?.results ?? data ?? [];
 
   function handleRemove(id) {
     if (!window.confirm("Delete this publication? This can't be undone.")) return;
@@ -36,6 +37,13 @@ function AdminPublicationsList() {
             View and manage the latest publications available on the site.
           </p>
         </div>
+
+        <Link
+          to="/admin/publications/new"
+          className="inline-flex items-center justify-center rounded-full bg-forest-800 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-forest-700"
+        >
+          + Add publication
+        </Link>
       </div>
 
       {deleteError && (
@@ -57,10 +65,11 @@ function AdminPublicationsList() {
       </div>
 
       <div className="overflow-hidden rounded-3xl border border-ink/10 bg-white shadow-sm">
-        <div className="grid grid-cols-[56px_1.5fr_1fr_100px] gap-4 px-5 py-4 text-xs uppercase tracking-[0.25em] text-ink-soft bg-slate-50 border-b border-ink/10">
+        <div className="grid grid-cols-[56px_1.5fr_1fr_90px_90px] gap-4 px-5 py-4 text-xs uppercase tracking-[0.25em] text-ink-soft bg-slate-50 border-b border-ink/10">
           <span>#</span>
           <span>Title</span>
           <span>Category</span>
+          <span className="text-right">Edit</span>
           <span className="text-right">Delete</span>
         </div>
 
@@ -68,13 +77,19 @@ function AdminPublicationsList() {
           <div className="px-5 py-10 text-center text-sm text-ink-soft">No publications found yet.</div>
         ) : (
           publications.map((publication, index) => (
-            <div key={publication.id} className="grid grid-cols-[56px_1.5fr_1fr_100px] gap-4 items-center px-5 py-4 hover:bg-slate-50 transition">
+            <div key={publication.id} className="grid grid-cols-[56px_1.5fr_1fr_90px_90px] gap-4 items-center px-5 py-4 hover:bg-slate-50 transition">
               <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-50 text-xl">📄</div>
               <div>
                 <p className="font-medium text-ink">{publication.title || publication.name}</p>
                 <p className="text-sm text-ink-soft/70 line-clamp-1">{publication.description || "No description available."}</p>
               </div>
               <div className="text-sm text-ink-soft capitalize">{publication.category || publication.type || "Publication"}</div>
+              <Link
+                to={`/admin/publications/${publication.id}/edit`}
+                className="text-sm font-medium text-forest-800 hover:underline text-right"
+              >
+                Edit
+              </Link>
               <button
                 onClick={() => handleRemove(publication.id)}
                 className="text-sm font-medium text-red-600 hover:underline text-right"
