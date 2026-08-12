@@ -51,10 +51,42 @@ function Navbar() {
         <Link to="/" className="flex items-center">
           <img src="/images/logo.png" alt="IRICA" className="h-20 block" />
         </Link>
+        {/* Desktop nav (visible md+) */}
+        <div className="hidden md:flex items-center gap-6 eyebrow text-ink-soft">
+          {navLinks.map((link) => (
+            <Link key={link.to} to={link.to} className="hover:text-forest-800">
+              {link.label}
+            </Link>
+          ))}
+        </div>
 
+        {/* Desktop actions (visible md+) */}
+        <div className="hidden md:flex items-center gap-4 ml-auto">
+          {user ? (
+            <button
+              onClick={handleLogout}
+              className="eyebrow text-ink-soft hover:text-forest-800"
+            >
+              Log out
+            </button>
+          ) : (
+            <Link to="/login" className="eyebrow text-ink-soft hover:text-forest-800">
+              Login
+            </Link>
+          )}
+
+          <Link
+            to="/checkout"
+            className="bg-forest-800 hover:bg-forest-700 text-white text-sm font-medium px-5 py-2.5 rounded-full transition"
+          >
+            Subscribe
+          </Link>
+        </div>
+
+        {/* Mobile menu button (hidden md+) */}
         <button
           type="button"
-          className="flex flex-col justify-between h-6 w-8 focus:outline-none"
+          className="md:hidden flex flex-col justify-between h-6 w-8 focus:outline-none"
           aria-label="Open menu"
           aria-expanded={drawerOpen}
           onClick={() => setDrawerOpen((prev) => !prev)}
@@ -66,9 +98,10 @@ function Navbar() {
       </nav>
 
       {/* Overlay */}
+      {/* Overlay (mobile only) */}
       {drawerOpen && (
         <div
-          className="fixed inset-0 z-30 bg-black/40"
+          className="fixed inset-0 z-30 bg-black/40 md:hidden"
           onClick={() => setDrawerOpen(false)}
           aria-hidden
         />
@@ -76,7 +109,7 @@ function Navbar() {
 
       {/* Left drawer */}
       <aside
-        className={`fixed top-0 left-0 z-40 h-full w-80 bg-parchment border-r border-ink/10 shadow-xl transform transition-transform duration-300 ${
+        className={`fixed top-0 left-0 z-40 h-full w-80 bg-parchment border-r border-ink/10 shadow-xl transform transition-transform duration-300 md:hidden ${
           drawerOpen ? "translate-x-0" : "-translate-x-full"
         }`}
         aria-hidden={!drawerOpen}
