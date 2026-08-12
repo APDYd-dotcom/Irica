@@ -21,6 +21,7 @@ import AdminMaterialForm from "./pages/Admin/AdminMaterialForm";
 import AdminProgramsList from "./pages/Admin/AdminProgramsList";
 import AdminProgramForm from "./pages/Admin/AdminProgramForm";
 import AdminPublicationsList from "./pages/Admin/AdminPublicationsList";
+import AdminSubscriptions from "./pages/Admin/AdminSubscriptions";
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
             <Route path="programs/new" element={<AdminProgramForm />} />
             <Route path="programs/:id/edit" element={<AdminProgramForm />} />
             <Route path="publications" element={<AdminPublicationsList />} />
+            <Route path="subscriptions" element={<AdminSubscriptions />} />
           </Route>
         </Route>
 

@@ -96,6 +96,17 @@ function AdminLayout() {
                   </NavLink>
                 </nav>
               </div>
+
+              <div className="rounded-3xl bg-white border border-ink/10 p-5 shadow-sm">
+                <p className="text-xs uppercase tracking-[0.24em] text-ink-soft/70 font-semibold mb-4">
+                  Subscriptions
+                </p>
+                <nav className="space-y-2">
+                  <NavLink to="/admin/subscriptions" end className={linkClass}>
+                    ✉️ Subscriptions
+                  </NavLink>
+                </nav>
+              </div>
             </div>
           </aside>
 
