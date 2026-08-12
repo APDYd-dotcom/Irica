@@ -21,7 +21,7 @@ function HeroHome() {
     return(
         <>
               {/* HERO VIDEO SECTION */}
-            <section className="relative h-auto md:h-[75vh] lg:h-[65vh] flex items-center justify-center overflow-hidden">
+            <section className="relative h-[60vh] md:h-[75vh] lg:h-[65vh] flex items-center justify-center overflow-hidden">
                 {/* VIDEO */}
                 <video
                 autoPlay
