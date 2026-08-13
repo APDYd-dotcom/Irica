@@ -1,82 +1,122 @@
 import useFetch from "../../hooks/useFetch";
 import Loader from "../../components/Loader";
-import MaterialCard from "../../components/MaterialCard";
 import { Link } from "react-router-dom";
+
+const TYPE_ICONS = {
+  text: "📝",
+  pdf: "📄",
+  link: "🔗",
+  video: "🎬",
+  photo: "🖼️",
+};
 
 function SmallItem({ title, subtitle, href }) {
   return (
-    <Link to={href} className="block p-3 bg-white border border-ink/10 rounded-lg hover:shadow-sm">
-      <p className="text-sm text-ink-soft mb-1">{subtitle}</p>
-      <h3 className="font-medium text-ink">{title}</h3>
+    <Link to={href} className="block rounded-2xl border border-ink/10 bg-white p-4 transition hover:border-forest-800/30 hover:shadow-sm">
+      <p className="text-xs uppercase tracking-[0.18em] text-ink-soft/70 font-semibold mb-2">{subtitle}</p>
+      <h3 className="font-medium text-ink leading-snug">{title}</h3>
     </Link>
   );
 }
 
+function StatCard({ label, value, note }) {
+  return (
+    <div className="rounded-3xl border border-ink/10 bg-white p-5 shadow-sm">
+      <p className="text-sm text-ink-soft">{label}</p>
+      <p className="mt-2 text-4xl font-semibold text-ink">{value}</p>
+      <p className="mt-2 text-sm text-ink-soft/80">{note}</p>
+    </div>
+  );
+}
+
 export default function DashboardHome() {
-  const { data: materials, loading: mLoading } = useFetch("/materials/");
+  const { data: articles, loading: aLoading } = useFetch("/articles/");
   const { data: programs, loading: pLoading } = useFetch("/programs/");
   const { data: publications, loading: pubLoading } = useFetch("/publications/");
-  const { data: activities, loading: aLoading } = useFetch("/activities/");
 
-  const loading = mLoading || pLoading || pubLoading || aLoading;
+  const loading = aLoading || pLoading || pubLoading;
 
   if (loading) return <Loader />;
 
-  const matList = materials?.results || materials || [];
-  const progList = programs?.results || programs?.results || [];
-  const pubList = publications?.results || publications?.results || [];
-  const actList = activities?.results || activities?.results || [];
+  const articleList = articles?.results || articles || [];
+  const progList = programs?.results || programs || [];
+  const pubList = publications?.results || publications || [];
 
   return (
-    <div className="space-y-8">
-      {/* Header / stats */}
-      <header className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-serif text-ink">Dashboard</h1>
-          <p className="text-sm text-ink-soft">Quick summary and recent items</p>
-        </div>
-      </header>
-
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="p-5 bg-white border border-ink/10 rounded-lg">
-          <p className="text-sm text-ink-soft">Resources</p>
-          <p className="text-2xl font-semibold text-ink">{materials?.count ?? matList.length ?? 0}</p>
-          <p className="text-sm text-ink-soft mt-2">Your resources available</p>
-        </div>
-
-        <div className="p-5 bg-white border border-ink/10 rounded-lg">
-          <p className="text-sm text-ink-soft">Programs</p>
-          <p className="text-2xl font-semibold text-ink">{programs?.count ?? progList.length ?? 0}</p>
-          <p className="text-sm text-ink-soft mt-2">Active programs</p>
-        </div>
-
-        <div className="p-5 bg-white border border-ink/10 rounded-lg">
-          <p className="text-sm text-ink-soft">Publications</p>
-          <p className="text-2xl font-semibold text-ink">{publications?.count ?? pubList.length ?? 0}</p>
-          <p className="text-sm text-ink-soft mt-2">Recent reports & papers</p>
-        </div>
-      </div>
-
-      {/* Recent items */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <section className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg font-serif">Recent Resources</h2>
-            <Link to="materials" className="text-sm text-forest-800">See all</Link>
+    <div className="space-y-6">
+      <section className="rounded-3xl border border-ink/10 bg-white p-6 shadow-sm">
+        <div className="grid gap-5 lg:grid-cols-[1fr_220px] lg:items-center">
+          <div>
+            <p className="text-sm uppercase tracking-[0.22em] text-ink-soft/70 font-semibold mb-2">
+              Overview
+            </p>
+            <h2 className="text-3xl font-serif text-ink">Your learning dashboard</h2>
+            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink-soft">
+              Browse available programs, unlock access with your code, and keep up with latest articles.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {matList.slice(0, 4).map((m) => (
-              <MaterialCard key={m.id} material={m} unlocked={Boolean(m.url || m.file)} />
+          <Link
+            to="materials"
+            className="inline-flex items-center justify-center rounded-full bg-forest-800 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-forest-700"
+          >
+            Unlock articles
+          </Link>
+        </div>
+      </section>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <StatCard
+          label="Articles"
+          value={articles?.count ?? articleList.length ?? 0}
+          note="Published learning content"
+        />
+        <StatCard
+          label="Programs"
+          value={programs?.count ?? progList.length ?? 0}
+          note="Published learning programs"
+        />
+        <StatCard
+          label="Publications"
+          value={publications?.count ?? pubList.length ?? 0}
+          note="Reports and papers"
+        />
+      </div>
+
+      <div className="grid grid-cols-1 xl:grid-cols-[1.3fr_0.9fr] gap-6">
+        <section className="rounded-3xl border border-ink/10 bg-white p-5 shadow-sm">
+          <div className="mb-4 flex items-center justify-between gap-4">
+            <div>
+              <h2 className="text-lg font-serif text-ink">Recent Articles</h2>
+              <p className="text-sm text-ink-soft">Latest articles published across programs.</p>
+            </div>
+            <Link to="materials" className="text-sm font-semibold text-forest-800 hover:underline">See all</Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {articleList.slice(0, 4).map((article) => (
+              <SmallItem
+                key={article.id}
+                title={article.title || "Untitled article"}
+                subtitle={`${TYPE_ICONS[article.type] || "📄"} ${article.program_title || article.type || "Article"}`}
+                href="materials"
+              />
             ))}
-            {matList.length === 0 && <p className="text-sm text-ink-soft">No materials yet.</p>}
+            {articleList.length === 0 && (
+              <div className="rounded-2xl border border-dashed border-ink/15 p-6 text-sm text-ink-soft">
+                No articles are available yet.
+              </div>
+            )}
           </div>
         </section>
 
-        <section className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg font-serif">Latest Publications & Programs</h2>
-            <Link to="/" className="text-sm text-forest-800">View on site</Link>
+        <section className="rounded-3xl border border-ink/10 bg-white p-5 shadow-sm">
+          <div className="mb-4 flex items-center justify-between gap-4">
+            <div>
+              <h2 className="text-lg font-serif text-ink">Latest Updates</h2>
+              <p className="text-sm text-ink-soft">Programs, publications, and activities.</p>
+            </div>
+            <Link to="/" className="text-sm font-semibold text-forest-800 hover:underline">View site</Link>
           </div>
 
           <div className="grid grid-cols-1 gap-3">
@@ -85,12 +125,14 @@ export default function DashboardHome() {
             ))}
 
             {progList.slice(0, 3).map((p) => (
-              <SmallItem key={`prog-${p.id}`} title={p.title || p.name} subtitle={p.type || "Program"} href={`/programs/${p.id}`} />
+              <SmallItem key={`prog-${p.id}`} title={p.title || p.name} subtitle={p.status || "Program"} href="materials" />
             ))}
 
-            {actList.slice(0, 2).map((a) => (
-              <SmallItem key={`act-${a.id}`} title={a.title || a.name || a.activity} subtitle={a.date || "Activity"} href={a.url || "/"} />
-            ))}
+            {pubList.length + progList.length === 0 && (
+              <div className="rounded-2xl border border-dashed border-ink/15 p-6 text-sm text-ink-soft">
+                No updates yet.
+              </div>
+            )}
           </div>
         </section>
       </div>

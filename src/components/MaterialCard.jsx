@@ -14,19 +14,19 @@ const TYPE_ICONS = {
 // unlocked = false → styled as locked, with a "Subscribe to unlock" line
 function MaterialCard({ material, unlocked }) {
   return (
-    <article className="group border border-ink/10 bg-white hover:border-forest-800/30 transition rounded-xl overflow-hidden">
+    <article className="group overflow-hidden rounded-2xl border border-ink/10 bg-white transition hover:border-forest-800/30 hover:shadow-sm">
       {/* Thumbnail band — duotone-style forest block standing in for real imagery */}
-      <div className="relative h-32 bg-forest-800 flex items-center justify-center">
+      <div className="relative flex h-32 items-center justify-center bg-forest-800">
         <span className="text-4xl opacity-90">{TYPE_ICONS[material.material_type] || "📄"}</span>
         {!unlocked && (
-          <span className="absolute top-3 right-3 bg-forest-950/80 text-gold-400 text-xs font-mono px-2 py-1 rounded-full">
+          <span className="absolute right-3 top-3 rounded-full bg-white/95 px-2.5 py-1 text-xs font-semibold text-forest-800 shadow-sm">
             🔒 Locked
           </span>
         )}
       </div>
 
       <div className="p-5">
-        <p className="eyebrow text-gold-500 mb-2">{TYPE_LABELS[material.material_type] || "Resource"}</p>
+        <p className="eyebrow text-forest-800 mb-2">{TYPE_LABELS[material.material_type] || "Resource"}</p>
         <h3 className="font-serif text-lg text-ink mb-2 leading-snug">{material.title}</h3>
         <p className="text-sm text-ink-soft leading-relaxed mb-4 line-clamp-2">
           {material.description}
