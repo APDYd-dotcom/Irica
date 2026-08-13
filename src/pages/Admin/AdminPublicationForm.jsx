@@ -5,6 +5,7 @@ import { handleChange, handleSubmitMultipart, handlePatchMultipart } from "../..
 import ErrorMessage from "../../components/ErrorMessage";
 import SuccessMessage from "../../components/SuccessMessage";
 import Loader from "../../components/Loader";
+import UploadProgress from "../../components/UploadProgress";
 
 const initialFormState = {
   title: "",
@@ -28,6 +29,7 @@ function AdminPublicationForm() {
   const [sending, setSending] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
+  const [uploadState, setUploadState] = useState(null);
 
   // Fill form when existing data is loaded
   useEffect(() => {
@@ -46,17 +48,36 @@ function AdminPublicationForm() {
     e.preventDefault();
     setError(null);
     setSuccess(false);
+    setUploadState(null);
+
+    const uploadFileName = formData.file?.name || formData.title || "Publication";
+    const updateUploadProgress = (progress) => {
+      setUploadState((prev) => ({
+        ...prev,
+        type: "publication",
+        fileName: uploadFileName,
+        progress,
+      }));
+    };
+
+    setUploadState({
+      type: "publication",
+      fileName: uploadFileName,
+      progress: 0,
+    });
 
     const action = isEditing
-      ? handlePatchMultipart(`/publications/${id}/`, setSending, setSuccess, setError, formData)
-      : handleSubmitMultipart("/publications/", setSending, setSuccess, setError, formData, setFormData, initialFormState);
+      ? handlePatchMultipart(`/publications/${id}/`, setSending, setSuccess, setError, formData, updateUploadProgress)
+      : handleSubmitMultipart("/publications/", setSending, setSuccess, setError, formData, setFormData, initialFormState, updateUploadProgress);
 
     action
       .then(() => {
+        setUploadState((prev) => prev ? { ...prev, progress: 100 } : prev);
         setTimeout(() => navigate("/admin/publications"), 700);
       })
       .catch(() => {
         // error handled in form handles helpers
+        setUploadState(null);
       });
   }
 
@@ -70,6 +91,15 @@ function AdminPublicationForm() {
 
       {success && <div className="mb-4"><SuccessMessage message="Saved successfully!" /></div>}
       {error && <div className="mb-4"><ErrorMessage message={error} /></div>}
+      {uploadState && (
+        <div className="mb-4">
+          <UploadProgress
+            progress={uploadState.progress}
+            fileName={uploadState.fileName}
+            type={uploadState.type}
+          />
+        </div>
+      )}
 
       <form onSubmit={handleFormSubmit} className="space-y-4">
         {/* Title */}

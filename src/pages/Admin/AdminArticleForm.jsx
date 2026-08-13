@@ -5,6 +5,7 @@ import { handleChange, handleSubmitMultipart, handlePatchMultipart } from "../..
 import ErrorMessage from "../../components/ErrorMessage";
 import SuccessMessage from "../../components/SuccessMessage";
 import Loader from "../../components/Loader";
+import UploadProgress from "../../components/UploadProgress";
 
 const initialFormState = {
   program: "",
@@ -41,6 +42,7 @@ function AdminArticleForm() {
   const [sending, setSending] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
+  const [uploadState, setUploadState] = useState(null);
 
   // Fill form when editing
   useEffect(() => {
@@ -80,6 +82,7 @@ function AdminArticleForm() {
     e.preventDefault();
     setError(null);
     setSuccess(false);
+    setUploadState(null);
 
     if (!formData.program) {
       setError("Please select a program.");
@@ -103,16 +106,34 @@ function AdminArticleForm() {
       ...initialFormState,
       program: programs[0]?.id || "",
     };
+    const uploadFileName = payload.file?.name || payload.url || payload.title || "Article";
+    const updateUploadProgress = (progress) => {
+      setUploadState((prev) => ({
+        ...prev,
+        type: payload.type,
+        fileName: uploadFileName,
+        progress,
+      }));
+    };
+
+    setUploadState({
+      type: payload.type,
+      fileName: uploadFileName,
+      progress: 0,
+    });
 
     const action = isEditing
-      ? handlePatchMultipart(`/articles/${id}/`, setSending, setSuccess, setError, payload)
-      : handleSubmitMultipart("/articles/", setSending, setSuccess, setError, payload, setFormData, resetState);
+      ? handlePatchMultipart(`/articles/${id}/`, setSending, setSuccess, setError, payload, updateUploadProgress)
+      : handleSubmitMultipart("/articles/", setSending, setSuccess, setError, payload, setFormData, resetState, updateUploadProgress);
 
     action
       .then(() => {
+        setUploadState((prev) => prev ? { ...prev, progress: 100 } : prev);
         setTimeout(() => navigate("/admin/articles"), 700);
       })
-      .catch(() => {});
+      .catch(() => {
+        setUploadState(null);
+      });
   }
 
   if (programsLoading || (isEditing && loadingExisting)) return <Loader />;
@@ -130,6 +151,15 @@ function AdminArticleForm() {
 
       {success && <div className="mb-4"><SuccessMessage message="Saved successfully! Redirecting…" /></div>}
       {error && <div className="mb-4"><ErrorMessage message={error} /></div>}
+      {uploadState && (
+        <div className="mb-4">
+          <UploadProgress
+            progress={uploadState.progress}
+            fileName={uploadState.fileName}
+            type={uploadState.type}
+          />
+        </div>
+      )}
 
       <form onSubmit={handleFormSubmit} className="space-y-5">
 

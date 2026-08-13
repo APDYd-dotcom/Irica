@@ -13,6 +13,7 @@ const TYPE_META = {
   text:   { icon: "📝", color: "from-teal-500   to-emerald-600", label: "Saving article" },
   photo:  { icon: "🖼️", color: "from-pink-500   to-rose-600",   label: "Uploading image" },
   link:   { icon: "🔗", color: "from-amber-500  to-orange-600", label: "Saving link" },
+  publication: { icon: "📚", color: "from-forest-800 to-forest-600", label: "Uploading publication" },
 };
 
 function UploadProgress({ progress = 0, fileName = "", type = "text" }) {
@@ -58,7 +59,7 @@ function UploadProgress({ progress = 0, fileName = "", type = "text" }) {
       {/* Bottom hint */}
       <p className="text-xs text-ink-soft/70">
         {done
-          ? "Redirecting to articles list…"
+          ? "Upload finished. Processing and redirecting…"
           : pct < 30
           ? "Starting upload…"
           : pct < 70
