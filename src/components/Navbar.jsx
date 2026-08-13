@@ -20,8 +20,8 @@ function Navbar() {
     { to: "/#publications", label: "Publications" },
     { to: "/#activities", label: "Activités" },
     { to: "/#team", label: "Équipe" },
-    { to: "/materials", label: "Resources" },
-    user && { to: "/dashboard/materials", label: "Dashboard" },
+    { to: "/#programs", label: "Resources" },
+    { to: "/dashboard/programs", label: "Dashboard" },
     user?.is_staff && { to: "/admin/articles", label: "Admin" },
   ].filter(Boolean);
 
@@ -76,10 +76,10 @@ function Navbar() {
           )}
 
           <Link
-            to="/checkout"
+            to="/#programs"
             className="bg-forest-800 hover:bg-forest-700 text-white text-sm font-medium px-5 py-2.5 rounded-full transition"
           >
-            Subscribe
+            Programs
           </Link>
         </div>
 

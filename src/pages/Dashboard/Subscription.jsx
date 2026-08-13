@@ -20,7 +20,7 @@ function Subscription() {
             Go to Programs, select your program, enter your email and access code, then view the attached articles.
           </p>
           <Link
-            to="/dashboard/materials"
+            to="/dashboard/programs"
             className="mt-5 inline-flex rounded-full bg-forest-800 px-5 py-3 text-sm font-semibold text-white transition hover:bg-forest-700"
           >
             Unlock articles

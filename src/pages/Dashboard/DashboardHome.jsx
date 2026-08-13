@@ -1,14 +1,7 @@
 import useFetch from "../../hooks/useFetch";
 import Loader from "../../components/Loader";
 import { Link } from "react-router-dom";
-
-const TYPE_ICONS = {
-  text: "📝",
-  pdf: "📄",
-  link: "🔗",
-  video: "🎬",
-  photo: "🖼️",
-};
+import { useAuth } from "../../hooks/useAuth";
 
 function SmallItem({ title, subtitle, href }) {
   return (
@@ -30,16 +23,18 @@ function StatCard({ label, value, note }) {
 }
 
 export default function DashboardHome() {
-  const { data: articles, loading: aLoading } = useFetch("/articles/");
-  const { data: programs, loading: pLoading } = useFetch("/programs/");
+  const { user } = useAuth();
+  const email = user?.email || user?.username || "";
+  const { data: accessData, loading: accessLoading } = useFetch(
+    email ? `/access-programs/?email=${encodeURIComponent(email)}` : null
+  );
   const { data: publications, loading: pubLoading } = useFetch("/publications/");
 
-  const loading = aLoading || pLoading || pubLoading;
+  const loading = accessLoading || pubLoading;
 
   if (loading) return <Loader />;
 
-  const articleList = articles?.results || articles || [];
-  const progList = programs?.results || programs || [];
+  const accessList = accessData?.results || accessData || [];
   const pubList = publications?.results || publications || [];
 
   return (
@@ -52,29 +47,29 @@ export default function DashboardHome() {
             </p>
             <h2 className="text-3xl font-serif text-ink">Your learning dashboard</h2>
             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink-soft">
-              Browse available programs, unlock access with your code, and keep up with latest articles.
+              View programs registered to your email and open their related articles.
             </p>
           </div>
 
           <Link
-            to="materials"
+            to="programs"
             className="inline-flex items-center justify-center rounded-full bg-forest-800 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-forest-700"
           >
-            Unlock articles
+            View my programs
           </Link>
         </div>
       </section>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <StatCard
-          label="Articles"
-          value={articles?.count ?? articleList.length ?? 0}
-          note="Published learning content"
+          label="Registered Programs"
+          value={accessData?.count ?? accessList.length ?? 0}
+          note="Linked to your email"
         />
         <StatCard
-          label="Programs"
-          value={programs?.count ?? progList.length ?? 0}
-          note="Published learning programs"
+          label="Email"
+          value={email ? "1" : "0"}
+          note={email || "No email saved"}
         />
         <StatCard
           label="Publications"
@@ -87,24 +82,24 @@ export default function DashboardHome() {
         <section className="rounded-3xl border border-ink/10 bg-white p-5 shadow-sm">
           <div className="mb-4 flex items-center justify-between gap-4">
             <div>
-              <h2 className="text-lg font-serif text-ink">Recent Articles</h2>
-              <p className="text-sm text-ink-soft">Latest articles published across programs.</p>
+              <h2 className="text-lg font-serif text-ink">My Registered Programs</h2>
+              <p className="text-sm text-ink-soft">Programs connected to your logged-in email.</p>
             </div>
-            <Link to="materials" className="text-sm font-semibold text-forest-800 hover:underline">See all</Link>
+            <Link to="programs" className="text-sm font-semibold text-forest-800 hover:underline">See all</Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {articleList.slice(0, 4).map((article) => (
+            {accessList.slice(0, 4).map((access) => (
               <SmallItem
-                key={article.id}
-                title={article.title || "Untitled article"}
-                subtitle={`${TYPE_ICONS[article.type] || "📄"} ${article.program_title || article.type || "Article"}`}
-                href="materials"
+                key={access.id}
+                title={access.program_title || "Program"}
+                subtitle="Registered"
+                href="programs"
               />
             ))}
-            {articleList.length === 0 && (
+            {accessList.length === 0 && (
               <div className="rounded-2xl border border-dashed border-ink/15 p-6 text-sm text-ink-soft">
-                No articles are available yet.
+                No registered programs found for your email.
               </div>
             )}
           </div>
@@ -113,8 +108,8 @@ export default function DashboardHome() {
         <section className="rounded-3xl border border-ink/10 bg-white p-5 shadow-sm">
           <div className="mb-4 flex items-center justify-between gap-4">
             <div>
-              <h2 className="text-lg font-serif text-ink">Latest Updates</h2>
-              <p className="text-sm text-ink-soft">Programs, publications, and activities.</p>
+              <h2 className="text-lg font-serif text-ink">Latest Publications</h2>
+              <p className="text-sm text-ink-soft">Recent reports and papers from IRICA.</p>
             </div>
             <Link to="/" className="text-sm font-semibold text-forest-800 hover:underline">View site</Link>
           </div>
@@ -124,11 +119,7 @@ export default function DashboardHome() {
               <SmallItem key={p.id} title={p.title || p.name} subtitle={p.category || "Publication"} href={p.url || p.file || "/"} />
             ))}
 
-            {progList.slice(0, 3).map((p) => (
-              <SmallItem key={`prog-${p.id}`} title={p.title || p.name} subtitle={p.status || "Program"} href="materials" />
-            ))}
-
-            {pubList.length + progList.length === 0 && (
+            {pubList.length === 0 && (
               <div className="rounded-2xl border border-dashed border-ink/15 p-6 text-sm text-ink-soft">
                 No updates yet.
               </div>

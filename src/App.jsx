@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Checkout from "./pages/Checkout";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import Login from "./pages/Login";
+import AdminLogin from "./pages/AdminLogin";
 import NotFound from "./pages/NotFound";
 
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -33,18 +34,20 @@ function App() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/payment-success" element={<PaymentSuccess />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
 
-        {/* Protected — only visible when logged in */}
+        {/* Member dashboard — students see programs registered to their email */}
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route index element={<DashboardHome />} />
             <Route path="profile" element={<Profile />} />
-            <Route path="materials" element={<Materials />} />
+            <Route path="programs" element={<Materials />} />
+            <Route path="materials" element={<Navigate to="../programs" replace />} />
             <Route path="subscription" element={<Subscription />} />
           </Route>
         </Route>
 
-        {/* Admin-only — is_staff users can post/edit/delete materials and programs */}
+        {/* Admin-only — is_staff users can post/edit/delete articles, programs, and publications */}
         <Route element={<AdminRoute />}>
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<Navigate to="articles" replace />} />

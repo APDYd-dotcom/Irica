@@ -11,26 +11,43 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
-    if (token) {
+    const savedUser = localStorage.getItem("user_data");
+    if (savedUser) {
+      setUser(savedUser ? JSON.parse(savedUser) : { authenticated: true });
+    } else if (token) {
       setUser({ authenticated: true });
     }
     setLoading(false);
   }, []);
 
   function login(tokens, userData) {
-    localStorage.setItem("access_token", tokens.access);
-    localStorage.setItem("refresh_token", tokens.refresh);
+    if (tokens?.access) {
+      localStorage.setItem("access_token", tokens.access);
+    } else {
+      localStorage.removeItem("access_token");
+    }
+    if (tokens?.refresh) {
+      localStorage.setItem("refresh_token", tokens.refresh);
+    } else {
+      localStorage.removeItem("refresh_token");
+    }
+    localStorage.setItem("user_data", JSON.stringify(userData));
     setUser(userData);
   }
 
   function logout() {
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
+    localStorage.removeItem("user_data");
     setUser(null);
   }
 
   function updateUser(updatedFields) {
-    setUser((prev) => ({ ...prev, ...updatedFields }));
+    setUser((prev) => {
+      const nextUser = { ...prev, ...updatedFields };
+      localStorage.setItem("user_data", JSON.stringify(nextUser));
+      return nextUser;
+    });
   }
 
   return (

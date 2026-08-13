@@ -6,11 +6,10 @@ import { getErrorMessage } from "../utils/getErrorMessage";
 import { useAuth } from "../hooks/useAuth";
 import ErrorMessage from "../components/ErrorMessage";
 
-function Login() {
-  const [formData, setFormData] = useState({ email: "", access_code: "" });
+function AdminLogin() {
+  const [formData, setFormData] = useState({ username: "", password: "" });
   const [sending, setSending] = useState(false);
   const [error, setError] = useState(null);
-
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -20,15 +19,17 @@ function Login() {
     setError(null);
 
     axiosClient
-      .post("/access-programs/verify/", formData)
+      .post("/auth/login/", formData)
       .then((response) => {
-        login(null, {
-          email: formData.email,
+        const tokens = response.data;
+        axiosClient.defaults.headers.Authorization = `Bearer ${tokens.access}`;
+        login(tokens, {
+          email: formData.username,
+          username: formData.username,
           authenticated: true,
-          is_staff: false,
-          access: response.data,
+          is_staff: true,
         });
-        navigate("/dashboard/programs");
+        navigate("/admin/articles");
       })
       .catch((err) => setError(getErrorMessage(err)))
       .finally(() => setSending(false));
@@ -38,10 +39,10 @@ function Login() {
     <div className="min-h-[80vh] flex items-center justify-center px-6 py-16">
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
-          <p className="eyebrow text-forest-800 mb-3">▪ Member Portal</p>
-          <h1 className="font-serif text-3xl text-ink">Dashboard Login</h1>
+          <p className="eyebrow text-forest-800 mb-3">▪ Admin Portal</p>
+          <h1 className="font-serif text-3xl text-ink">Admin Login</h1>
           <p className="text-sm text-ink-soft mt-2">
-            Enter your email and access code to open your registered program dashboard.
+            Enter your admin username and password to manage IRICA content.
           </p>
         </div>
 
@@ -54,11 +55,11 @@ function Login() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-ink mb-1">Email</label>
+              <label className="block text-sm font-medium text-ink mb-1">Username</label>
               <input
-                type="email"
-                name="email"
-                value={formData.email}
+                type="text"
+                name="username"
+                value={formData.username}
                 onChange={(e) => handleChange(e, setFormData)}
                 required
                 className="w-full border border-ink/15 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-forest-800/40"
@@ -66,11 +67,11 @@ function Login() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-ink mb-1">Access Code</label>
+              <label className="block text-sm font-medium text-ink mb-1">Password</label>
               <input
                 type="password"
-                name="access_code"
-                value={formData.access_code}
+                name="password"
+                value={formData.password}
                 onChange={(e) => handleChange(e, setFormData)}
                 required
                 className="w-full border border-ink/15 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-forest-800/40"
@@ -82,14 +83,14 @@ function Login() {
               disabled={sending}
               className="w-full mt-2 bg-forest-800 hover:bg-forest-700 disabled:opacity-50 text-white font-medium py-3 rounded-full transition"
             >
-              {sending ? "Verifying..." : "Enter Dashboard"}
+              {sending ? "Logging in..." : "Log In"}
             </button>
           </form>
 
           <p className="mt-5 text-center text-sm text-ink-soft">
-            Admin?{" "}
-            <Link to="/admin/login" className="font-semibold text-forest-800 hover:underline">
-              Use admin login
+            Student?{" "}
+            <Link to="/login" className="font-semibold text-forest-800 hover:underline">
+              Use dashboard login
             </Link>
           </p>
         </div>
@@ -98,4 +99,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default AdminLogin;

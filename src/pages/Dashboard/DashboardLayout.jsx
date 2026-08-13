@@ -3,7 +3,7 @@ import { useAuth } from "../../hooks/useAuth";
 
 function DashboardLayout() {
   const { user } = useAuth();
-  const displayName = user?.full_name || user?.email || "Member";
+  const displayName = user?.email || user?.username || "Member";
   const initials = displayName
     .split(" ")
     .map((part) => part[0])
@@ -29,13 +29,13 @@ function DashboardLayout() {
                 <p className="text-sm uppercase tracking-[0.22em] text-ink-soft/70 font-semibold">
                   Member Dashboard
                 </p>
-                <h1 className="mt-1 text-2xl font-serif text-ink">Welcome back, {displayName}</h1>
+                <h1 className="mt-1 text-2xl font-serif text-ink">{displayName}</h1>
               </div>
             </div>
 
             <div className="rounded-2xl bg-forest-50 px-4 py-3 text-sm text-forest-800">
               <p className="font-semibold">IRICA learning space</p>
-              <p className="text-forest-800/80">Programs, access codes, and articles in one place.</p>
+              <p className="text-forest-800/80">Your registered programs and articles in one place.</p>
             </div>
           </div>
         </header>
@@ -45,7 +45,7 @@ function DashboardLayout() {
             <div className="sticky top-6 rounded-3xl border border-ink/10 bg-white p-4 shadow-sm">
               <nav className="space-y-2">
                 <NavLink to="/dashboard" end className={linkClass}>🏠 Overview</NavLink>
-                <NavLink to="/dashboard/materials" className={linkClass}>📚 Programs</NavLink>
+                <NavLink to="/dashboard/programs" className={linkClass}>📚 Programs</NavLink>
                 <NavLink to="/dashboard/profile" className={linkClass}>👤 Profile</NavLink>
                 <NavLink to="/dashboard/subscription" className={linkClass}>🔐 Access</NavLink>
               </nav>
