@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { handleDelete } from "../../utils/formHandles";
 import Loader from "../../components/Loader";
@@ -32,10 +32,7 @@ const STATUS_COLORS = {
 /* ════════════════════════════════════════════════════════════
    STEP 1 — Program cards grid
 ═════════════════════════════════════════════════════════════ */
-function ProgramGrid({ onSelect }) {
-  const { data, loading, error } = useFetch("/programs/");
-  const programs = data?.results ?? data ?? [];
-
+function ProgramGrid({ programs, loading, error, onSelect }) {
   if (loading) return <Loader />;
   if (error)   return <ErrorMessage message={error} />;
 
@@ -155,7 +152,7 @@ function ArticlesTable({ program, onBack }) {
         </div>
 
         <Link
-          to="/admin/articles/new"
+          to={`/admin/articles/new?program=${program.id}`}
           className="inline-flex items-center justify-center rounded-full bg-forest-800 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-forest-700 whitespace-nowrap"
         >
           + Add article
@@ -223,7 +220,7 @@ function ArticlesTable({ program, onBack }) {
               <p className="text-4xl mb-3">📭</p>
               <p className="text-sm text-ink-soft">No articles yet for this program.</p>
               <Link
-                to="/admin/articles/new"
+                to={`/admin/articles/new?program=${program.id}`}
                 className="inline-block mt-4 text-sm font-semibold text-forest-800 hover:underline"
               >
                 + Add the first article
@@ -281,18 +278,39 @@ function ArticlesTable({ program, onBack }) {
    ROOT — wires the two steps together
 ═════════════════════════════════════════════════════════════ */
 function AdminArticlesList() {
-  const [selectedProgram, setSelectedProgram] = useState(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { data, loading, error } = useFetch("/programs/");
+  const programs = data?.results ?? data ?? [];
+  const selectedProgramId = searchParams.get("program");
+  const selectedProgram = selectedProgramId
+    ? programs.find((program) => String(program.id) === selectedProgramId)
+    : null;
+
+  function handleSelectProgram(program) {
+    setSearchParams({ program: String(program.id) });
+  }
+
+  function handleBackToPrograms() {
+    setSearchParams({});
+  }
 
   if (selectedProgram) {
     return (
       <ArticlesTable
         program={selectedProgram}
-        onBack={() => setSelectedProgram(null)}
+        onBack={handleBackToPrograms}
       />
     );
   }
 
-  return <ProgramGrid onSelect={setSelectedProgram} />;
+  return (
+    <ProgramGrid
+      programs={programs}
+      loading={loading}
+      error={error}
+      onSelect={handleSelectProgram}
+    />
+  );
 }
 
 export default AdminArticlesList;

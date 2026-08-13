@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { handleChange, handleSubmitMultipart, handlePatchMultipart } from "../../utils/formHandles";
 import ErrorMessage from "../../components/ErrorMessage";
@@ -30,6 +30,8 @@ function AdminArticleForm() {
   const { id } = useParams();
   const isEditing = Boolean(id);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const requestedProgramId = searchParams.get("program");
 
   const { data: programsData, loading: programsLoading } = useFetch("/programs/");
   const programs = programsData?.results ?? programsData ?? [];
@@ -59,12 +61,16 @@ function AdminArticleForm() {
     }
   }, [existing]);
 
-  // Auto-select first program on create
+  // Auto-select the requested program on create, falling back to the first one.
   useEffect(() => {
     if (!isEditing && programs.length > 0 && !formData.program) {
-      setFormData((prev) => ({ ...prev, program: programs[0].id }));
+      const requestedProgram = programs.find((program) => String(program.id) === requestedProgramId);
+      setFormData((prev) => ({
+        ...prev,
+        program: requestedProgram?.id ?? programs[0].id,
+      }));
     }
-  }, [programs, isEditing, formData.program]);
+  }, [programs, isEditing, formData.program, requestedProgramId]);
 
   // When type changes, clear type-specific fields
   function handleTypeChange(e) {
@@ -104,7 +110,7 @@ function AdminArticleForm() {
 
     const resetState = {
       ...initialFormState,
-      program: programs[0]?.id || "",
+      program: payload.program || programs[0]?.id || "",
     };
     const uploadFileName = payload.file?.name || payload.url || payload.title || "Article";
     const updateUploadProgress = (progress) => {
@@ -129,7 +135,7 @@ function AdminArticleForm() {
     action
       .then(() => {
         setUploadState((prev) => prev ? { ...prev, progress: 100 } : prev);
-        setTimeout(() => navigate("/admin/articles"), 700);
+        setTimeout(() => navigate(`/admin/articles?program=${payload.program}`), 700);
       })
       .catch(() => {
         setUploadState(null);
