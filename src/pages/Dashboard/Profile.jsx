@@ -6,19 +6,19 @@ function Profile() {
 
   return (
     <div className="space-y-6">
-      <section className="rounded-3xl border border-ink/10 bg-white p-6 shadow-sm">
-        <p className="text-sm uppercase tracking-[0.22em] text-ink-soft/70 font-semibold mb-2">
+      <section className="rounded-3xl border border-ink/10 bg-white p-4 shadow-sm sm:p-6">
+        <p className="text-xs uppercase tracking-[0.18em] text-ink-soft/70 font-semibold mb-2 sm:text-sm sm:tracking-[0.22em]">
           Account
         </p>
-        <h1 className="text-3xl font-serif text-ink">Profile</h1>
+        <h1 className="text-2xl font-serif text-ink sm:text-3xl">Profile</h1>
         <p className="mt-2 text-sm text-ink-soft">
           Your account email.
         </p>
       </section>
 
-      <div className="max-w-xl rounded-3xl border border-ink/10 bg-white p-6 shadow-sm">
+      <div className="max-w-xl rounded-3xl border border-ink/10 bg-white p-4 shadow-sm sm:p-6">
         <h2 className="text-xl font-serif text-ink">Email</h2>
-        <p className="mt-4 rounded-2xl bg-slate-50 px-4 py-3 font-semibold text-ink">
+        <p className="mt-4 break-words rounded-2xl bg-slate-50 px-4 py-3 font-semibold text-ink">
           {email}
         </p>
       </div>

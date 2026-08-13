@@ -17,12 +17,12 @@ function ArticleCard({ article }) {
 
   return (
     <article className="overflow-hidden rounded-2xl border border-ink/10 bg-white transition hover:border-forest-800/30 hover:shadow-sm">
-      <div className="flex h-28 items-center justify-center bg-forest-800 text-4xl">
+      <div className="flex h-24 items-center justify-center bg-forest-800 text-3xl sm:h-28 sm:text-4xl">
         {TYPE_ICONS[article.type] || "📄"}
       </div>
-      <div className="p-5">
+      <div className="p-4 sm:p-5">
         <p className="eyebrow text-forest-800 mb-2">{article.type || "Article"}</p>
-        <h3 className="font-serif text-lg leading-snug text-ink">
+        <h3 className="break-words font-serif text-lg leading-snug text-ink">
           {article.title || "Untitled article"}
         </h3>
         <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-ink-soft">
@@ -52,14 +52,14 @@ function RegisteredProgramCard({ access, selected, onSelect }) {
     <button
       type="button"
       onClick={() => onSelect(access)}
-      className={`rounded-3xl border bg-white p-5 text-left shadow-sm transition ${
+      className={`w-full rounded-3xl border bg-white p-4 text-left shadow-sm transition sm:p-5 ${
         selected
           ? "border-forest-800 ring-2 ring-forest-800/15"
           : "border-ink/10 hover:border-forest-800/30 hover:shadow-md"
       }`}
     >
       <p className="eyebrow text-forest-800 mb-3">Registered Program</p>
-      <h2 className="font-serif text-xl leading-tight text-ink">
+      <h2 className="break-words font-serif text-xl leading-tight text-ink">
         {access.program_title || "Program"}
       </h2>
       <p className="mt-3 text-sm text-ink-soft">
@@ -93,13 +93,13 @@ function Materials() {
 
   return (
     <div className="space-y-6">
-      <section className="rounded-3xl border border-ink/10 bg-white p-6 shadow-sm">
-        <p className="text-sm uppercase tracking-[0.22em] text-ink-soft/70 font-semibold mb-2">
+      <section className="rounded-3xl border border-ink/10 bg-white p-4 shadow-sm sm:p-6">
+        <p className="text-xs uppercase tracking-[0.18em] text-ink-soft/70 font-semibold mb-2 sm:text-sm sm:tracking-[0.22em]">
           My Programs
         </p>
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <h1 className="text-3xl font-serif text-ink">Registered Programs</h1>
+          <div className="min-w-0">
+            <h1 className="text-2xl font-serif text-ink sm:text-3xl">Registered Programs</h1>
             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink-soft">
               These are the programs registered to your email. Select one to view its articles.
             </p>
@@ -111,15 +111,15 @@ function Materials() {
       </section>
 
       {accesses.length === 0 ? (
-        <div className="rounded-3xl border border-dashed border-ink/15 bg-white p-10 text-center">
-          <p className="font-serif text-2xl text-ink">No registered programs yet</p>
-          <p className="mt-2 text-sm text-ink-soft">
+        <div className="rounded-3xl border border-dashed border-ink/15 bg-white p-6 text-center sm:p-10">
+          <p className="font-serif text-xl text-ink sm:text-2xl">No registered programs yet</p>
+          <p className="mt-2 break-words text-sm text-ink-soft">
             We did not find any program access for {email}.
           </p>
         </div>
       ) : (
-        <div className="grid gap-6 xl:grid-cols-[360px_1fr]">
-          <aside className="space-y-4">
+        <div className="grid gap-6 lg:grid-cols-[minmax(260px,340px)_1fr]">
+          <aside className="grid gap-4 sm:grid-cols-2 lg:block lg:space-y-4">
             {accesses.map((access) => (
               <RegisteredProgramCard
                 key={access.id}
@@ -130,19 +130,19 @@ function Materials() {
             ))}
           </aside>
 
-          <section className="rounded-3xl border border-ink/10 bg-white p-6 shadow-sm">
+          <section className="min-w-0 rounded-3xl border border-ink/10 bg-white p-4 shadow-sm sm:p-6">
             {!selectedAccess ? (
-              <div className="rounded-2xl border border-dashed border-ink/15 p-10 text-center text-sm text-ink-soft">
+              <div className="rounded-2xl border border-dashed border-ink/15 p-6 text-center text-sm text-ink-soft sm:p-10">
                 Select a registered program to view its articles.
               </div>
             ) : (
               <div>
                 <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-                  <div>
-                    <p className="text-sm uppercase tracking-[0.22em] text-ink-soft/70 font-semibold">
+                  <div className="min-w-0">
+                    <p className="text-xs uppercase tracking-[0.18em] text-ink-soft/70 font-semibold sm:text-sm sm:tracking-[0.22em]">
                       Articles
                     </p>
-                    <h2 className="mt-1 text-2xl font-serif text-ink">
+                    <h2 className="mt-1 break-words text-xl font-serif text-ink sm:text-2xl">
                       {selectedAccess.program_title}
                     </h2>
                   </div>
@@ -156,11 +156,11 @@ function Materials() {
                 ) : articlesError ? (
                   <ErrorMessage message={articlesError} />
                 ) : articles.length === 0 ? (
-                  <div className="rounded-2xl border border-dashed border-ink/15 p-8 text-center text-sm text-ink-soft">
+                  <div className="rounded-2xl border border-dashed border-ink/15 p-6 text-center text-sm text-ink-soft sm:p-8">
                     No articles are attached to this program yet.
                   </div>
                 ) : (
-                  <div className="grid gap-4 md:grid-cols-2">
+                  <div className="grid gap-4 sm:grid-cols-2 2xl:grid-cols-3">
                     {articles.map((article) => (
                       <ArticleCard key={article.id} article={article} />
                     ))}

@@ -69,11 +69,11 @@ function AdminProgramsList() {
         </div>
 
         <div className="overflow-hidden rounded-3xl border border-ink/10 bg-white shadow-sm">
-          <div className="grid grid-cols-[56px_1.8fr_1fr_100px_100px] gap-4 px-5 py-4 text-xs uppercase tracking-[0.25em] text-ink-soft bg-slate-50 border-b border-ink/10">
+          <div className="hidden md:grid grid-cols-[56px_1.8fr_1fr_120px_100px] gap-4 px-5 py-4 text-xs uppercase tracking-[0.25em] text-ink-soft bg-slate-50 border-b border-ink/10">
             <span>#</span>
             <span>Program</span>
             <span>Status</span>
-            <span className="text-right">Edit</span>
+            <span className="text-right">Update</span>
             <span className="text-right">Delete</span>
           </div>
 
@@ -81,24 +81,31 @@ function AdminProgramsList() {
             <div className="px-5 py-10 text-center text-sm text-ink-soft">No programs yet — add your first one.</div>
           ) : (
             programs.map((program) => (
-              <div key={program.id} className="grid grid-cols-[56px_1.8fr_1fr_100px_100px] gap-4 items-center px-5 py-4 hover:bg-slate-50 transition">
+              <div key={program.id} className="grid gap-4 px-5 py-4 border-b border-ink/5 last:border-0 hover:bg-slate-50 transition md:grid-cols-[56px_1.8fr_1fr_120px_100px] md:items-center">
                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-50 text-xl">🎓</div>
-                <div>
+                <div className="min-w-0">
                   <p className="font-medium text-ink">{program.title}</p>
                   <p className="text-sm text-ink-soft/70 line-clamp-1">{program.descr || "No description"}</p>
                 </div>
-                <span className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${STATUS_COLORS[program.status] || "bg-slate-50 text-slate-700"}`}>
+                <span className={`w-fit inline-flex rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${STATUS_COLORS[program.status] || "bg-slate-50 text-slate-700"}`}>
                   {program.status || "Draft"}
                 </span>
-                <Link to={`/admin/programs/${program.id}/edit`} className="text-sm font-medium text-forest-800 hover:underline text-right">
-                  Edit
-                </Link>
-                <button
-                  onClick={() => handleRemove(program.id)}
-                  className="text-sm font-medium text-red-600 hover:underline text-right"
-                >
-                  Delete
-                </button>
+                <div className="flex gap-3 md:justify-end">
+                  <Link
+                    to={`/admin/programs/${program.id}/edit`}
+                    className="inline-flex items-center justify-center rounded-full bg-forest-50 px-4 py-2 text-sm font-semibold text-forest-800 hover:bg-forest-100"
+                  >
+                    Update
+                  </Link>
+                </div>
+                <div className="flex md:justify-end">
+                  <button
+                    onClick={() => handleRemove(program.id)}
+                    className="inline-flex items-center justify-center rounded-full bg-red-50 px-4 py-2 text-sm font-semibold text-red-600 hover:bg-red-100"
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             ))
           )}

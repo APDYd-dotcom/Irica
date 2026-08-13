@@ -7,7 +7,7 @@ function SmallItem({ title, subtitle, href }) {
   return (
     <Link to={href} className="block rounded-2xl border border-ink/10 bg-white p-4 transition hover:border-forest-800/30 hover:shadow-sm">
       <p className="text-xs uppercase tracking-[0.18em] text-ink-soft/70 font-semibold mb-2">{subtitle}</p>
-      <h3 className="font-medium text-ink leading-snug">{title}</h3>
+      <h3 className="break-words font-medium text-ink leading-snug">{title}</h3>
     </Link>
   );
 }
@@ -16,8 +16,8 @@ function StatCard({ label, value, note }) {
   return (
     <div className="rounded-3xl border border-ink/10 bg-white p-5 shadow-sm">
       <p className="text-sm text-ink-soft">{label}</p>
-      <p className="mt-2 text-4xl font-semibold text-ink">{value}</p>
-      <p className="mt-2 text-sm text-ink-soft/80">{note}</p>
+      <p className="mt-2 text-3xl font-semibold text-ink sm:text-4xl">{value}</p>
+      <p className="mt-2 break-words text-sm text-ink-soft/80">{note}</p>
     </div>
   );
 }
@@ -39,13 +39,13 @@ export default function DashboardHome() {
 
   return (
     <div className="space-y-6">
-      <section className="rounded-3xl border border-ink/10 bg-white p-6 shadow-sm">
-        <div className="grid gap-5 lg:grid-cols-[1fr_220px] lg:items-center">
+      <section className="rounded-3xl border border-ink/10 bg-white p-4 shadow-sm sm:p-6">
+        <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
           <div>
-            <p className="text-sm uppercase tracking-[0.22em] text-ink-soft/70 font-semibold mb-2">
+            <p className="text-xs uppercase tracking-[0.18em] text-ink-soft/70 font-semibold mb-2 sm:text-sm sm:tracking-[0.22em]">
               Overview
             </p>
-            <h2 className="text-3xl font-serif text-ink">Your learning dashboard</h2>
+            <h2 className="text-2xl font-serif text-ink sm:text-3xl">Your learning dashboard</h2>
             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink-soft">
               View programs registered to your email and open their related articles.
             </p>
@@ -53,14 +53,14 @@ export default function DashboardHome() {
 
           <Link
             to="programs"
-            className="inline-flex items-center justify-center rounded-full bg-forest-800 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-forest-700"
+            className="inline-flex w-full items-center justify-center rounded-full bg-forest-800 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-forest-700 sm:w-auto"
           >
             View my programs
           </Link>
         </div>
       </section>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
         <StatCard
           label="Registered Programs"
           value={accessData?.count ?? accessList.length ?? 0}
@@ -78,17 +78,17 @@ export default function DashboardHome() {
         />
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-[1.3fr_0.9fr] gap-6">
-        <section className="rounded-3xl border border-ink/10 bg-white p-5 shadow-sm">
-          <div className="mb-4 flex items-center justify-between gap-4">
-            <div>
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-[1.3fr_0.9fr]">
+        <section className="rounded-3xl border border-ink/10 bg-white p-4 shadow-sm sm:p-5">
+          <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="min-w-0">
               <h2 className="text-lg font-serif text-ink">My Registered Programs</h2>
               <p className="text-sm text-ink-soft">Programs connected to your logged-in email.</p>
             </div>
             <Link to="programs" className="text-sm font-semibold text-forest-800 hover:underline">See all</Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {accessList.slice(0, 4).map((access) => (
               <SmallItem
                 key={access.id}
@@ -105,9 +105,9 @@ export default function DashboardHome() {
           </div>
         </section>
 
-        <section className="rounded-3xl border border-ink/10 bg-white p-5 shadow-sm">
-          <div className="mb-4 flex items-center justify-between gap-4">
-            <div>
+        <section className="rounded-3xl border border-ink/10 bg-white p-4 shadow-sm sm:p-5">
+          <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="min-w-0">
               <h2 className="text-lg font-serif text-ink">Latest Publications</h2>
               <p className="text-sm text-ink-soft">Recent reports and papers from IRICA.</p>
             </div>

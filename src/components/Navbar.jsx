@@ -20,10 +20,10 @@ function Navbar() {
     { to: "/#publications", label: "Publications" },
     { to: "/#activities", label: "Activités" },
     { to: "/#team", label: "Équipe" },
-    { to: "/#programs", label: "Resources" },
-    { to: "/dashboard/programs", label: "Dashboard" },
-    user?.is_staff && { to: "/admin/articles", label: "Admin" },
   ].filter(Boolean);
+
+  const dashboardLink = user && !user.is_staff ? "/dashboard/programs" : "/login";
+  const adminLink = user?.is_staff ? "/admin/articles" : "/admin/login";
 
   useEffect(() => {
     if (!drawerOpen) {
@@ -69,17 +69,20 @@ function Navbar() {
             >
               Log out
             </button>
-          ) : (
-            <Link to="/login" className="eyebrow text-ink-soft hover:text-forest-800">
-              Login
-            </Link>
-          )}
+          ) : null}
 
           <Link
-            to="/#programs"
+            to={adminLink}
+            className="eyebrow text-ink-soft hover:text-forest-800"
+          >
+            Admin
+          </Link>
+
+          <Link
+            to={dashboardLink}
             className="bg-forest-800 hover:bg-forest-700 text-white text-sm font-medium px-5 py-2.5 rounded-full transition"
           >
-            Programs
+            Dashboard
           </Link>
         </div>
 
@@ -149,22 +152,22 @@ function Navbar() {
               >
                 Logout
               </button>
-            ) : (
-              <Link
-                to="/login"
-                className="block text-lg font-medium text-ink-soft hover:text-forest-800"
-                onClick={() => setDrawerOpen(false)}
-              >
-                Login
-              </Link>
-            )}
+            ) : null}
 
             <Link
-              to="/checkout"
+              to={adminLink}
+              className="block text-lg font-medium text-ink-soft hover:text-forest-800"
+              onClick={() => setDrawerOpen(false)}
+            >
+              Admin
+            </Link>
+
+            <Link
+              to={dashboardLink}
               className="inline-block bg-forest-800 hover:bg-forest-700 text-white text-sm font-medium px-5 py-2.5 rounded-full transition w-max"
               onClick={() => setDrawerOpen(false)}
             >
-              Subscribe
+              Dashboard
             </Link>
           </div>
         </div>
