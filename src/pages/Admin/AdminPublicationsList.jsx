@@ -4,6 +4,7 @@ import useFetch from "../../hooks/useFetch";
 import { handleDelete } from "../../utils/formHandles";
 import Loader from "../../components/Loader";
 import ErrorMessage from "../../components/ErrorMessage";
+import { FileText } from "lucide-react";
 
 function AdminPublicationsList() {
   const { data, loading, error } = useFetch("/publications/");
@@ -78,7 +79,9 @@ function AdminPublicationsList() {
         ) : (
           publications.map((publication, index) => (
             <div key={publication.id} className="grid grid-cols-[56px_1.5fr_1fr_90px_90px] gap-4 items-center px-5 py-4 hover:bg-slate-50 transition">
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-50 text-xl">📄</div>
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary-50 text-primary-700">
+                <FileText className="h-5 w-5" />
+              </div>
               <div>
                 <p className="font-medium text-ink">{publication.title || publication.name}</p>
                 <p className="text-sm text-ink-soft/70 line-clamp-1">{publication.description || "No description available."}</p>

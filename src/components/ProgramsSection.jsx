@@ -1,5 +1,7 @@
 import { useRef } from "react";
+import { CalendarDays, ChevronRight, CreditCard, LockKeyhole } from "lucide-react";
 import useFetch from "../hooks/useFetch";
+import Container from "./Layout/Container";
 
 function ProgramsSection() {
     const { data, loading, error } = useFetch("/programs/");
@@ -19,14 +21,14 @@ function ProgramsSection() {
         switch (s) {
             case "enrollment":
             case "enroll":
-                return "bg-emerald-100 text-emerald-800";
+                return "bg-primary-50 text-primary-700";
             case "inprogress":
             case "paid":
-                return "bg-amber-100 text-amber-800";
+                return "bg-neutral-100 text-neutral-700";
             case "completed":
-                return "bg-slate-100 text-slate-800";
+                return "bg-neutral-100 text-neutral-700";
             default:
-                return "bg-slate-100 text-slate-800";
+                return "bg-neutral-100 text-neutral-700";
         }
     };
 
@@ -55,45 +57,48 @@ function ProgramsSection() {
 
     if (loading) {
         return (
-            <section id="programs" className="py-20 px-6">
-                <div className="max-w-6xl mx-auto text-center text-ink-soft">
-                    Chargement des programmes…
-                </div>
+            <section id="programs" className="bg-neutral-50 py-24 md:py-32">
+                <Container className="text-center text-neutral-600">
+                    Chargement des programmes...
+                </Container>
             </section>
         );
     }
 
     if (error) {
         return (
-            <section id="programs" className="py-20 px-6">
-                <div className="max-w-6xl mx-auto text-center text-red-500">
+            <section id="programs" className="bg-neutral-50 py-24 md:py-32">
+                <Container className="text-center text-red-600">
                     Erreur : {error.message || "Impossible de charger les programmes."}
-                </div>
+                </Container>
             </section>
         );
     }
 
     return (
-        <section id="programs" className="py-20 px-6 bg-white">
-            <div className="max-w-6xl mx-auto">
-                {/* Header */}
-                <div className="text-center space-y-4 mb-12">
-                    <div className="text-forest-800 font-mono text-sm font-semibold tracking-widest uppercase">
-                        ▪ Programmes
-                    </div>
-                    <h2 className="font-serif text-3xl md:text-4xl font-bold text-ink">
-                        Programmes IRICA
-                    </h2>
-                    <p className="text-ink-soft max-w-xl mx-auto">
+        <section id="programs" className="bg-neutral-50 py-24 md:py-32">
+            <Container>
+                <div className="fade-in mb-14 flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+                    <div className="max-w-3xl">
+                        <p className="eyebrow text-primary-700">Programmes</p>
+                        <h2 className="section-title mt-4">Programmes IRICA.</h2>
+                        <p className="mt-6">
                         Accès aux programmes gratuits ou payants. Inscription via Google
                         Form avec email et code d'accès.
-                    </p>
+                        </p>
+                    </div>
+                    <button
+                        onClick={scrollNext}
+                        className="inline-flex w-max items-center gap-2 rounded-full border border-neutral-200 bg-white px-5 py-3 text-sm font-semibold text-neutral-700 shadow-sm hover:-translate-y-0.5 hover:border-primary-200 hover:text-primary-700"
+                    >
+                        Voir autres
+                        <ChevronRight className="h-4 w-4" />
+                    </button>
                 </div>
 
-                {/* Cards row */}
                 <div
                     ref={rowRef}
-                    className="flex gap-6 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-hide"
+                    className="scrollbar-hidden flex snap-x snap-mandatory gap-6 overflow-x-auto pb-6"
                     style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
                 >
                     {programs.map((prog) => {
@@ -116,11 +121,10 @@ function ProgramsSection() {
                         return (
                             <div
                                 key={prog.id || title}
-                                className="w-[22rem] flex-none bg-white rounded-3xl border border-forest-100 shadow-sm overflow-hidden transition hover:-translate-y-1 hover:shadow-xl duration-300 snap-start flex flex-col"
+                                className="fade-in flex w-[21rem] flex-none snap-start flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm hover:-translate-y-1 hover:shadow-xl hover:shadow-neutral-900/10 sm:w-[24rem]"
                             >
-                                {/* ─── Header with larger image area ─── */}
                                 <div
-                                    className="relative h-48 bg-forest-800 flex flex-col justify-end px-6 pb-4 flex-shrink-0"
+                                    className="relative flex h-52 flex-shrink-0 flex-col justify-end bg-primary-700 px-6 pb-5"
                                     style={
                                         photo
                                             ? {
@@ -132,65 +136,68 @@ function ProgramsSection() {
                                     }
                                 >
                                     <span
-                                        className={`absolute top-3 right-3 rounded-full px-3 py-0.5 text-xs font-bold uppercase tracking-[0.14em] ${statusStyles(status)}`}
+                                        className={`absolute right-4 top-4 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.08em] ${statusStyles(status)}`}
                                     >
                                         {statusLabel(status)}
                                     </span>
-                                    <h3 className="font-serif text-xl font-bold text-white leading-tight">
+                                    <h3 className="text-2xl font-bold leading-tight text-white">
                                         {title}
                                     </h3>
                                     {hasSubtitle && (
-                                        <p className="text-white/70 text-sm font-medium tracking-wider uppercase mt-0.5">
+                                        <p className="mt-1 text-sm font-semibold uppercase tracking-[0.08em] text-white/75">
                                             {subtitle || "INTERNSHIP PROGRAM"}
                                         </p>
                                     )}
                                 </div>
 
-                                {/* ─── Body (tight, no extra bottom space) ─── */}
-                                <div className="p-5 space-y-3 flex flex-col flex-1">
-                                    <p className="text-sm text-ink-soft leading-relaxed line-clamp-2">
+                                <div className="flex flex-1 flex-col p-6">
+                                    <p className="line-clamp-3 text-sm leading-6 text-neutral-600">
                                         {desc}
                                     </p>
 
-                                    <div className="grid grid-cols-2 gap-2 text-sm text-ink-soft">
-                                        <div className="space-y-0">
-                                            <div className="font-semibold text-ink text-xs uppercase tracking-wider">
+                                    <div className="mt-6 grid grid-cols-2 gap-3 text-sm text-neutral-600">
+                                        <div className="rounded-2xl bg-neutral-50 p-4">
+                                            <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-neutral-500">
+                                                <CreditCard className="h-3.5 w-3.5" />
                                                 Prix
                                             </div>
-                                            <div className="font-medium">
+                                            <div className="font-semibold text-neutral-900">
                                                 {isFree ? "Gratuit" : `${Number(price).toLocaleString()} FBU`}
                                             </div>
                                         </div>
-                                        <div className="space-y-0">
-                                            <div className="font-semibold text-ink text-xs uppercase tracking-wider">
+                                        <div className="rounded-2xl bg-neutral-50 p-4">
+                                            <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-neutral-500">
+                                                <CalendarDays className="h-3.5 w-3.5" />
                                                 Publié
                                             </div>
-                                            <div className="font-medium">
-                                                {createdAt ? formatDate(createdAt) : "—"}
+                                            <div className="font-semibold text-neutral-900">
+                                                {createdAt ? formatDate(createdAt) : "A venir"}
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div className="flex flex-wrap gap-2 text-xs font-medium uppercase tracking-[0.10em]">
+                                    <div className="mt-5 flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-[0.08em]">
                                         <span
-                                            className={`px-3 py-1 rounded-full ${isFree
-                                                    ? "bg-emerald-50 text-emerald-700"
-                                                    : "bg-amber-50 text-amber-700"
+                                            className={`rounded-full px-3 py-1 ${isFree
+                                                    ? "bg-primary-50 text-primary-700"
+                                                    : "bg-neutral-100 text-neutral-700"
                                                 }`}
                                         >
                                             {isFree ? "FREE" : "PAID"}
                                         </span>
-                                        <span className="bg-slate-50 text-slate-700 px-3 py-1 rounded-full">
+                                        <span className="inline-flex items-center gap-1.5 rounded-full bg-neutral-100 px-3 py-1 text-neutral-700">
+                                            <LockKeyhole className="h-3.5 w-3.5" />
                                             EMAIL + CODE
                                         </span>
                                     </div>
 
-                                    <div className="mt-auto pt-2">
+                                    <div className="mt-auto pt-6">
                                         <a
                                             href={link}
-                                            className="inline-flex items-center justify-center w-full rounded-2xl bg-forest-800 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-forest-900"
+                                            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary-500 px-4 py-3 text-sm font-semibold text-white hover:-translate-y-0.5 hover:bg-primary-600 focus:outline-none focus:ring-4 focus:ring-primary-500/25"
                                         >
                                             Voir le programme
+                                            <ChevronRight className="h-4 w-4" />
                                         </a>
                                     </div>
                                 </div>
@@ -199,22 +206,7 @@ function ProgramsSection() {
                     })}
                 </div>
 
-                {/* Scroll CTA */}
-                <div className="mt-8 flex flex-col gap-4">
-                    <div className="flex items-center gap-4">
-                        <button
-                            onClick={scrollNext}
-                            className="inline-flex items-center gap-2 rounded-full bg-forest-800 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-forest-900/20 transition hover:bg-forest-700"
-                        >
-                            <span>Voir autres</span>
-                            <span className="text-lg">→</span>
-                        </button>
-                        <div className="text-forest-800 text-sm font-medium">
-                            Faites défiler les programmes disponibles
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </Container>
         </section>
     );
 }

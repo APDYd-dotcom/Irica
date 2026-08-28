@@ -37,7 +37,7 @@ function Checkout() {
     <div className="min-h-[80vh] flex items-center justify-center px-6 py-16">
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
-          <p className="eyebrow text-gold-500 mb-3">▪ Membership</p>
+          <p className="eyebrow text-primary-700 mb-3">Membership</p>
           <h1 className="font-serif text-3xl text-ink">Subscribe</h1>
           <p className="text-sm text-ink-soft mt-2">
             One month of full access — your login details arrive by email right after payment.

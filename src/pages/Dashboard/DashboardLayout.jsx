@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
+import { BookOpen, House, LockKeyhole, UserRound } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
 
 function DashboardLayout() {
@@ -44,10 +45,22 @@ function DashboardLayout() {
           <aside className="min-w-0">
             <div className="rounded-3xl border border-ink/10 bg-white p-3 shadow-sm lg:sticky lg:top-6 lg:p-4">
               <nav className="flex gap-2 overflow-x-auto pb-1 lg:block lg:space-y-2 lg:overflow-visible lg:pb-0">
-                <NavLink to="/dashboard" end className={linkClass}>🏠 Overview</NavLink>
-                <NavLink to="/dashboard/programs" className={linkClass}>📚 Programs</NavLink>
-                <NavLink to="/dashboard/profile" className={linkClass}>👤 Profile</NavLink>
-                <NavLink to="/dashboard/subscription" className={linkClass}>🔐 Access</NavLink>
+                <NavLink to="/dashboard" end className={linkClass}>
+                  <House className="h-4 w-4" />
+                  Overview
+                </NavLink>
+                <NavLink to="/dashboard/programs" className={linkClass}>
+                  <BookOpen className="h-4 w-4" />
+                  Programs
+                </NavLink>
+                <NavLink to="/dashboard/profile" className={linkClass}>
+                  <UserRound className="h-4 w-4" />
+                  Profile
+                </NavLink>
+                <NavLink to="/dashboard/subscription" className={linkClass}>
+                  <LockKeyhole className="h-4 w-4" />
+                  Access
+                </NavLink>
               </nav>
             </div>
           </aside>

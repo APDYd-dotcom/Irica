@@ -1,23 +1,17 @@
-/**
- * UploadProgress — shows an animated progress bar while a file is uploading.
- *
- * Props:
- *  progress  — number 0–100  (the upload % from XHR/Axios onUploadProgress)
- *  fileName  — string        (optional, shown next to the bar)
- *  type      — string        (article type label, e.g. "video", "pdf", "text")
- */
+import { CheckCircle2, FileText, Image, Link as LinkIcon, Library, Video } from "lucide-react";
 
 const TYPE_META = {
-  video:  { icon: "🎬", color: "from-violet-500 to-purple-600", label: "Uploading video" },
-  pdf:    { icon: "📄", color: "from-blue-500   to-indigo-600", label: "Uploading document" },
-  text:   { icon: "📝", color: "from-teal-500   to-emerald-600", label: "Saving article" },
-  photo:  { icon: "🖼️", color: "from-pink-500   to-rose-600",   label: "Uploading image" },
-  link:   { icon: "🔗", color: "from-amber-500  to-orange-600", label: "Saving link" },
-  publication: { icon: "📚", color: "from-forest-800 to-forest-600", label: "Uploading publication" },
+  video: { icon: Video, color: "from-primary-500 to-primary-300", label: "Uploading video" },
+  pdf: { icon: FileText, color: "from-primary-500 to-primary-300", label: "Uploading document" },
+  text: { icon: FileText, color: "from-primary-500 to-primary-300", label: "Saving article" },
+  photo: { icon: Image, color: "from-primary-500 to-primary-300", label: "Uploading image" },
+  link: { icon: LinkIcon, color: "from-primary-500 to-primary-300", label: "Saving link" },
+  publication: { icon: Library, color: "from-primary-500 to-primary-300", label: "Uploading publication" },
 };
 
 function UploadProgress({ progress = 0, fileName = "", type = "text" }) {
   const meta = TYPE_META[type] ?? TYPE_META.text;
+  const Icon = done ? CheckCircle2 : meta.icon;
   const pct  = Math.min(100, Math.max(0, Math.round(progress)));
   const done = pct >= 100;
 
@@ -26,7 +20,9 @@ function UploadProgress({ progress = 0, fileName = "", type = "text" }) {
 
       {/* Top row — icon + label + % */}
       <div className="flex items-center gap-3">
-        <div className="text-2xl">{meta.icon}</div>
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-50 text-primary-700">
+          <Icon className="h-5 w-5" />
+        </div>
 
         <div className="flex-1 min-w-0">
           <p className="text-sm font-semibold text-ink">
@@ -39,10 +35,10 @@ function UploadProgress({ progress = 0, fileName = "", type = "text" }) {
 
         <span
           className={`text-sm font-bold tabular-nums transition-all ${
-            done ? "text-emerald-600" : "text-ink"
+            done ? "text-primary-700" : "text-ink"
           }`}
         >
-          {done ? "✓ 100%" : `${pct}%`}
+          {done ? "100%" : `${pct}%`}
         </span>
       </div>
 
@@ -59,12 +55,12 @@ function UploadProgress({ progress = 0, fileName = "", type = "text" }) {
       {/* Bottom hint */}
       <p className="text-xs text-ink-soft/70">
         {done
-          ? "Upload finished. Processing and redirecting…"
+          ? "Upload finished. Processing and redirecting..."
           : pct < 30
-          ? "Starting upload…"
+          ? "Starting upload..."
           : pct < 70
-          ? "Transferring file to server…"
-          : "Almost done, processing on server…"}
+          ? "Transferring file to server..."
+          : "Almost done, processing on server..."}
       </p>
     </div>
   );

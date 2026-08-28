@@ -29,7 +29,7 @@ function Layout() {
   }, [location]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-parchment">
+    <div className="min-h-screen flex flex-col bg-neutral-50">
       <Navbar />
       <main className="flex-1">
         <Outlet />

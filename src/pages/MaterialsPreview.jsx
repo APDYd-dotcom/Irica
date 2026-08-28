@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { GraduationCap } from "lucide-react";
 import useFetch from "../hooks/useFetch";
 import Loader from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
@@ -9,7 +10,7 @@ function MaterialsPreview() {
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-16">
-      <p className="eyebrow text-forest-800 mb-3">▪ Programs</p>
+      <p className="eyebrow text-primary-700 mb-3">Programs</p>
       <h1 className="font-serif text-3xl text-ink mb-3">Programs & Articles</h1>
       <p className="text-ink-soft max-w-2xl mb-10">
         Select a program and use your email plus access code in the dashboard to view related articles.
@@ -26,7 +27,7 @@ function MaterialsPreview() {
                 <img src={program.photo} alt={program.title} className="h-40 w-full object-cover" />
               ) : (
                 <div className="flex h-40 items-center justify-center bg-forest-800 text-5xl text-white">
-                  🎓
+                  <GraduationCap className="h-10 w-10" />
                 </div>
               )}
               <div className="p-5">

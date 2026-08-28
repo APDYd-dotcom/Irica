@@ -131,8 +131,8 @@ function AdminSubscriptions() {
               <div className="text-xs text-ink-soft">{p.message}</div>
             </div>
             <div>
-              {p.status === "pending" && <span className="text-sm text-amber-600">Sending…</span>}
-              {p.status === "sent" && <span className="text-sm text-green-600">Sent</span>}
+              {p.status === "pending" && <span className="text-sm text-neutral-600">Sending...</span>}
+              {p.status === "sent" && <span className="text-sm text-primary-700">Sent</span>}
               {p.status === "error" && <span className="text-sm text-red-600">Error</span>}
               {p.status === "invalid" && <span className="text-sm text-red-600">Invalid</span>}
             </div>

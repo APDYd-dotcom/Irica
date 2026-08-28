@@ -4,6 +4,7 @@ import useFetch from "../../hooks/useFetch";
 import { handleDelete } from "../../utils/formHandles";
 import Loader from "../../components/Loader";
 import ErrorMessage from "../../components/ErrorMessage";
+import { GraduationCap } from "lucide-react";
 
 const STATUS_COLORS = {
   enrollment: "bg-emerald-50 text-emerald-700",
@@ -82,7 +83,9 @@ function AdminProgramsList() {
           ) : (
             programs.map((program) => (
               <div key={program.id} className="grid gap-4 px-5 py-4 border-b border-ink/5 last:border-0 hover:bg-slate-50 transition md:grid-cols-[56px_1.8fr_1fr_120px_100px] md:items-center">
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-50 text-xl">🎓</div>
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary-50 text-primary-700">
+                  <GraduationCap className="h-5 w-5" />
+                </div>
                 <div className="min-w-0">
                   <p className="font-medium text-ink">{program.title}</p>
                   <p className="text-sm text-ink-soft/70 line-clamp-1">{program.descr || "No description"}</p>

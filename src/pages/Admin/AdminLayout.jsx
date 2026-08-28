@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
+import { BookOpen, FileText, GraduationCap, Mail, Plus } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
 import useFetch from "../../hooks/useFetch";
 
@@ -13,7 +14,7 @@ function AdminLayout() {
   const publicationsCount = publicationsData?.length ?? publicationsData?.results?.length ?? 0;
 
   const linkClass = ({ isActive }) =>
-    `block rounded-2xl px-4 py-3 text-sm font-medium transition ${
+    `flex items-center gap-2 rounded-2xl px-4 py-3 text-sm font-medium transition ${
       isActive
         ? "bg-forest-900 text-white shadow"
         : "text-ink-soft hover:bg-forest-50"
@@ -64,10 +65,12 @@ function AdminLayout() {
                 </p>
                 <nav className="space-y-2">
                   <NavLink to="/admin/articles" end className={linkClass}>
-                    📚 Articles
+                    <BookOpen className="h-4 w-4" />
+                    Articles
                   </NavLink>
                   <NavLink to="/admin/articles/new" className={linkClass}>
-                    ➕ Add Article
+                    <Plus className="h-4 w-4" />
+                    Add Article
                   </NavLink>
                 </nav>
               </div>
@@ -78,10 +81,12 @@ function AdminLayout() {
                 </p>
                 <nav className="space-y-2">
                   <NavLink to="/admin/programs" end className={linkClass}>
-                    🎓 Programs
+                    <GraduationCap className="h-4 w-4" />
+                    Programs
                   </NavLink>
                   <NavLink to="/admin/programs/new" className={linkClass}>
-                    ➕ Add Program
+                    <Plus className="h-4 w-4" />
+                    Add Program
                   </NavLink>
                 </nav>
               </div>
@@ -92,10 +97,12 @@ function AdminLayout() {
                 </p>
                 <nav className="space-y-2">
                   <NavLink to="/admin/publications" end className={linkClass}>
-                    📄 Publications
+                    <FileText className="h-4 w-4" />
+                    Publications
                   </NavLink>
                   <NavLink to="/admin/publications/new" className={linkClass}>
-                    ➕ Add Publication
+                    <Plus className="h-4 w-4" />
+                    Add Publication
                   </NavLink>
                 </nav>
               </div>
@@ -106,7 +113,8 @@ function AdminLayout() {
                 </p>
                 <nav className="space-y-2">
                   <NavLink to="/admin/subscriptions" end className={linkClass}>
-                    ✉️ Subscriptions
+                    <Mail className="h-4 w-4" />
+                    Subscriptions
                   </NavLink>
                 </nav>
               </div>

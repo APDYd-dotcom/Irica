@@ -3,22 +3,24 @@ import useFetch from "../../hooks/useFetch";
 import Loader from "../../components/Loader";
 import ErrorMessage from "../../components/ErrorMessage";
 import { useAuth } from "../../hooks/useAuth";
+import { ArrowRight, FileText, Image, Link as LinkIcon, Video } from "lucide-react";
 
 const TYPE_ICONS = {
-  text: "📝",
-  pdf: "📄",
-  link: "🔗",
-  video: "🎬",
-  photo: "🖼️",
+  text: FileText,
+  pdf: FileText,
+  link: LinkIcon,
+  video: Video,
+  photo: Image,
 };
 
 function ArticleCard({ article }) {
   const href = article.url || article.file;
+  const Icon = TYPE_ICONS[article.type] || FileText;
 
   return (
     <article className="overflow-hidden rounded-2xl border border-ink/10 bg-white transition hover:border-forest-800/30 hover:shadow-sm">
       <div className="flex h-24 items-center justify-center bg-forest-800 text-3xl sm:h-28 sm:text-4xl">
-        {TYPE_ICONS[article.type] || "📄"}
+        <Icon className="h-9 w-9 text-white" />
       </div>
       <div className="p-4 sm:p-5">
         <p className="eyebrow text-forest-800 mb-2">{article.type || "Article"}</p>
@@ -33,9 +35,10 @@ function ArticleCard({ article }) {
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-4 inline-flex text-sm font-semibold text-forest-800 hover:underline"
+            className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-forest-800 hover:underline"
           >
-            Open article →
+            Open article
+            <ArrowRight className="h-4 w-4" />
           </a>
         ) : (
           <span className="mt-4 inline-flex text-sm font-semibold text-ink-soft/60">

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 import activityImg from "../assets/activity.jpeg";
 import useFetch from "../hooks/useFetch";
 
@@ -27,15 +28,16 @@ function ActivitiesSection() {
                 {/* Content */}
                 <div className="relative z-10 h-full flex flex-col justify-center items-start px-6 md:px-14 lg:px-16 max-w-6xl mx-auto">
                     <div className="text-white space-y-5 max-w-2xl">
-                        <p className="text-green-400 uppercase text-xs md:text-sm tracking-widest font-bold">▪ Nos Activités</p>
+                        <p className="text-primary-100 uppercase text-xs md:text-sm tracking-widest font-bold">Nos Activités</p>
                         <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl font-bold leading-tight drop-shadow-lg">
-                            {loading ? "Chargement…" : title}
+                            {loading ? "Chargement..." : title}
                         </h2>
                         <p className="text-white/95 text-base md:text-lg font-light leading-relaxed max-w-xl drop-shadow-md">
                             {error ? "Impossible de charger les activités." : desc}
                         </p>
-                        <a href={link} className="bg-forest-800 hover:bg-forest-700 text-white transition duration-300 px-8 py-3.5 rounded-lg font-semibold shadow-md text-center mt-4">
-                            Voir nos rapports <span>→</span>
+                        <a href={link} className="inline-flex items-center gap-2 bg-forest-800 hover:bg-forest-700 text-white transition duration-300 px-8 py-3.5 rounded-lg font-semibold shadow-md text-center mt-4">
+                            Voir nos rapports
+                            <ArrowRight className="h-4 w-4" />
                         </a>
                     </div>
                 </div>

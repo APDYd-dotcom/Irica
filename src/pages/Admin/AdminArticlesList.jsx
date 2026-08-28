@@ -4,14 +4,14 @@ import useFetch from "../../hooks/useFetch";
 import { handleDelete } from "../../utils/formHandles";
 import Loader from "../../components/Loader";
 import ErrorMessage from "../../components/ErrorMessage";
+import { ArrowRight, FileText, GraduationCap, Image, Inbox, Link as LinkIcon, Video } from "lucide-react";
 
-/* ── icons per article type ─────────────────────────────── */
 const TYPE_ICONS = {
-  text:  "📝",
-  pdf:   "📄",
-  link:  "🔗",
-  video: "🎬",
-  photo: "🖼️",
+  text: FileText,
+  pdf: FileText,
+  link: LinkIcon,
+  video: Video,
+  photo: Image,
 };
 
 const TYPE_LABELS = {
@@ -22,16 +22,12 @@ const TYPE_LABELS = {
   photo: "Photo",
 };
 
-/* ── status badge colours (matching programs) ───────────── */
 const STATUS_COLORS = {
   enrollment: "bg-emerald-50 text-emerald-700 border-emerald-200",
   inprogress: "bg-amber-50  text-amber-700  border-amber-200",
   completed:  "bg-slate-50  text-slate-500  border-slate-200",
 };
 
-/* ════════════════════════════════════════════════════════════
-   STEP 1 — Program cards grid
-═════════════════════════════════════════════════════════════ */
 function ProgramGrid({ programs, loading, error, onSelect }) {
   if (loading) return <Loader />;
   if (error)   return <ErrorMessage message={error} />;
@@ -73,7 +69,7 @@ function ProgramGrid({ programs, loading, error, onSelect }) {
                 </div>
               ) : (
                 <div className="h-36 bg-gradient-to-br from-forest-50 to-forest-100 flex items-center justify-center text-5xl">
-                  🎓
+                  <GraduationCap className="h-10 w-10 text-primary-700" />
                 </div>
               )}
 
@@ -99,8 +95,9 @@ function ProgramGrid({ programs, loading, error, onSelect }) {
                   <span className="text-ink-soft">
                     {program.articles_count ?? 0} article{program.articles_count !== 1 ? "s" : ""}
                   </span>
-                  <span className="text-forest-800 font-semibold group-hover:underline">
-                    View articles →
+                  <span className="inline-flex items-center gap-2 text-forest-800 font-semibold group-hover:underline">
+                    View articles
+                    <ArrowRight className="h-4 w-4" />
                   </span>
                 </div>
               </div>
@@ -112,9 +109,6 @@ function ProgramGrid({ programs, loading, error, onSelect }) {
   );
 }
 
-/* ════════════════════════════════════════════════════════════
-   STEP 2 — Articles table for the selected program
-═════════════════════════════════════════════════════════════ */
 function ArticlesTable({ program, onBack }) {
   const { data, loading, error } = useFetch(`/articles/?program=${program.id}`);
   const [items, setItems]       = useState(null);
@@ -217,7 +211,7 @@ function ArticlesTable({ program, onBack }) {
 
           {articles.length === 0 ? (
             <div className="px-5 py-14 text-center">
-              <p className="text-4xl mb-3">📭</p>
+              <Inbox className="mx-auto mb-3 h-10 w-10 text-primary-700" />
               <p className="text-sm text-ink-soft">No articles yet for this program.</p>
               <Link
                 to={`/admin/articles/new?program=${program.id}`}
@@ -228,16 +222,17 @@ function ArticlesTable({ program, onBack }) {
             </div>
           ) : (
             articles.map((article) => (
+              (() => {
+                const Icon = TYPE_ICONS[article.type] || FileText;
+                return (
               <div
                 key={article.id}
                 className="grid grid-cols-[48px_1.8fr_120px_100px_100px] gap-4 items-center px-5 py-4 border-b border-ink/5 last:border-0 hover:bg-slate-50 transition"
               >
-                {/* Type icon */}
                 <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-forest-50 text-lg">
-                  {TYPE_ICONS[article.type] ?? "📄"}
+                  <Icon className="h-5 w-5 text-primary-700" />
                 </div>
 
-                {/* Title + description */}
                 <div className="min-w-0">
                   <p className="font-medium text-ink truncate">{article.title || "Untitled"}</p>
                   <p className="text-sm text-ink-soft/70 line-clamp-1">
@@ -245,12 +240,11 @@ function ArticlesTable({ program, onBack }) {
                   </p>
                 </div>
 
-                {/* Type badge */}
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-ink-soft capitalize">
-                  {TYPE_ICONS[article.type]} {TYPE_LABELS[article.type] ?? article.type}
+                  <Icon className="h-3.5 w-3.5" />
+                  {TYPE_LABELS[article.type] ?? article.type}
                 </span>
 
-                {/* Edit */}
                 <Link
                   to={`/admin/articles/${article.id}/edit`}
                   className="text-sm font-medium text-forest-800 hover:underline text-right"
@@ -266,6 +260,8 @@ function ArticlesTable({ program, onBack }) {
                   Delete
                 </button>
               </div>
+                );
+              })()
             ))
           )}
         </div>

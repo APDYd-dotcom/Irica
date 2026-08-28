@@ -1,19 +1,24 @@
-import HeroHome from "../components/HelloSection";
-import ServicesSection from "../components/ServicesSection";
+import About from "../components/About/About";
+import ContactForm from "../components/Contact/ContactForm";
+import Hero from "../components/Hero/Hero";
 import ProgramsSection from "../components/ProgramsSection";
-import PublicationsSection from "../components/PublicationsSection";
-import ActivitiesSection from "../components/ActivitiesSection";
-import TeamSection from "../components/TeamSection";
+import Publications from "../components/Publications/Publications";
+import Services from "../components/Services/Services";
+import Team from "../components/Team/Team";
+import { useFadeInOnScroll } from "../hooks/useFadeInOnScroll";
 
 export default function Home() {
+  useFadeInOnScroll();
+
   return (
-    <div className="bg-white text-ink overflow-x-hidden">
-      <HeroHome />
-      <ServicesSection />
+    <div className="overflow-x-hidden bg-neutral-50 text-neutral-900">
+      <Hero />
+      <Services />
+      <About />
       <ProgramsSection />
-      <PublicationsSection />
-      <ActivitiesSection />
-      <TeamSection />
+      <Publications />
+      <Team />
+      <ContactForm />
     </div>
   );
 }

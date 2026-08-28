@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 @import "tailwindcss";
 
 @source "./*.{js,jsx,ts,tsx}";
@@ -7,43 +7,116 @@
 @source "./utils/**/*.{js,jsx,ts,tsx}";
 
 @theme {
-  /* Institutional green-black-white identity based strictly on the IRICA logo */
-  --color-forest-950: #08120d; /* Ultra dark green-black */
-  --color-forest-900: #0c1f16; /* Deep green-black */
-  --color-forest-800: #007A33; /* Main Logo Green */
-  --color-forest-700: #00662b; /* Slightly darker Logo Green */
-  --color-forest-600: #008f3c; /* Slightly brighter Logo Green */
-  --color-forest-100: #e6f6ee; /* Soft green-white tint */
-  --color-forest-50: #f2faf5;  /* Extremely soft green-white background */
+  --color-primary-50: #E6F2EA;
+  --color-primary-100: #C2DFD0;
+  --color-primary-200: #99CAB3;
+  --color-primary-300: #6FB595;
+  --color-primary-400: #4DA47D;
+  --color-primary-500: #007A33;
+  --color-primary-600: #006E2E;
+  --color-primary-700: #005F27;
+  --color-primary-800: #004F20;
+  --color-primary-900: #003A17;
 
-  --color-gold-500: #007A33;   /* Remapped to Logo Green */
-  --color-gold-400: #008f3c;   /* Remapped to Logo Green */
-  --color-gold-100: #e6f6ee;   /* Remapped to soft green-white */
+  --color-neutral-50: #FDFBF7;
+  --color-neutral-100: #F6F2EB;
+  --color-neutral-200: #E8E2D8;
+  --color-neutral-300: #D4CCC0;
+  --color-neutral-400: #B0A69A;
+  --color-neutral-500: #8C8074;
+  --color-neutral-600: #6B5F53;
+  --color-neutral-700: #4A3F35;
+  --color-neutral-800: #2C241E;
+  --color-neutral-900: #1C1B1A;
 
-  --color-parchment: #ffffff;  /* Neutral clean white background */
-  --color-ink: #111111;        /* Logo Black */
-  --color-ink-soft: #4a524e;   /* Soft charcoal/gray-green */
+  --color-forest-950: #003A17;
+  --color-forest-900: #004F20;
+  --color-forest-800: #007A33;
+  --color-forest-700: #006E2E;
+  --color-forest-600: #4DA47D;
+  --color-forest-100: #C2DFD0;
+  --color-forest-50: #E6F2EA;
+  --color-gold-500: #007A33;
+  --color-gold-400: #4DA47D;
+  --color-gold-100: #E6F2EA;
+  --color-parchment: #FDFBF7;
+  --color-ink: #1C1B1A;
+  --color-ink-soft: #6B5F53;
 
-  --font-serif: "Source Serif 4", Georgia, serif;
-  --font-sans: "IBM Plex Sans", system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-serif: "Inter", system-ui, sans-serif;
+  --font-mono: "Inter", ui-monospace, monospace;
 }
 
-body {
-  font-family: var(--font-sans);
-  background-color: var(--color-parchment);
-  color: var(--color-ink);
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-neutral-50);
+    color: var(--color-neutral-900);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1 {
+    @apply text-5xl md:text-7xl font-bold leading-tight tracking-tight text-neutral-900;
+  }
+
+  h2 {
+    @apply text-4xl md:text-5xl font-bold leading-tight tracking-tight text-neutral-900;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl font-semibold text-neutral-900;
+  }
+
+  p {
+    @apply text-lg leading-relaxed text-neutral-700;
+  }
+
+  a,
+  button,
+  input,
+  textarea {
+    @apply transition-all duration-200;
+  }
 }
 
-/* Small utility: uppercase mono "eyebrow" labels used throughout,
-   e.g. "▪ RESOURCES" above section headings — a recurring motif from
-   the reference sites' category tags. */
 .eyebrow {
-  font-family: var(--font-mono);
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
   font-size: 0.75rem;
-  font-weight: 500;
+  font-weight: 700;
+}
+
+.section-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  margin-top: 0.75rem;
+  background: linear-gradient(to right, var(--color-primary-500), var(--color-primary-300));
+  border-radius: 999px;
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .scrollbar-hidden {
@@ -55,10 +128,10 @@ body {
   display: none;
 }
 
-@keyframes fade-in {
+@keyframes fade-in-soft {
   from {
     opacity: 0;
-    transform: translateY(4px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -76,7 +149,7 @@ body {
 }
 
 .animate-fade-in {
-  animation: fade-in 180ms ease-out;
+  animation: fade-in-soft 360ms ease-out;
 }
 
 .animate-pulse-subtle {

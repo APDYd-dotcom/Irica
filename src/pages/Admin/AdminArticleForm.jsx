@@ -6,6 +6,7 @@ import ErrorMessage from "../../components/ErrorMessage";
 import SuccessMessage from "../../components/SuccessMessage";
 import Loader from "../../components/Loader";
 import UploadProgress from "../../components/UploadProgress";
+import { FileText, Image, Link as LinkIcon, Video } from "lucide-react";
 
 const initialFormState = {
   program: "",
@@ -17,13 +18,12 @@ const initialFormState = {
   file: null,    // for type=pdf, video, photo
 };
 
-// Human-readable type labels
 const TYPE_OPTIONS = [
-  { value: "text",  label: "📝  Text Article" },
-  { value: "pdf",   label: "📄  Document (PDF / Word)" },
-  { value: "video", label: "🎬  Video File" },
-  { value: "link",  label: "🔗  Online Link" },
-  { value: "photo", label: "🖼️  Photo / Graphic" },
+  { value: "text", label: "Text Article", icon: FileText },
+  { value: "pdf", label: "Document (PDF / Word)", icon: FileText },
+  { value: "video", label: "Video File", icon: Video },
+  { value: "link", label: "Online Link", icon: LinkIcon },
+  { value: "photo", label: "Photo / Graphic", icon: Image },
 ];
 
 function AdminArticleForm() {
@@ -190,7 +190,7 @@ function AdminArticleForm() {
         <div>
           <label className="block text-sm font-medium text-ink mb-1">Article Type *</label>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-            {TYPE_OPTIONS.map(({ value, label }) => (
+            {TYPE_OPTIONS.map(({ value, label, icon: Icon }) => (
               <label
                 key={value}
                 className={`flex items-center gap-2 cursor-pointer rounded-xl border px-4 py-3 text-sm font-medium transition
@@ -207,6 +207,7 @@ function AdminArticleForm() {
                   onChange={handleTypeChange}
                   className="accent-forest-800"
                 />
+                <Icon className="h-4 w-4" />
                 {label}
               </label>
             ))}
@@ -270,7 +271,7 @@ function AdminArticleForm() {
               Document File * <span className="text-ink-soft font-normal">(PDF or Word)</span>
             </label>
             <div className="border-2 border-dashed border-ink/20 rounded-xl p-6 text-center hover:border-forest-400 transition">
-              <div className="text-3xl mb-2">📄</div>
+              <FileText className="mx-auto mb-2 h-8 w-8 text-primary-700" />
               <p className="text-sm text-ink-soft mb-3">
                 {formData.file ? formData.file.name : "Choose a PDF or Word document"}
               </p>
@@ -295,7 +296,7 @@ function AdminArticleForm() {
               Video File * <span className="text-ink-soft font-normal">(MP4, MOV, AVI…)</span>
             </label>
             <div className="border-2 border-dashed border-ink/20 rounded-xl p-6 text-center hover:border-forest-400 transition">
-              <div className="text-3xl mb-2">🎬</div>
+              <Video className="mx-auto mb-2 h-8 w-8 text-primary-700" />
               {formData.file ? (
                 <div className="space-y-2">
                   <p className="text-sm font-medium text-ink">{formData.file.name}</p>
@@ -352,7 +353,7 @@ function AdminArticleForm() {
               Image File * <span className="text-ink-soft font-normal">(JPG, PNG, WebP…)</span>
             </label>
             <div className="border-2 border-dashed border-ink/20 rounded-xl p-6 text-center hover:border-forest-400 transition">
-              <div className="text-3xl mb-2">🖼️</div>
+              <Image className="mx-auto mb-2 h-8 w-8 text-primary-700" />
               {formData.file ? (
                 <div className="space-y-2">
                   <img

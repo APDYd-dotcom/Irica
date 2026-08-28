@@ -38,7 +38,7 @@ function Login() {
     <div className="min-h-[80vh] flex items-center justify-center px-6 py-16">
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
-          <p className="eyebrow text-forest-800 mb-3">▪ Member Portal</p>
+          <p className="eyebrow text-primary-700 mb-3">Member Portal</p>
           <h1 className="font-serif text-3xl text-ink">Dashboard Login</h1>
           <p className="text-sm text-ink-soft mt-2">
             Enter your email and access code to open your registered program dashboard.

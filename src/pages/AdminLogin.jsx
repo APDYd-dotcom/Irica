@@ -39,7 +39,7 @@ function AdminLogin() {
     <div className="min-h-[80vh] flex items-center justify-center px-6 py-16">
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
-          <p className="eyebrow text-forest-800 mb-3">▪ Admin Portal</p>
+          <p className="eyebrow text-primary-700 mb-3">Admin Portal</p>
           <h1 className="font-serif text-3xl text-ink">Admin Login</h1>
           <p className="text-sm text-ink-soft mt-2">
             Enter your admin username and password to manage IRICA content.
