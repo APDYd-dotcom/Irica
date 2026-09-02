@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { LayoutDashboard, LockKeyhole, LogOut, Menu, X } from "lucide-react";
+import { motion } from "framer-motion";
 import { useAuth } from "../../hooks/useAuth";
+import { useScrollDirection } from "../../hooks/useScrollDirection";
+import { EASE } from "../../animations/variants";
 import Container from "../Layout/Container";
 
 const navLinks = [
@@ -19,6 +22,7 @@ function Navbar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const scrolled = useScrollDirection();
 
   const dashboardLink = user && !user.is_staff ? "/dashboard/programs" : "/login";
   const adminLink = user?.is_staff ? "/admin/articles" : "/admin/login";
@@ -73,11 +77,33 @@ function Navbar() {
   const closeDrawer = () => setDrawerOpen(false);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-neutral-200/70 glass">
+    <motion.header
+      initial={false}
+      animate={{
+        boxShadow: scrolled
+          ? "0 8px 24px -16px rgba(0, 58, 23, 0.18)"
+          : "0 0 0 rgba(0,0,0,0)",
+        borderColor: scrolled ? "rgba(232, 226, 216, 0.95)" : "rgba(232, 226, 216, 0.7)",
+      }}
+      transition={{ duration: 0.3, ease: EASE }}
+      className="fixed inset-x-0 top-0 z-50 border-b glass"
+    >
       <Container>
-        <nav className="flex h-20 items-center justify-between gap-6">
+        <motion.nav
+          initial={false}
+          animate={{ height: scrolled ? 64 : 80 }}
+          transition={{ duration: 0.3, ease: EASE }}
+          className="flex items-center justify-between gap-6"
+        >
           <Link to="/" className="flex items-center gap-3" onClick={closeDrawer}>
-            <img src="/images/logo.png" alt="IRICA" className="h-14 w-auto" />
+            <motion.img
+              src="/images/logo.png"
+              alt="IRICA"
+              initial={false}
+              animate={{ height: scrolled ? 44 : 56 }}
+              transition={{ duration: 0.3, ease: EASE }}
+              className="w-auto"
+            />
             <span className="hidden text-sm font-bold tracking-tight text-neutral-900 sm:block">
               IRICA
             </span>
@@ -145,21 +171,29 @@ function Navbar() {
           >
             {drawerOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
-        </nav>
+        </motion.nav>
       </Container>
 
       {drawerOpen ? (
         <button
           type="button"
-          className="fixed inset-0 top-20 z-30 bg-neutral-900/30 lg:hidden"
+          className="fixed inset-0 z-30 bg-neutral-900/30 lg:hidden"
+          style={{ top: scrolled ? 64 : 80 }}
           aria-label="Fermer le menu"
           onClick={closeDrawer}
         />
       ) : null}
 
-      <aside
-        className={`fixed right-4 top-24 z-40 w-[calc(100vw-2rem)] max-w-sm rounded-3xl border border-neutral-200 bg-white p-4 shadow-2xl shadow-neutral-900/15 transition lg:hidden ${
-          drawerOpen ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-4 opacity-0"
+      <motion.aside
+        initial={false}
+        animate={{
+          y: drawerOpen ? 0 : -16,
+          opacity: drawerOpen ? 1 : 0,
+          top: scrolled ? 80 : 96,
+        }}
+        transition={{ duration: 0.25, ease: EASE }}
+        className={`fixed right-4 z-40 w-[calc(100vw-2rem)] max-w-sm rounded-3xl border border-neutral-200 bg-white p-4 shadow-2xl shadow-neutral-900/15 lg:hidden ${
+          drawerOpen ? "pointer-events-auto" : "pointer-events-none"
         }`}
       >
         <div className="grid gap-1">
@@ -203,8 +237,8 @@ function Navbar() {
             </button>
           ) : null}
         </div>
-      </aside>
-    </header>
+      </motion.aside>
+    </motion.header>
   );
 }
 

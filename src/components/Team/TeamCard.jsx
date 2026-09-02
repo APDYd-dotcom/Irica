@@ -1,8 +1,12 @@
 import { MessageCircle, UserRoundPlus } from "lucide-react";
+import { motion } from "framer-motion";
+import { EASE } from "../../animations/variants";
 
 function TeamCard({ member, featured = false }) {
   return (
-    <article
+    <motion.article
+      whileHover={{ y: -4, scale: 1.015 }}
+      transition={{ duration: 0.25, ease: EASE }}
       className={`group relative overflow-hidden rounded-2xl border border-neutral-200/80 bg-white/80 shadow-sm backdrop-blur-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-primary-200 hover:shadow-[0_20px_50px_-20px_rgba(0,90,40,0.25)] hover:shadow-primary-900/10 ${
         featured ? "lg:scale-[1.03]" : ""
       }`}
@@ -73,7 +77,7 @@ function TeamCard({ member, featured = false }) {
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 -bottom-px h-px scale-x-0 bg-gradient-to-r from-transparent via-primary-500 to-transparent transition-transform duration-500 group-hover:scale-x-100"
       />
-    </article>
+    </motion.article>
   );
 }
 

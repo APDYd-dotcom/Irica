@@ -1,5 +1,7 @@
+import { motion } from "framer-motion";
 import Container from "../Layout/Container";
 import TeamCard from "./TeamCard";
+import { EASE } from "../../animations/variants";
 
 const team = [
   {
@@ -36,7 +38,13 @@ function Team() {
         className="pointer-events-none absolute -top-24 left-1/2 h-64 w-[60rem] -translate-x-1/2 rounded-full bg-primary-100/40 blur-3xl"
       />
       <Container>
-        <div className="fade-in relative mx-auto mb-16 max-w-3xl text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5, ease: EASE }}
+          className="relative mx-auto mb-16 max-w-3xl text-center"
+        >
           <span className="inline-flex items-center gap-2 rounded-full border border-primary-200 bg-primary-50 px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-primary-700">
             <span className="h-1.5 w-1.5 rounded-full bg-primary-500" />
             Équipe
@@ -49,18 +57,31 @@ function Team() {
             Une équipe pluridisciplinaire au service de la recherche, du conseil et du
             renforcement des capacités.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+        <motion.div
+          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } },
+          }}
+        >
           {team.map((member, index) => (
-            <div
+            <motion.div
               key={member.name}
-              className={`fade-in ${index === 0 ? "lg:translate-y-6" : ""}`}
+              variants={{
+                hidden: { opacity: 0, y: 22 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
+              }}
+              className={index === 0 ? "lg:translate-y-6" : ""}
             >
               <TeamCard member={member} featured={index === 0} />
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </Container>
     </section>
   );

@@ -1,5 +1,7 @@
 import { CheckCircle2, LineChart, Network, Sparkles } from "lucide-react";
+import { motion } from "framer-motion";
 import Container from "../Layout/Container";
+import { EASE } from "../../animations/variants";
 
 const stats = [
   { value: "30+", label: "missions accompagnées" },
@@ -12,7 +14,12 @@ function About() {
     <section id="about" className="bg-white py-24 md:py-32">
       <Container>
         <div className="grid items-center gap-14 lg:grid-cols-2">
-          <div className="fade-in">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.55, ease: EASE }}
+          >
             <p className="eyebrow text-primary-700">Notre histoire</p>
             <h2 className="section-title mt-4">
               Une institution de conseil pensée pour les réalités africaines.
@@ -34,9 +41,15 @@ function About() {
                 </div>
               ))}
             </div>
-          </div>
+          </motion.div>
 
-          <div className="fade-in relative">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.55, ease: EASE, delay: 0.1 }}
+            className="relative"
+          >
             <div className="relative overflow-hidden rounded-3xl border border-neutral-200 bg-neutral-50 shadow-2xl shadow-neutral-900/10">
               <img src="/images/5.jpg" alt="Équipe IRICA en conférence" className="h-[34rem] w-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/70 via-neutral-900/10 to-transparent" />
@@ -64,7 +77,7 @@ function About() {
             <div className="absolute -bottom-5 left-16 hidden rounded-2xl border border-neutral-200 bg-white p-4 shadow-xl shadow-neutral-900/10 lg:block">
               <CheckCircle2 className="h-6 w-6 text-primary-600" />
             </div>
-          </div>
+          </motion.div>
         </div>
       </Container>
     </section>

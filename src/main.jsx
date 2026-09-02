@@ -1,6 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { MotionConfig } from "framer-motion";
 import App from "./App.jsx";
 import { AuthProvider } from "./hooks/useAuth.jsx";
 import "./index.css";
@@ -26,6 +27,8 @@ const router = createBrowserRouter(
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <MotionConfig reducedMotion="user" transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}>
+      <RouterProvider router={router} />
+    </MotionConfig>
   </StrictMode>
 );

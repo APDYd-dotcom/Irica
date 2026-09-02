@@ -1,6 +1,8 @@
 import { BarChart3, BookOpenCheck, ShieldCheck, UsersRound } from "lucide-react";
+import { motion } from "framer-motion";
 import Container from "../Layout/Container";
 import ServiceCard from "./ServiceCard";
+import { EASE } from "../../animations/variants";
 
 const services = [
   {
@@ -53,22 +55,43 @@ function Services() {
   return (
     <section id="services" className="bg-neutral-50 py-24 md:py-32">
       <Container>
-        <div className="fade-in mx-auto mb-16 max-w-3xl text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5, ease: EASE }}
+          className="mx-auto mb-16 max-w-3xl text-center"
+        >
           <p className="eyebrow text-primary-700">Services</p>
           <h2 className="mt-4">Des expertises intégrées, sans complexité inutile.</h2>
           <p className="mt-5">
             IRICA réunit recherche, évaluation, conseil et formation dans une expérience
             sobre, structurée et orientée vers l'action.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <motion.div
+          className="grid gap-6 md:grid-cols-2 xl:grid-cols-4"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
+          }}
+        >
           {services.map((service) => (
-            <div key={service.title} className="fade-in">
+            <motion.div
+              key={service.title}
+              variants={{
+                hidden: { opacity: 0, y: 22 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
+              }}
+            >
               <ServiceCard {...service} />
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </Container>
     </section>
   );

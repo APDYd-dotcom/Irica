@@ -1,7 +1,9 @@
 import { useRef } from "react";
 import { CalendarDays, ChevronRight, CreditCard, LockKeyhole } from "lucide-react";
+import { motion } from "framer-motion";
 import useFetch from "../hooks/useFetch";
 import Container from "./Layout/Container";
+import { EASE } from "../animations/variants";
 
 function ProgramsSection() {
     const { data, loading, error } = useFetch("/programs/");
@@ -78,7 +80,13 @@ function ProgramsSection() {
     return (
         <section id="programs" className="bg-neutral-50 py-24 md:py-32">
             <Container>
-                <div className="fade-in mb-14 flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.5, ease: EASE }}
+                    className="mb-14 flex flex-col justify-between gap-6 lg:flex-row lg:items-end"
+                >
                     <div className="max-w-3xl">
                         <p className="eyebrow text-primary-700">Programmes</p>
                         <h2 className="section-title mt-4">Programmes IRICA.</h2>
@@ -94,14 +102,14 @@ function ProgramsSection() {
                         Voir autres
                         <ChevronRight className="h-4 w-4" />
                     </button>
-                </div>
+                </motion.div>
 
                 <div
                     ref={rowRef}
                     className="scrollbar-hidden flex snap-x snap-mandatory gap-6 overflow-x-auto pb-6"
                     style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
                 >
-                    {programs.map((prog) => {
+                    {programs.map((prog, index) => {
                         const title = prog.title || prog.name || prog.program_title || "Programme";
                         const desc =
                             prog.descr || prog.desc || prog.description || "";
@@ -119,9 +127,14 @@ function ProgramsSection() {
                         const hasSubtitle = subtitle || (status?.toLowerCase() === "completed" && title === "COMPLETED");
 
                         return (
-                            <div
+                            <motion.div
                                 key={prog.id || title}
-                                className="fade-in flex w-[21rem] flex-none snap-start flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm hover:-translate-y-1 hover:shadow-xl hover:shadow-neutral-900/10 sm:w-[24rem]"
+                                initial={{ opacity: 0, y: 22 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, amount: 0.2 }}
+                                transition={{ duration: 0.5, ease: EASE, delay: Math.min(index, 6) * 0.06 }}
+                                whileHover={{ y: -4, scale: 1.015 }}
+                                className="flex w-[21rem] flex-none snap-start flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm hover:shadow-xl hover:shadow-neutral-900/10 sm:w-[24rem]"
                             >
                                 <div
                                     className="relative flex h-52 flex-shrink-0 flex-col justify-end bg-primary-700 px-6 pb-5"
@@ -201,7 +214,7 @@ function ProgramsSection() {
                                         </a>
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
                         );
                     })}
                 </div>

@@ -1,12 +1,20 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Mail, MapPin, Phone, UserRoundPlus } from "lucide-react";
+import { motion } from "framer-motion";
 import Container from "../Layout/Container";
+import { EASE } from "../../animations/variants";
 
 function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-neutral-900 text-white">
+    <motion.footer
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.5, ease: EASE }}
+      className="bg-neutral-900 text-white"
+    >
       <Container className="py-16">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div>
@@ -83,7 +91,7 @@ function Footer() {
           </div>
         </div>
       </Container>
-    </footer>
+    </motion.footer>
   );
 }
 

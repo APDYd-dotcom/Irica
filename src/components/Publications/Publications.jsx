@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, CalendarDays, ChevronRight, FileText } from "lucide-react";
+import { motion } from "framer-motion";
 import axiosClient from "../../api/axiosClient";
 import { getErrorMessage } from "../../utils/getErrorMessage";
 import Container from "../Layout/Container";
+import { EASE } from "../../animations/variants";
 
 function Publications() {
   const [publications, setPublications] = useState([]);
@@ -46,7 +48,13 @@ function Publications() {
   return (
     <section id="publications" className="bg-white py-24 md:py-32">
       <Container>
-        <div className="fade-in mb-14 flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5, ease: EASE }}
+          className="mb-14 flex flex-col justify-between gap-6 lg:flex-row lg:items-end"
+        >
           <div className="max-w-3xl">
             <p className="eyebrow text-primary-700">Publications</p>
             <h2 className="section-title mt-4">Analyses et réflexions récentes.</h2>
@@ -63,7 +71,7 @@ function Publications() {
             Voir autres
             <ChevronRight className="h-4 w-4" />
           </button>
-        </div>
+        </motion.div>
 
         {error ? (
           <div className="mb-6 rounded-2xl border border-red-200 bg-red-50 px-5 py-4 text-sm font-medium text-red-700">
@@ -75,14 +83,19 @@ function Publications() {
           ref={rowRef}
           className="scrollbar-hidden flex snap-x snap-mandatory gap-6 overflow-x-auto pb-6"
         >
-          {publications.map((pub) => {
+          {publications.map((pub, index) => {
             const tag = pub.program_title || pub.type || "Publication";
             const href = pub.file || pub.url || "#contact";
 
             return (
-              <article
+              <motion.article
                 key={pub.id}
-                className="fade-in flex h-[26rem] w-[21rem] flex-none snap-start flex-col rounded-2xl border border-neutral-200 bg-neutral-50 p-6 shadow-sm hover:-translate-y-1 hover:bg-white hover:shadow-xl hover:shadow-neutral-900/10 sm:w-[24rem]"
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, ease: EASE, delay: Math.min(index, 6) * 0.06 }}
+                whileHover={{ y: -4, scale: 1.015 }}
+                className="flex h-[26rem] w-[21rem] flex-none snap-start flex-col rounded-2xl border border-neutral-200 bg-neutral-50 p-6 shadow-sm hover:bg-white hover:shadow-xl hover:shadow-neutral-900/10 sm:w-[24rem]"
               >
                 <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-primary-700">
                   <FileText className="h-6 w-6" />
@@ -112,7 +125,7 @@ function Publications() {
                   Lire plus
                   <ArrowRight className="h-4 w-4" />
                 </a>
-              </article>
+              </motion.article>
             );
           })}
         </div>

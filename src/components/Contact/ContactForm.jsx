@@ -1,5 +1,7 @@
 import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
+import { motion } from "framer-motion";
 import Container from "../Layout/Container";
+import { EASE } from "../../animations/variants";
 
 function ContactForm() {
   function handleSubmit(event) {
@@ -23,7 +25,12 @@ function ContactForm() {
     <section id="contact" className="bg-neutral-50 py-24 md:py-32">
       <Container>
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-          <div className="fade-in">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.55, ease: EASE }}
+          >
             <p className="eyebrow text-primary-700">Contact</p>
             <h2 className="section-title mt-4">Parlons de votre prochain projet.</h2>
             <p className="mt-6">
@@ -32,7 +39,9 @@ function ContactForm() {
             </p>
 
             <div className="mt-10 space-y-4">
-              <a
+              <motion.a
+                whileHover={{ y: -2 }}
+                transition={{ duration: 0.2, ease: EASE }}
                 href="mailto:info.irica@gmail.com"
                 className="flex items-center gap-4 rounded-2xl border border-neutral-200 bg-white p-4 text-neutral-700 shadow-sm hover:-translate-y-0.5 hover:border-primary-200 hover:text-primary-700"
               >
@@ -40,8 +49,10 @@ function ContactForm() {
                   <Mail className="h-5 w-5" />
                 </span>
                 info.irica@gmail.com
-              </a>
-              <a
+              </motion.a>
+              <motion.a
+                whileHover={{ y: -2 }}
+                transition={{ duration: 0.2, ease: EASE }}
                 href="tel:+25776891572"
                 className="flex items-center gap-4 rounded-2xl border border-neutral-200 bg-white p-4 text-neutral-700 shadow-sm hover:-translate-y-0.5 hover:border-primary-200 hover:text-primary-700"
               >
@@ -49,7 +60,7 @@ function ContactForm() {
                   <Phone className="h-5 w-5" />
                 </span>
                 +257 76 891 572
-              </a>
+              </motion.a>
               <div className="flex items-center gap-4 rounded-2xl border border-neutral-200 bg-white p-4 text-neutral-700 shadow-sm">
                 <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-50 text-primary-700">
                   <MapPin className="h-5 w-5" />
@@ -57,11 +68,15 @@ function ContactForm() {
                 Afrique de l'Est
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          <form
+          <motion.form
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.55, ease: EASE, delay: 0.1 }}
             onSubmit={handleSubmit}
-            className="fade-in rounded-3xl border border-neutral-200 bg-white p-6 shadow-xl shadow-neutral-900/5 md:p-8"
+            className="rounded-3xl border border-neutral-200 bg-white p-6 shadow-xl shadow-neutral-900/5 md:p-8"
           >
             <div className="grid gap-5 sm:grid-cols-2">
               <label className="block">
@@ -104,14 +119,17 @@ function ContactForm() {
               />
             </label>
 
-            <button
+            <motion.button
               type="submit"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.985 }}
+              transition={{ duration: 0.2, ease: EASE }}
               className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary-500 px-6 py-4 text-base font-semibold text-white shadow-sm hover:-translate-y-0.5 hover:bg-primary-600 hover:shadow-lg hover:shadow-primary-900/15 focus:outline-none focus:ring-4 focus:ring-primary-500/25 sm:w-auto"
             >
               Envoyer la demande
               <ArrowRight className="h-5 w-5" />
-            </button>
-          </form>
+            </motion.button>
+          </motion.form>
         </div>
       </Container>
     </section>
