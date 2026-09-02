@@ -98,7 +98,6 @@ function Publications() {
 
                 <h3 className="text-xl font-bold leading-snug">
                   {pub.title}
-                  {console.log(pub.title)}
                 </h3>
                 <p className="mt-4 line-clamp-5 text-sm leading-6 text-neutral-600">
                   {pub.description}

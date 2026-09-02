@@ -2,10 +2,8 @@ import { useEffect } from "react";
 
 export function useFadeInOnScroll() {
   useEffect(() => {
-    const elements = Array.from(document.querySelectorAll(".fade-in"));
-
     if (!("IntersectionObserver" in window)) {
-      elements.forEach((element) => element.classList.add("visible"));
+      document.querySelectorAll(".fade-in").forEach((element) => element.classList.add("visible"));
       return undefined;
     }
 
@@ -21,8 +19,20 @@ export function useFadeInOnScroll() {
       { threshold: 0.18 }
     );
 
-    elements.forEach((element) => observer.observe(element));
+    const observeMissing = () => {
+      document.querySelectorAll(".fade-in:not(.visible)").forEach((el) => {
+        observer.observe(el);
+      });
+    };
 
-    return () => observer.disconnect();
+    observeMissing();
+
+    const mutationObserver = new MutationObserver(observeMissing);
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      observer.disconnect();
+      mutationObserver.disconnect();
+    };
   }, []);
 }
