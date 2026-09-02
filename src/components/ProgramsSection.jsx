@@ -78,7 +78,7 @@ function ProgramsSection() {
     return (
         <section id="programs" className="bg-neutral-50 py-24 md:py-32">
             <Container>
-                <div className="fade-in mb-14 flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+                <div className="fade-in visible mb-14 flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
                     <div className="max-w-3xl">
                         <p className="eyebrow text-primary-700">Programmes</p>
                         <h2 className="section-title mt-4">Programmes IRICA.</h2>
@@ -121,7 +121,7 @@ function ProgramsSection() {
                         return (
                             <div
                                 key={prog.id || title}
-                                className="fade-in flex w-[21rem] flex-none snap-start flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm hover:-translate-y-1 hover:shadow-xl hover:shadow-neutral-900/10 sm:w-[24rem]"
+                                className="fade-in visible flex w-[21rem] flex-none snap-start flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm hover:-translate-y-1 hover:shadow-xl hover:shadow-neutral-900/10 sm:w-[24rem]"
                             >
                                 <div
                                     className="relative flex h-52 flex-shrink-0 flex-col justify-end bg-primary-700 px-6 pb-5"

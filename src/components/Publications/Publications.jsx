@@ -46,7 +46,7 @@ function Publications() {
   return (
     <section id="publications" className="bg-white py-24 md:py-32">
       <Container>
-        <div className="fade-in mb-14 flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+        <div className="fade-in visible mb-14 flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
           <div className="max-w-3xl">
             <p className="eyebrow text-primary-700">Publications</p>
             <h2 className="section-title mt-4">Analyses et réflexions récentes.</h2>
@@ -82,7 +82,7 @@ function Publications() {
             return (
               <article
                 key={pub.id}
-                className="fade-in flex h-[26rem] w-[21rem] flex-none snap-start flex-col rounded-2xl border border-neutral-200 bg-neutral-50 p-6 shadow-sm hover:-translate-y-1 hover:bg-white hover:shadow-xl hover:shadow-neutral-900/10 sm:w-[24rem]"
+                className="fade-in visible flex h-[26rem] w-[21rem] flex-none snap-start flex-col rounded-2xl border border-neutral-200 bg-neutral-50 p-6 shadow-sm hover:-translate-y-1 hover:bg-white hover:shadow-xl hover:shadow-neutral-900/10 sm:w-[24rem]"
               >
                 <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-primary-700">
                   <FileText className="h-6 w-6" />
