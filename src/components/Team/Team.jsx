@@ -16,7 +16,7 @@ const team = [
     image: "/images/2.jpg",
     linkedin: "https://linkedin.com",
     twitter: "https://twitter.com",
-    bio: "Il dirige les évaluations d'impact et accompagne les équipes sur les dispositifs de collecte et de qualité des données.",
+    bio: "Il dirige les evaluations d'impact et accompagne les équipes sur les dispositifs de collecte et de qualité des données.",
   },
   {
     name: "Aline NIYOMWUNGERE",
@@ -30,21 +30,34 @@ const team = [
 
 function Team() {
   return (
-    <section id="team" className="bg-neutral-50 py-24 md:py-32">
+    <section id="team" className="relative overflow-hidden bg-neutral-50 py-24 md:py-32">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-24 left-1/2 h-64 w-[60rem] -translate-x-1/2 rounded-full bg-primary-100/40 blur-3xl"
+      />
       <Container>
-        <div className="fade-in mx-auto mb-16 max-w-3xl text-center">
-          <p className="eyebrow text-primary-700">Équipe</p>
-          <h2 className="mt-4">Des profils complémentaires, une même exigence.</h2>
-          <p className="mt-5">
+        <div className="fade-in relative mx-auto mb-16 max-w-3xl text-center">
+          <span className="inline-flex items-center gap-2 rounded-full border border-primary-200 bg-primary-50 px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-primary-700">
+            <span className="h-1.5 w-1.5 rounded-full bg-primary-500" />
+            Équipe
+          </span>
+          <h2 className="mt-5 text-3xl font-semibold leading-tight text-neutral-900 md:text-4xl">
+            Des profils complémentaires,{" "}
+            <span className="text-primary-700">une même exigence.</span>
+          </h2>
+          <p className="mx-auto mt-5 max-w-2xl text-neutral-600">
             Une équipe pluridisciplinaire au service de la recherche, du conseil et du
             renforcement des capacités.
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-3">
-          {team.map((member) => (
-            <div key={member.name} className="fade-in">
-              <TeamCard member={member} />
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+          {team.map((member, index) => (
+            <div
+              key={member.name}
+              className={`fade-in ${index === 0 ? "lg:translate-y-6" : ""}`}
+            >
+              <TeamCard member={member} featured={index === 0} />
             </div>
           ))}
         </div>
