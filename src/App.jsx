@@ -3,7 +3,9 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./pages/Layout";
 import Home from "./pages/Home";
 import Checkout from "./pages/Checkout";
+import PaymentPage from "./pages/Payment/PaymentPage";
 import PaymentSuccess from "./pages/PaymentSuccess";
+import PaymentLinkSuccess from "./pages/Payment/PaymentSuccess";
 import Login from "./pages/Login";
 import AdminLogin from "./pages/AdminLogin";
 import NotFound from "./pages/NotFound";
@@ -35,6 +37,8 @@ function App() {
           {/* Public pages — anyone can visit */}
           <Route path="/" element={<Home />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/pay/:id" element={<PaymentPage />} />
+          <Route path="/payment/success" element={<PaymentLinkSuccess />} />
           <Route path="/payment-success" element={<PaymentSuccess />} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin/login" element={<AdminLogin />} />
