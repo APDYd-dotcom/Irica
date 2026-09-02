@@ -15,9 +15,9 @@ function SmallItem({ title, subtitle, href }) {
 function StatCard({ label, value, note }) {
   return (
     <div className="rounded-3xl border border-ink/10 bg-white p-5 shadow-sm">
-      <p className="text-sm text-ink-soft">{label}</p>
-      <p className="mt-2 text-3xl font-semibold text-ink sm:text-4xl">{value}</p>
-      <p className="mt-2 break-words text-sm text-ink-soft/80">{note}</p>
+      <p className="text-xs text-ink-soft">{label}</p>
+      <p className="mt-2 text-2xl font-semibold text-ink sm:text-3xl">{value}</p>
+      <p className="mt-2 break-words text-xs text-ink-soft/80">{note}</p>
     </div>
   );
 }
@@ -42,18 +42,18 @@ export default function DashboardHome() {
       <section className="rounded-3xl border border-ink/10 bg-white p-4 shadow-sm sm:p-6">
         <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
           <div>
-            <p className="text-xs uppercase tracking-[0.18em] text-ink-soft/70 font-semibold mb-2 sm:text-sm sm:tracking-[0.22em]">
+            <p className="text-xs uppercase tracking-[0.18em] text-ink-soft/70 font-semibold mb-2 sm:text-xs sm:tracking-[0.22em]">
               Overview
             </p>
-            <h2 className="text-2xl font-serif text-ink sm:text-3xl">Your learning dashboard</h2>
-            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink-soft">
+            <h2 className="text-xl font-serif text-ink sm:text-2xl">Your learning dashboard</h2>
+            <p className="mt-2 max-w-2xl text-xs leading-relaxed text-ink-soft">
               View programs registered to your email and open their related articles.
             </p>
           </div>
 
           <Link
             to="programs"
-            className="inline-flex w-full items-center justify-center rounded-full bg-forest-800 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-forest-700 sm:w-auto"
+            className="inline-flex w-full items-center justify-center rounded-full bg-forest-800 px-5 py-3 text-xs font-semibold text-white shadow-sm transition hover:bg-forest-700 sm:w-auto"
           >
             View my programs
           </Link>
@@ -82,10 +82,10 @@ export default function DashboardHome() {
         <section className="rounded-3xl border border-ink/10 bg-white p-4 shadow-sm sm:p-5">
           <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="min-w-0">
-              <h2 className="text-lg font-serif text-ink">My Registered Programs</h2>
-              <p className="text-sm text-ink-soft">Programs connected to your logged-in email.</p>
+              <h2 className="text-base font-serif text-ink">My Registered Programs</h2>
+              <p className="text-xs text-ink-soft">Programs connected to your logged-in email.</p>
             </div>
-            <Link to="programs" className="text-sm font-semibold text-forest-800 hover:underline">See all</Link>
+            <Link to="programs" className="text-xs font-semibold text-forest-800 hover:underline">See all</Link>
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -98,7 +98,7 @@ export default function DashboardHome() {
               />
             ))}
             {accessList.length === 0 && (
-              <div className="rounded-2xl border border-dashed border-ink/15 p-6 text-sm text-ink-soft">
+              <div className="rounded-2xl border border-dashed border-ink/15 p-6 text-xs text-ink-soft">
                 No registered programs found for your email.
               </div>
             )}
@@ -108,10 +108,10 @@ export default function DashboardHome() {
         <section className="rounded-3xl border border-ink/10 bg-white p-4 shadow-sm sm:p-5">
           <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="min-w-0">
-              <h2 className="text-lg font-serif text-ink">Latest Publications</h2>
-              <p className="text-sm text-ink-soft">Recent reports and papers from IRICA.</p>
+              <h2 className="text-base font-serif text-ink">Latest Publications</h2>
+              <p className="text-xs text-ink-soft">Recent reports and papers from IRICA.</p>
             </div>
-            <Link to="/" className="text-sm font-semibold text-forest-800 hover:underline">View site</Link>
+            <Link to="/" className="text-xs font-semibold text-forest-800 hover:underline">View site</Link>
           </div>
 
           <div className="grid grid-cols-1 gap-3">
@@ -120,7 +120,7 @@ export default function DashboardHome() {
             ))}
 
             {pubList.length === 0 && (
-              <div className="rounded-2xl border border-dashed border-ink/15 p-6 text-sm text-ink-soft">
+              <div className="rounded-2xl border border-dashed border-ink/15 p-6 text-xs text-ink-soft">
                 No updates yet.
               </div>
             )}

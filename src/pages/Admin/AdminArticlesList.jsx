@@ -36,18 +36,18 @@ function ProgramGrid({ programs, loading, error, onSelect }) {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <p className="text-sm uppercase tracking-[0.24em] text-ink-soft/70 font-semibold mb-2">
+        <p className="text-xs uppercase tracking-[0.24em] text-ink-soft/70 font-semibold mb-2">
           Content management
         </p>
-        <h1 className="text-3xl font-serif text-ink">Articles</h1>
-        <p className="mt-2 text-sm text-ink-soft max-w-2xl">
+        <h1 className="text-2xl font-serif text-ink">Articles</h1>
+        <p className="mt-2 text-xs text-ink-soft max-w-2xl">
           Select a program to view and manage its articles.
         </p>
       </div>
 
       {/* Cards */}
       {programs.length === 0 ? (
-        <div className="rounded-3xl border border-ink/10 bg-white p-10 text-center text-sm text-ink-soft">
+        <div className="rounded-3xl border border-ink/10 bg-white p-10 text-center text-xs text-ink-soft">
           No programs found. Create a program first.
         </div>
       ) : (
@@ -68,7 +68,7 @@ function ProgramGrid({ programs, loading, error, onSelect }) {
                   />
                 </div>
               ) : (
-                <div className="h-36 bg-gradient-to-br from-forest-50 to-forest-100 flex items-center justify-center text-5xl">
+                <div className="h-36 bg-gradient-to-br from-forest-50 to-forest-100 flex items-center justify-center text-4xl">
                   <GraduationCap className="h-10 w-10 text-primary-700" />
                 </div>
               )}
@@ -76,7 +76,7 @@ function ProgramGrid({ programs, loading, error, onSelect }) {
               {/* Info */}
               <div className="p-5">
                 <div className="flex items-start justify-between gap-3 mb-2">
-                  <h2 className="font-semibold text-ink leading-snug group-hover:text-forest-800 transition">
+                  <h2 className="font-semibold text-xl text-ink leading-snug group-hover:text-forest-800 transition">
                     {program.title}
                   </h2>
                   <span
@@ -87,11 +87,11 @@ function ProgramGrid({ programs, loading, error, onSelect }) {
                   </span>
                 </div>
 
-                <p className="text-sm text-ink-soft line-clamp-2 mb-4">
+                <p className="text-xs text-ink-soft line-clamp-2 mb-4">
                   {program.descr || "No description."}
                 </p>
 
-                <div className="flex items-center justify-between text-sm">
+                <div className="flex items-center justify-between text-xs">
                   <span className="text-ink-soft">
                     {program.articles_count ?? 0} article{program.articles_count !== 1 ? "s" : ""}
                   </span>
@@ -132,22 +132,22 @@ function ArticlesTable({ program, onBack }) {
         <div>
           <button
             onClick={onBack}
-            className="flex items-center gap-1.5 text-sm text-ink-soft hover:text-forest-800 transition mb-3"
+            className="flex items-center gap-1.5 text-xs text-ink-soft hover:text-forest-800 transition mb-3"
           >
             ← All programs
           </button>
-          <p className="text-sm uppercase tracking-[0.24em] text-ink-soft/70 font-semibold mb-1">
+          <p className="text-xs uppercase tracking-[0.24em] text-ink-soft/70 font-semibold mb-1">
             {program.title}
           </p>
-          <h1 className="text-3xl font-serif text-ink">Articles</h1>
-          <p className="mt-1 text-sm text-ink-soft">
+          <h1 className="text-2xl font-serif text-ink">Articles</h1>
+          <p className="mt-1 text-xs text-ink-soft">
             Manage articles linked to this program.
           </p>
         </div>
 
         <Link
           to={`/admin/articles/new?program=${program.id}`}
-          className="inline-flex items-center justify-center rounded-full bg-forest-800 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-forest-700 whitespace-nowrap"
+          className="inline-flex items-center justify-center rounded-full bg-forest-800 px-5 py-3 text-xs font-semibold text-white shadow-sm transition hover:bg-forest-700 whitespace-nowrap"
         >
           + Add article
         </Link>
@@ -164,7 +164,7 @@ function ArticlesTable({ program, onBack }) {
         )}
         <div className="min-w-0">
           <p className="font-semibold text-ink truncate">{program.title}</p>
-          <p className="text-sm text-ink-soft line-clamp-1">{program.descr}</p>
+          <p className="text-xs text-ink-soft line-clamp-1">{program.descr}</p>
         </div>
         <span className={`ml-auto shrink-0 rounded-full border px-3 py-1 text-xs font-semibold uppercase
           ${STATUS_COLORS[program.status] ?? "bg-slate-50 text-slate-500 border-slate-200"}`}>
@@ -173,7 +173,7 @@ function ArticlesTable({ program, onBack }) {
       </div>
 
       {deleteError && (
-        <div className="rounded-3xl border border-red-100 bg-red-50 p-4 text-red-700 text-sm">
+        <div className="rounded-3xl border border-red-100 bg-red-50 p-4 text-red-700 text-xs">
           {deleteError}
         </div>
       )}
@@ -182,12 +182,12 @@ function ArticlesTable({ program, onBack }) {
       <div className="rounded-3xl border border-ink/10 bg-white p-5 shadow-sm">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm text-ink-soft">Total articles</p>
-            <p className="text-4xl font-semibold text-ink">
+            <p className="text-xs text-ink-soft">Total articles</p>
+            <p className="text-3xl font-semibold text-ink">
               {loading ? "…" : articles.length}
             </p>
           </div>
-          <p className="rounded-full bg-forest-50 px-4 py-2 text-sm font-medium text-forest-800">
+          <p className="rounded-full bg-forest-50 px-4 py-2 text-xs font-medium text-forest-800">
             {program.title}
           </p>
         </div>
@@ -212,10 +212,10 @@ function ArticlesTable({ program, onBack }) {
           {articles.length === 0 ? (
             <div className="px-5 py-14 text-center">
               <Inbox className="mx-auto mb-3 h-10 w-10 text-primary-700" />
-              <p className="text-sm text-ink-soft">No articles yet for this program.</p>
+              <p className="text-xs text-ink-soft">No articles yet for this program.</p>
               <Link
                 to={`/admin/articles/new?program=${program.id}`}
-                className="inline-block mt-4 text-sm font-semibold text-forest-800 hover:underline"
+                className="inline-block mt-4 text-xs font-semibold text-forest-800 hover:underline"
               >
                 + Add the first article
               </Link>
@@ -229,13 +229,13 @@ function ArticlesTable({ program, onBack }) {
                 key={article.id}
                 className="grid grid-cols-[48px_1.8fr_120px_100px_100px] gap-4 items-center px-5 py-4 border-b border-ink/5 last:border-0 hover:bg-slate-50 transition"
               >
-                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-forest-50 text-lg">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-forest-50 text-base">
                   <Icon className="h-5 w-5 text-primary-700" />
                 </div>
 
                 <div className="min-w-0">
                   <p className="font-medium text-ink truncate">{article.title || "Untitled"}</p>
-                  <p className="text-sm text-ink-soft/70 line-clamp-1">
+                  <p className="text-xs text-ink-soft/70 line-clamp-1">
                     {article.description || "No description"}
                   </p>
                 </div>
@@ -247,7 +247,7 @@ function ArticlesTable({ program, onBack }) {
 
                 <Link
                   to={`/admin/articles/${article.id}/edit`}
-                  className="text-sm font-medium text-forest-800 hover:underline text-right"
+                  className="text-xs font-medium text-forest-800 hover:underline text-right"
                 >
                   Edit
                 </Link>
@@ -255,7 +255,7 @@ function ArticlesTable({ program, onBack }) {
                 {/* Delete */}
                 <button
                   onClick={() => handleRemove(article.id)}
-                  className="text-sm font-medium text-red-600 hover:underline text-right"
+                  className="text-xs font-medium text-red-600 hover:underline text-right"
                 >
                   Delete
                 </button>

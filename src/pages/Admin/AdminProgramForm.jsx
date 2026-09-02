@@ -69,7 +69,7 @@ function AdminProgramForm() {
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-ink/10 p-6 max-w-lg">
-      <h1 className="text-lg font-serif text-ink mb-4">
+      <h1 className="text-base font-serif text-ink mb-4">
         {isEditing ? "Edit Program" : "Add New Program"}
       </h1>
 
@@ -80,7 +80,7 @@ function AdminProgramForm() {
 
         {/* Title */}
         <div>
-          <label className="block text-sm font-medium text-ink mb-1">Program Title *</label>
+          <label className="block text-xs font-medium text-ink mb-1">Program Title *</label>
           <input
             name="title"
             value={formData.title}
@@ -93,7 +93,7 @@ function AdminProgramForm() {
 
         {/* Description */}
         <div>
-          <label className="block text-sm font-medium text-ink mb-1">Description *</label>
+          <label className="block text-xs font-medium text-ink mb-1">Description *</label>
           <textarea
             name="descr"
             value={formData.descr}
@@ -107,7 +107,7 @@ function AdminProgramForm() {
 
         {/* Status */}
         <div>
-          <label className="block text-sm font-medium text-ink mb-1">Status</label>
+          <label className="block text-xs font-medium text-ink mb-1">Status</label>
           <select
             name="status"
             value={formData.status}
@@ -136,7 +136,7 @@ function AdminProgramForm() {
             }
             className="w-4 h-4 text-forest-800 rounded"
           />
-          <label htmlFor="is_free" className="text-sm font-medium text-ink">
+          <label htmlFor="is_free" className="text-xs font-medium text-ink">
             This is a free program
           </label>
         </div>
@@ -144,7 +144,7 @@ function AdminProgramForm() {
         {/* Price (only if not free) */}
         {!formData.is_free && (
           <div>
-            <label className="block text-sm font-medium text-ink mb-1">Price (FCFA)</label>
+            <label className="block text-xs font-medium text-ink mb-1">Price (FCFA)</label>
             <input
               type="number"
               name="price"
@@ -161,13 +161,13 @@ function AdminProgramForm() {
 
         {/* Photo */}
         <div>
-          <label className="block text-sm font-medium text-ink mb-1">Program Photo</label>
+          <label className="block text-xs font-medium text-ink mb-1">Program Photo</label>
           <input
             type="file"
             name="photo"
             accept="image/*"
             onChange={(e) => handleChange(e, setFormData)}
-            className="w-full text-sm text-ink-soft"
+            className="w-full text-xs text-ink-soft"
           />
           {isEditing && (
             <p className="text-xs text-ink-soft/70 mt-1">Leave empty to keep the current photo.</p>
@@ -176,7 +176,7 @@ function AdminProgramForm() {
 
         {/* Link */}
         <div>
-          <label className="block text-sm font-medium text-ink mb-1">Registration Link</label>
+          <label className="block text-xs font-medium text-ink mb-1">Registration Link</label>
           <input
             type="url"
             name="link"

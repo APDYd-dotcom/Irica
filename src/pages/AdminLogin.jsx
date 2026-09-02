@@ -40,8 +40,8 @@ function AdminLogin() {
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
           <p className="eyebrow text-primary-700 mb-3">Admin Portal</p>
-          <h1 className="font-serif text-3xl text-ink">Admin Login</h1>
-          <p className="text-sm text-ink-soft mt-2">
+          <h1 className="font-serif text-2xl text-ink">Admin Login</h1>
+          <p className="text-xs text-ink-soft mt-2">
             Enter your admin username and password to manage IRICA content.
           </p>
         </div>
@@ -55,7 +55,7 @@ function AdminLogin() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-ink mb-1">Username</label>
+              <label className="block text-xs font-medium text-ink mb-1">Username</label>
               <input
                 type="text"
                 name="username"
@@ -67,7 +67,7 @@ function AdminLogin() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-ink mb-1">Password</label>
+              <label className="block text-xs font-medium text-ink mb-1">Password</label>
               <input
                 type="password"
                 name="password"
@@ -87,7 +87,7 @@ function AdminLogin() {
             </button>
           </form>
 
-          <p className="mt-5 text-center text-sm text-ink-soft">
+          <p className="mt-5 text-center text-xs text-ink-soft">
             Student?{" "}
             <Link to="/login" className="font-semibold text-forest-800 hover:underline">
               Use dashboard login

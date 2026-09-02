@@ -85,7 +85,7 @@ function AdminPublicationForm() {
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-ink/10 p-6 max-w-lg">
-      <h1 className="text-lg font-serif text-ink mb-4">
+      <h1 className="text-base font-serif text-ink mb-4">
         {isEditing ? "Edit Publication" : "Add New Publication"}
       </h1>
 
@@ -104,7 +104,7 @@ function AdminPublicationForm() {
       <form onSubmit={handleFormSubmit} className="space-y-4">
         {/* Title */}
         <div>
-          <label className="block text-sm font-medium text-ink mb-1">Title</label>
+          <label className="block text-xs font-medium text-ink mb-1">Title</label>
           <input
             name="title"
             value={formData.title}
@@ -116,7 +116,7 @@ function AdminPublicationForm() {
 
         {/* Description */}
         <div>
-          <label className="block text-sm font-medium text-ink mb-1">Description</label>
+          <label className="block text-xs font-medium text-ink mb-1">Description</label>
           <textarea
             name="description"
             rows="4"
@@ -129,7 +129,7 @@ function AdminPublicationForm() {
 
         {/* Category */}
         <div>
-          <label className="block text-sm font-medium text-ink mb-1">Category</label>
+          <label className="block text-xs font-medium text-ink mb-1">Category</label>
           <select
             name="category"
             value={formData.category}
@@ -145,7 +145,7 @@ function AdminPublicationForm() {
 
         {/* Published Date */}
         <div>
-          <label className="block text-sm font-medium text-ink mb-1">Published Date</label>
+          <label className="block text-xs font-medium text-ink mb-1">Published Date</label>
           <input
             type="date"
             name="published_date"
@@ -158,12 +158,12 @@ function AdminPublicationForm() {
 
         {/* File Upload */}
         <div>
-          <label className="block text-sm font-medium text-ink mb-1">Document File (PDF / Word)</label>
+          <label className="block text-xs font-medium text-ink mb-1">Document File (PDF / Word)</label>
           <input
             type="file"
             name="file"
             onChange={(e) => handleChange(e, setFormData)}
-            className="w-full text-sm text-ink-soft"
+            className="w-full text-xs text-ink-soft"
           />
           {isEditing && (
             <p className="text-xs text-ink-soft/70 mt-1">Leave empty to keep the current file.</p>

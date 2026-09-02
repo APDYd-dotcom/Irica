@@ -13,7 +13,7 @@ function DashboardLayout() {
     .toUpperCase();
 
   const linkClass = ({ isActive }) =>
-    `flex shrink-0 items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-semibold transition lg:justify-start ${
+    `flex shrink-0 items-center justify-center gap-2 rounded-2xl px-4 py-3 text-xs font-semibold transition lg:justify-start ${
       isActive ? "bg-forest-800 text-white" : "text-ink-soft hover:bg-forest-50"
     }`;
 
@@ -23,18 +23,18 @@ function DashboardLayout() {
         <header className="mb-4 rounded-3xl border border-ink/10 bg-white p-4 shadow-sm sm:mb-6 sm:p-5">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex min-w-0 items-center gap-3 sm:gap-4">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-forest-800 text-base font-semibold text-white sm:h-14 sm:w-14 sm:text-lg">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-forest-800 text-sm font-semibold text-white sm:h-14 sm:w-14 sm:text-base">
                 {initials}
               </div>
               <div className="min-w-0">
-                <p className="text-xs uppercase tracking-[0.18em] text-ink-soft/70 font-semibold sm:text-sm sm:tracking-[0.22em]">
+                <p className="text-xs uppercase tracking-[0.18em] text-ink-soft/70 font-semibold sm:text-xs sm:tracking-[0.22em]">
                   Member Dashboard
                 </p>
-                <h1 className="mt-1 truncate text-xl font-serif text-ink sm:text-2xl">{displayName}</h1>
+                <h1 className="mt-1 truncate text-lg font-serif text-ink sm:text-xl">{displayName}</h1>
               </div>
             </div>
 
-            <div className="rounded-2xl bg-forest-50 px-4 py-3 text-sm text-forest-800 sm:max-w-sm">
+            <div className="rounded-2xl bg-forest-50 px-4 py-3 text-xs text-forest-800 sm:max-w-sm">
               <p className="font-semibold">IRICA learning space</p>
               <p className="text-forest-800/80">Your registered programs and articles in one place.</p>
             </div>

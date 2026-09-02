@@ -14,7 +14,7 @@ function AdminLayout() {
   const publicationsCount = publicationsData?.length ?? publicationsData?.results?.length ?? 0;
 
   const linkClass = ({ isActive }) =>
-    `flex items-center gap-2 rounded-2xl px-4 py-3 text-sm font-medium transition ${
+    `flex items-center gap-2 rounded-2xl px-4 py-3 text-xs font-medium transition ${
       isActive
         ? "bg-forest-900 text-white shadow"
         : "text-ink-soft hover:bg-forest-50"
@@ -26,32 +26,32 @@ function AdminLayout() {
         <header className="mb-8 rounded-3xl bg-white border border-ink/10 p-6 shadow-sm">
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <div>
-              <p className="text-sm uppercase tracking-[0.24em] text-ink-soft/70 font-semibold mb-2">
+              <p className="text-xs uppercase tracking-[0.24em] text-ink-soft/70 font-semibold mb-2">
                 Admin Dashboard
               </p>
-              <h1 className="text-3xl font-serif text-ink">Welcome back{user?.full_name ? `, ${user.full_name}` : ""}</h1>
-              <p className="mt-2 text-sm text-ink-soft max-w-2xl">
+              <h1 className="text-2xl font-serif text-ink">Welcome back{user?.full_name ? `, ${user.full_name}` : ""}</h1>
+              <p className="mt-2 text-xs text-ink-soft max-w-2xl">
                 Manage resources, programs, and publications from one polished workspace.
               </p>
             </div>
-            <div className="rounded-3xl bg-slate-100 border border-ink/10 px-5 py-4 text-sm text-ink-soft">
+            <div className="rounded-3xl bg-slate-100 border border-ink/10 px-5 py-4 text-xs text-ink-soft">
               <p className="font-semibold text-ink">Quick access</p>
               <p className="mt-2">Use the left menu to add content or edit existing items.</p>
             </div>
           </div>
 
           <div className="mt-6 grid gap-4 sm:grid-cols-3">
-            <div className="rounded-3xl bg-slate-50 border border-ink/10 p-4 text-sm">
+            <div className="rounded-3xl bg-slate-50 border border-ink/10 p-4 text-xs">
               <p className="text-ink-soft uppercase tracking-[0.24em] font-semibold">Articles</p>
-              <p className="mt-3 text-3xl font-semibold text-ink">{resourcesCount}</p>
+              <p className="mt-3 text-2xl font-semibold text-ink">{resourcesCount}</p>
             </div>
-            <div className="rounded-3xl bg-slate-50 border border-ink/10 p-4 text-sm">
+            <div className="rounded-3xl bg-slate-50 border border-ink/10 p-4 text-xs">
               <p className="text-ink-soft uppercase tracking-[0.24em] font-semibold">Programs</p>
-              <p className="mt-3 text-3xl font-semibold text-ink">{programsCount}</p>
+              <p className="mt-3 text-2xl font-semibold text-ink">{programsCount}</p>
             </div>
-            <div className="rounded-3xl bg-slate-50 border border-ink/10 p-4 text-sm">
+            <div className="rounded-3xl bg-slate-50 border border-ink/10 p-4 text-xs">
               <p className="text-ink-soft uppercase tracking-[0.24em] font-semibold">Publications</p>
-              <p className="mt-3 text-3xl font-semibold text-ink">{publicationsCount}</p>
+              <p className="mt-3 text-2xl font-semibold text-ink">{publicationsCount}</p>
             </div>
           </div>
         </header>

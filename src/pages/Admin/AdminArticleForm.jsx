@@ -148,10 +148,10 @@ function AdminArticleForm() {
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-ink/10 p-6 max-w-2xl">
-      <h1 className="text-lg font-serif text-ink mb-1">
+      <h1 className="text-base font-serif text-ink mb-1">
         {isEditing ? "Edit Article" : "Add New Article"}
       </h1>
-      <p className="text-sm text-ink-soft mb-6">
+      <p className="text-xs text-ink-soft mb-6">
         Fill in the fields below. Required fields are marked with *
       </p>
 
@@ -171,7 +171,7 @@ function AdminArticleForm() {
 
         {/* ── Program ── */}
         <div>
-          <label className="block text-sm font-medium text-ink mb-1">Program *</label>
+          <label className="block text-xs font-medium text-ink mb-1">Program *</label>
           <select
             name="program"
             value={formData.program}
@@ -188,12 +188,12 @@ function AdminArticleForm() {
 
         {/* ── Type ── */}
         <div>
-          <label className="block text-sm font-medium text-ink mb-1">Article Type *</label>
+          <label className="block text-xs font-medium text-ink mb-1">Article Type *</label>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {TYPE_OPTIONS.map(({ value, label, icon: Icon }) => (
               <label
                 key={value}
-                className={`flex items-center gap-2 cursor-pointer rounded-xl border px-4 py-3 text-sm font-medium transition
+                className={`flex items-center gap-2 cursor-pointer rounded-xl border px-4 py-3 text-xs font-medium transition
                   ${type === value
                     ? "border-forest-800 bg-forest-50 text-forest-800"
                     : "border-ink/15 bg-white text-ink-soft hover:border-forest-400"
@@ -216,7 +216,7 @@ function AdminArticleForm() {
 
         {/* ── Title ── */}
         <div>
-          <label className="block text-sm font-medium text-ink mb-1">Title *</label>
+          <label className="block text-xs font-medium text-ink mb-1">Title *</label>
           <input
             name="title"
             value={formData.title}
@@ -229,7 +229,7 @@ function AdminArticleForm() {
 
         {/* ── Description (all types) ── */}
         <div>
-          <label className="block text-sm font-medium text-ink mb-1">Short Description</label>
+          <label className="block text-xs font-medium text-ink mb-1">Short Description</label>
           <textarea
             name="description"
             rows="2"
@@ -245,7 +245,7 @@ function AdminArticleForm() {
         {/* TEXT — rich textarea body */}
         {type === "text" && (
           <div>
-            <label className="block text-sm font-medium text-ink mb-1">
+            <label className="block text-xs font-medium text-ink mb-1">
               Article Body *
             </label>
             <textarea
@@ -255,7 +255,7 @@ function AdminArticleForm() {
               onChange={(e) => handleChange(e, setFormData)}
               placeholder="Write your full article text here…"
               required
-              className="w-full border border-ink/15 rounded-lg px-4 py-2.5 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-forest-800/40"
+              className="w-full border border-ink/15 rounded-lg px-4 py-2.5 font-mono text-xs focus:outline-none focus:ring-2 focus:ring-forest-800/40"
             />
             <p className="text-xs text-ink-soft/70 mt-1">
               {formData.content.length} characters
@@ -267,12 +267,12 @@ function AdminArticleForm() {
         {/* PDF / WORD — document upload */}
         {type === "pdf" && (
           <div>
-            <label className="block text-sm font-medium text-ink mb-1">
+            <label className="block text-xs font-medium text-ink mb-1">
               Document File * <span className="text-ink-soft font-normal">(PDF or Word)</span>
             </label>
             <div className="border-2 border-dashed border-ink/20 rounded-xl p-6 text-center hover:border-forest-400 transition">
               <FileText className="mx-auto mb-2 h-8 w-8 text-primary-700" />
-              <p className="text-sm text-ink-soft mb-3">
+              <p className="text-xs text-ink-soft mb-3">
                 {formData.file ? formData.file.name : "Choose a PDF or Word document"}
               </p>
               <input
@@ -280,7 +280,7 @@ function AdminArticleForm() {
                 name="file"
                 accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                 onChange={(e) => handleChange(e, setFormData)}
-                className="block w-full text-sm text-ink-soft file:mr-3 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-forest-50 file:text-forest-800 hover:file:bg-forest-100"
+                className="block w-full text-xs text-ink-soft file:mr-3 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-forest-50 file:text-forest-800 hover:file:bg-forest-100"
               />
               {isEditing && !formData.file && (
                 <p className="text-xs text-ink-soft/70 mt-2">Leave empty to keep the current document.</p>
@@ -292,14 +292,14 @@ function AdminArticleForm() {
         {/* VIDEO — direct video upload */}
         {type === "video" && (
           <div>
-            <label className="block text-sm font-medium text-ink mb-1">
+            <label className="block text-xs font-medium text-ink mb-1">
               Video File * <span className="text-ink-soft font-normal">(MP4, MOV, AVI…)</span>
             </label>
             <div className="border-2 border-dashed border-ink/20 rounded-xl p-6 text-center hover:border-forest-400 transition">
               <Video className="mx-auto mb-2 h-8 w-8 text-primary-700" />
               {formData.file ? (
                 <div className="space-y-2">
-                  <p className="text-sm font-medium text-ink">{formData.file.name}</p>
+                  <p className="text-xs font-medium text-ink">{formData.file.name}</p>
                   <p className="text-xs text-ink-soft">
                     {(formData.file.size / 1024 / 1024).toFixed(1)} MB
                   </p>
@@ -312,7 +312,7 @@ function AdminArticleForm() {
                   </button>
                 </div>
               ) : (
-                <p className="text-sm text-ink-soft mb-3">
+                <p className="text-xs text-ink-soft mb-3">
                   {isEditing ? "Choose a new video to replace the current one" : "Choose a video file to upload"}
                 </p>
               )}
@@ -321,7 +321,7 @@ function AdminArticleForm() {
                 name="file"
                 accept="video/mp4,video/quicktime,video/x-msvideo,video/webm,video/*"
                 onChange={(e) => handleChange(e, setFormData)}
-                className="block w-full text-sm text-ink-soft file:mr-3 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-forest-50 file:text-forest-800 hover:file:bg-forest-100 mt-3"
+                className="block w-full text-xs text-ink-soft file:mr-3 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-forest-50 file:text-forest-800 hover:file:bg-forest-100 mt-3"
               />
               {isEditing && !formData.file && (
                 <p className="text-xs text-ink-soft/70 mt-2">Leave empty to keep the current video.</p>
@@ -333,7 +333,7 @@ function AdminArticleForm() {
         {/* LINK — external URL */}
         {type === "link" && (
           <div>
-            <label className="block text-sm font-medium text-ink mb-1">External URL *</label>
+            <label className="block text-xs font-medium text-ink mb-1">External URL *</label>
             <input
               type="url"
               name="url"
@@ -349,7 +349,7 @@ function AdminArticleForm() {
         {/* PHOTO — image upload */}
         {type === "photo" && (
           <div>
-            <label className="block text-sm font-medium text-ink mb-1">
+            <label className="block text-xs font-medium text-ink mb-1">
               Image File * <span className="text-ink-soft font-normal">(JPG, PNG, WebP…)</span>
             </label>
             <div className="border-2 border-dashed border-ink/20 rounded-xl p-6 text-center hover:border-forest-400 transition">
@@ -371,7 +371,7 @@ function AdminArticleForm() {
                   </button>
                 </div>
               ) : (
-                <p className="text-sm text-ink-soft mb-3">
+                <p className="text-xs text-ink-soft mb-3">
                   {isEditing ? "Choose a new image to replace the current one" : "Choose an image to upload"}
                 </p>
               )}
@@ -380,7 +380,7 @@ function AdminArticleForm() {
                 name="file"
                 accept="image/*"
                 onChange={(e) => handleChange(e, setFormData)}
-                className="block w-full text-sm text-ink-soft file:mr-3 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-forest-50 file:text-forest-800 hover:file:bg-forest-100 mt-3"
+                className="block w-full text-xs text-ink-soft file:mr-3 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-forest-50 file:text-forest-800 hover:file:bg-forest-100 mt-3"
               />
               {isEditing && !formData.file && (
                 <p className="text-xs text-ink-soft/70 mt-2">Leave empty to keep the current image.</p>

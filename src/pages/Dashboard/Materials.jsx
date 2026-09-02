@@ -19,15 +19,15 @@ function ArticleCard({ article }) {
 
   return (
     <article className="overflow-hidden rounded-2xl border border-ink/10 bg-white transition hover:border-forest-800/30 hover:shadow-sm">
-      <div className="flex h-24 items-center justify-center bg-forest-800 text-3xl sm:h-28 sm:text-4xl">
+      <div className="flex h-24 items-center justify-center bg-forest-800 text-2xl sm:h-28 sm:text-3xl">
         <Icon className="h-9 w-9 text-white" />
       </div>
       <div className="p-4 sm:p-5">
         <p className="eyebrow text-forest-800 mb-2">{article.type || "Article"}</p>
-        <h3 className="break-words font-serif text-lg leading-snug text-ink">
+        <h3 className="break-words font-serif text-base leading-snug text-ink">
           {article.title || "Untitled article"}
         </h3>
-        <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-ink-soft">
+        <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-ink-soft">
           {article.description || "No description available."}
         </p>
         {href ? (
@@ -35,13 +35,13 @@ function ArticleCard({ article }) {
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-forest-800 hover:underline"
+            className="mt-4 inline-flex items-center gap-2 text-xs font-semibold text-forest-800 hover:underline"
           >
             Open article
             <ArrowRight className="h-4 w-4" />
           </a>
         ) : (
-          <span className="mt-4 inline-flex text-sm font-semibold text-ink-soft/60">
+          <span className="mt-4 inline-flex text-xs font-semibold text-ink-soft/60">
             Content saved
           </span>
         )}
@@ -62,13 +62,13 @@ function RegisteredProgramCard({ access, selected, onSelect }) {
       }`}
     >
       <p className="eyebrow text-forest-800 mb-3">Registered Program</p>
-      <h2 className="break-words font-serif text-xl leading-tight text-ink">
+      <h2 className="break-words font-serif text-lg leading-tight text-ink">
         {access.program_title || "Program"}
       </h2>
-      <p className="mt-3 text-sm text-ink-soft">
+      <p className="mt-3 text-xs text-ink-soft">
         Access created {access.created_at ? new Date(access.created_at).toLocaleDateString() : "recently"}
       </p>
-      <span className="mt-5 inline-flex rounded-full bg-forest-50 px-4 py-2 text-sm font-semibold text-forest-800">
+      <span className="mt-5 inline-flex rounded-full bg-forest-50 px-4 py-2 text-xs font-semibold text-forest-800">
         {selected ? "Viewing articles" : "View articles"}
       </span>
     </button>
@@ -97,17 +97,17 @@ function Materials() {
   return (
     <div className="space-y-6">
       <section className="rounded-3xl border border-ink/10 bg-white p-4 shadow-sm sm:p-6">
-        <p className="text-xs uppercase tracking-[0.18em] text-ink-soft/70 font-semibold mb-2 sm:text-sm sm:tracking-[0.22em]">
+        <p className="text-xs uppercase tracking-[0.18em] text-ink-soft/70 font-semibold mb-2 sm:text-xs sm:tracking-[0.22em]">
           My Programs
         </p>
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div className="min-w-0">
-            <h1 className="text-2xl font-serif text-ink sm:text-3xl">Registered Programs</h1>
-            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink-soft">
+            <h1 className="text-xl font-serif text-ink sm:text-2xl">Registered Programs</h1>
+            <p className="mt-2 max-w-2xl text-xs leading-relaxed text-ink-soft">
               These are the programs registered to your email. Select one to view its articles.
             </p>
           </div>
-          <p className="w-fit rounded-full bg-forest-50 px-4 py-2 text-sm font-semibold text-forest-800">
+          <p className="w-fit rounded-full bg-forest-50 px-4 py-2 text-xs font-semibold text-forest-800">
             {accesses.length} program{accesses.length !== 1 ? "s" : ""}
           </p>
         </div>
@@ -115,8 +115,8 @@ function Materials() {
 
       {accesses.length === 0 ? (
         <div className="rounded-3xl border border-dashed border-ink/15 bg-white p-6 text-center sm:p-10">
-          <p className="font-serif text-xl text-ink sm:text-2xl">No registered programs yet</p>
-          <p className="mt-2 break-words text-sm text-ink-soft">
+          <p className="font-serif text-lg text-ink sm:text-xl">No registered programs yet</p>
+          <p className="mt-2 break-words text-xs text-ink-soft">
             We did not find any program access for {email}.
           </p>
         </div>
@@ -135,21 +135,21 @@ function Materials() {
 
           <section className="min-w-0 rounded-3xl border border-ink/10 bg-white p-4 shadow-sm sm:p-6">
             {!selectedAccess ? (
-              <div className="rounded-2xl border border-dashed border-ink/15 p-6 text-center text-sm text-ink-soft sm:p-10">
+              <div className="rounded-2xl border border-dashed border-ink/15 p-6 text-center text-xs text-ink-soft sm:p-10">
                 Select a registered program to view its articles.
               </div>
             ) : (
               <div>
                 <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                   <div className="min-w-0">
-                    <p className="text-xs uppercase tracking-[0.18em] text-ink-soft/70 font-semibold sm:text-sm sm:tracking-[0.22em]">
+                    <p className="text-xs uppercase tracking-[0.18em] text-ink-soft/70 font-semibold sm:text-xs sm:tracking-[0.22em]">
                       Articles
                     </p>
-                    <h2 className="mt-1 break-words text-xl font-serif text-ink sm:text-2xl">
+                    <h2 className="mt-1 break-words text-lg font-serif text-ink sm:text-xl">
                       {selectedAccess.program_title}
                     </h2>
                   </div>
-                  <span className="w-fit rounded-full bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-700">
+                  <span className="w-fit rounded-full bg-emerald-50 px-4 py-2 text-xs font-semibold text-emerald-700">
                     Registered
                   </span>
                 </div>
@@ -159,7 +159,7 @@ function Materials() {
                 ) : articlesError ? (
                   <ErrorMessage message={articlesError} />
                 ) : articles.length === 0 ? (
-                  <div className="rounded-2xl border border-dashed border-ink/15 p-6 text-center text-sm text-ink-soft sm:p-8">
+                  <div className="rounded-2xl border border-dashed border-ink/15 p-6 text-center text-xs text-ink-soft sm:p-8">
                     No articles are attached to this program yet.
                   </div>
                 ) : (

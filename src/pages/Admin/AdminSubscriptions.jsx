@@ -77,14 +77,14 @@ function AdminSubscriptions() {
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-ink/10 p-6">
-      <h2 className="text-2xl font-serif text-ink mb-4">Program Subscriptions (Admin)</h2>
-      <p className="text-sm text-ink-soft mb-4">Select a program and paste the emails (one per line or comma separated). The system will send to each email sequentially.</p>
+      <h2 className="text-xl font-serif text-ink mb-4">Program Subscriptions (Admin)</h2>
+      <p className="text-xs text-ink-soft mb-4">Select a program and paste the emails (one per line or comma separated). The system will send to each email sequentially.</p>
 
       {generalError && <div className="mb-4"><ErrorMessage message={generalError} /></div>}
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
         <div className="md:col-span-1">
-          <label className="block text-sm font-medium text-ink mb-2">Program</label>
+          <label className="block text-xs font-medium text-ink mb-2">Program</label>
           <select
             value={programId}
             onChange={(e) => setProgramId(e.target.value)}
@@ -100,7 +100,7 @@ function AdminSubscriptions() {
         </div>
 
         <div className="md:col-span-2">
-          <label className="block text-sm font-medium text-ink mb-2">Emails</label>
+          <label className="block text-xs font-medium text-ink mb-2">Emails</label>
           <textarea
             rows={6}
             value={emailsText}
@@ -120,7 +120,7 @@ function AdminSubscriptions() {
           {sending ? "Sending…" : "Send Emails"}
         </button>
 
-        <div className="text-sm text-ink-soft">Emails to send: <strong>{parseEmails(emailsText).length}</strong></div>
+        <div className="text-xs text-ink-soft">Emails to send: <strong>{parseEmails(emailsText).length}</strong></div>
       </div>
 
       <div className="space-y-2">
@@ -131,10 +131,10 @@ function AdminSubscriptions() {
               <div className="text-xs text-ink-soft">{p.message}</div>
             </div>
             <div>
-              {p.status === "pending" && <span className="text-sm text-neutral-600">Sending...</span>}
-              {p.status === "sent" && <span className="text-sm text-primary-700">Sent</span>}
-              {p.status === "error" && <span className="text-sm text-red-600">Error</span>}
-              {p.status === "invalid" && <span className="text-sm text-red-600">Invalid</span>}
+              {p.status === "pending" && <span className="text-xs text-neutral-600">Sending...</span>}
+              {p.status === "sent" && <span className="text-xs text-primary-700">Sent</span>}
+              {p.status === "error" && <span className="text-xs text-red-600">Error</span>}
+              {p.status === "invalid" && <span className="text-xs text-red-600">Invalid</span>}
             </div>
           </div>
         ))}
