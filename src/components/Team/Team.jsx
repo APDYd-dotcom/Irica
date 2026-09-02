@@ -32,7 +32,7 @@ function Team() {
   return (
     <section id="team" className="bg-neutral-50 py-24 md:py-32">
       <Container>
-        <div className="fade-in mx-auto mb-16 max-w-3xl text-center">
+        <div className="fade-in mx-auto mb-14 max-w-3xl text-center">
           <p className="eyebrow text-primary-700">Équipe</p>
           <h2 className="mt-4">Des profils complémentaires, une même exigence.</h2>
           <p className="mt-5">
@@ -41,10 +41,10 @@ function Team() {
           </p>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-3">
-          {team.map((member) => (
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+          {team.map((member, index) => (
             <div key={member.name} className="fade-in">
-              <TeamCard member={member} />
+              <TeamCard member={member} index={index} />
             </div>
           ))}
         </div>
