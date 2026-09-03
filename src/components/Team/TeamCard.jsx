@@ -1,4 +1,4 @@
-import { MessageCircle, UserRoundPlus } from "lucide-react";
+import { Mail, MessageCircle, UserRoundPlus } from "lucide-react";
 import { motion } from "framer-motion";
 import { EASE } from "../../animations/variants";
 
@@ -27,47 +27,56 @@ function TeamCard({ member, featured = false }) {
           className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
         />
 
-        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-neutral-900/85 via-neutral-900/30 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-neutral-900/40 to-transparent" />
 
-        <div className="absolute inset-x-4 bottom-4 translate-y-3 opacity-0 transition-all duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100">
-          <p className="text-xs leading-relaxed text-neutral-100/95 line-clamp-4">
-            {member.bio}
-          </p>
+        {member.role && (
+<div className="absolute inset-x-3 bottom-3 max-w-[85%] flex justify-center">
+          <span className="inline-flex items-center gap-1.5 rounded-md bg-white/90 px-2.5 py-1 text-[10px] font-semibold uppercase leading-snug tracking-wide text-primary-700 ring-1 ring-primary-200/70 backdrop-blur">
+            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary-500" />
+            <span className="text-center">{member.role}</span>
+          </span>
         </div>
+        )}
       </div>
 
-      <div className="relative flex flex-1 flex-col border-t border-neutral-200/70 px-5 pt-4 pb-4">
-        <div className="flex items-start justify-between gap-3">
-          <div className="min-w-0 flex-1">
-            <h3 className="text-base font-semibold leading-snug text-neutral-900 break-words">
-              {member.name}
-            </h3>
-            <div className="mt-2 min-h-[3rem] flex items-start">
-              <span className="inline-block max-w-full self-start rounded-lg bg-primary-50 px-3 py-1.5 text-[10px] font-semibold uppercase leading-snug tracking-wide text-primary-700 ring-1 ring-primary-200/70">
-                {member.role}
-              </span>
-            </div>
-          </div>
+      <div className="relative flex flex-1 flex-col px-5 pt-4 pb-4">
+        <h3 className="text-base font-semibold leading-snug text-neutral-900 break-words">
+          {member.name}
+        </h3>
 
-          <div className="flex shrink-0 items-center gap-1 border-l border-neutral-200 pl-3">
-            <a
-              href={member.linkedin}
-              aria-label={`Profil professionnel de ${member.name}`}
-              className="flex h-7 w-7 items-center justify-center rounded-full text-neutral-500 transition-colors duration-200 hover:bg-primary-50 hover:text-primary-700"
-            >
-              <UserRoundPlus className="h-3.5 w-3.5" />
-            </a>
-            <a
-              href={member.twitter}
-              aria-label={`Contacter ${member.name}`}
-              className="flex h-7 w-7 items-center justify-center rounded-full text-neutral-500 transition-colors duration-200 hover:bg-primary-50 hover:text-primary-700"
-            >
-              <MessageCircle className="h-3.5 w-3.5" />
-            </a>
-          </div>
+        {member.bio && (
+          <p className="mt-2 text-sm leading-relaxed text-neutral-600 line-clamp-3">
+            {member.bio}
+          </p>
+        )}
+
+        {member.email && (
+          <a
+            href={`mailto:${member.email}`}
+            aria-label={`Envoyer un email à ${member.name}`}
+            className="mt-2 inline-flex w-fit max-w-full items-center gap-1.5 truncate text-xs text-neutral-500 transition-colors duration-200 hover:text-primary-700 hover:underline"
+          >
+            <Mail className="h-3.5 w-3.5 shrink-0" />
+            <span className="truncate">{member.email}</span>
+          </a>
+        )}
+
+        <div className="mt-auto border-t border-neutral-200/70 pt-3 flex items-center justify-end gap-1">
+          <a
+            href={member.linkedin}
+            aria-label={`Profil professionnel de ${member.name}`}
+            className="flex h-7 w-7 items-center justify-center rounded-full text-neutral-500 transition-colors duration-200 hover:bg-primary-50 hover:text-primary-700"
+          >
+            <UserRoundPlus className="h-3.5 w-3.5" />
+          </a>
+          <a
+            href={member.twitter}
+            aria-label={`Contacter ${member.name}`}
+            className="flex h-7 w-7 items-center justify-center rounded-full text-neutral-500 transition-colors duration-200 hover:bg-primary-50 hover:text-primary-700"
+          >
+            <MessageCircle className="h-3.5 w-3.5" />
+          </a>
         </div>
-
-        <div className="mt-auto" />
       </div>
 
       <span

@@ -10,6 +10,7 @@ const team = [
     image: "/images/patrick.jpeg",
     linkedin: "https://linkedin.com",
     twitter: "https://twitter.com",
+    email: "patrick.bizoza@iricaconnect.org",
     bio: "Expert senior en économie du développement et statistiques, il pilote la vision stratégique et les partenariats régionaux.",
   },
   {
@@ -18,6 +19,7 @@ const team = [
     image: "/images/axel.jpeg",
     linkedin: "https://linkedin.com",
     twitter: "https://twitter.com",
+    email: "jean-claude.nduwimana@iricaconnect.org",
     bio: "Il dirige les evaluations d'impact et accompagne les équipes sur les dispositifs de collecte et de qualité des données.",
   },
   {
@@ -26,6 +28,7 @@ const team = [
     image: "/images/odon1.jpeg",
     linkedin: "https://linkedin.com",
     twitter: "https://twitter.com",
+    email: "aline.niyomwungere@iricaconnect.org",
     bio: "Analyste de données spécialisée sur Stata et R, elle supervise les bases et anime les parcours d'économétrie appliquée.",
   },
     {
@@ -34,6 +37,7 @@ const team = [
     image: "/images/odon1.jpeg",
     linkedin: "https://linkedin.com",
     twitter: "https://twitter.com",
+    email: "aline.niyomwungere@iricaconnect.org",
     bio: "Analyste de données spécialisée sur Stata et R, elle supervise les bases et anime les parcours d'économétrie appliquée.",
   },
 ];
