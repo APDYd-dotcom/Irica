@@ -206,10 +206,10 @@ function ProgramsSection() {
 
                                     <div className="mt-auto pt-6">
                                         <a
-                                            href={link}
+                                            href={isFree ? link : `/programs/${prog.id}/pay`}
                                             className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary-500 px-4 py-3 text-sm font-semibold text-white hover:-translate-y-0.5 hover:bg-primary-600 focus:outline-none focus:ring-4 focus:ring-primary-500/25"
                                         >
-                                            Voir le programme
+                                            {isFree ? "Voir le programme" : "Payer maintenant"}
                                             <ChevronRight className="h-4 w-4" />
                                         </a>
                                     </div>

@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Checkout from "./pages/Checkout";
 import PaymentPage from "./pages/Payment/PaymentPage";
 import PaymentSuccess from "./pages/PaymentSuccess";
+import ProgramPayment from "./pages/ProgramPayment";
 import PaymentLinkSuccess from "./pages/Payment/PaymentSuccess";
 import Login from "./pages/Login";
 import AdminLogin from "./pages/AdminLogin";
@@ -40,6 +41,7 @@ function App() {
           <Route path="/pay/:id" element={<PaymentPage />} />
           <Route path="/payment/success" element={<PaymentLinkSuccess />} />
           <Route path="/payment-success" element={<PaymentSuccess />} />
+          <Route path="/programs/:id/pay" element={<ProgramPayment />} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin/login" element={<AdminLogin />} />
 

@@ -6,24 +6,32 @@ import { EASE } from "../../animations/variants";
 const team = [
   {
     name: "Patrick BIZOZA",
-    role: "Directeur Exécutif",
-    image: "/images/1.jpg",
+    role: "Co-founder, Chief Executive Officer",
+    image: "/images/patrick.jpeg",
     linkedin: "https://linkedin.com",
     twitter: "https://twitter.com",
     bio: "Expert senior en économie du développement et statistiques, il pilote la vision stratégique et les partenariats régionaux.",
   },
   {
     name: "Jean-Claude NDUWIMANA",
-    role: "Spécialiste Suivi-Évaluation",
-    image: "/images/2.jpg",
+    role: "Technical Director",
+    image: "/images/axel.jpeg",
     linkedin: "https://linkedin.com",
     twitter: "https://twitter.com",
     bio: "Il dirige les evaluations d'impact et accompagne les équipes sur les dispositifs de collecte et de qualité des données.",
   },
   {
     name: "Aline NIYOMWUNGERE",
-    role: "Responsable Recherche",
-    image: "/images/3.jpg",
+    role: "Chargé du departement de Suivi-évaluation",
+    image: "/images/odon1.jpeg",
+    linkedin: "https://linkedin.com",
+    twitter: "https://twitter.com",
+    bio: "Analyste de données spécialisée sur Stata et R, elle supervise les bases et anime les parcours d'économétrie appliquée.",
+  },
+    {
+    name: "Aline NIYOMWUNGERE",
+    role: "Chargé du departement de Suivi-évaluation",
+    image: "/images/odon1.jpeg",
     linkedin: "https://linkedin.com",
     twitter: "https://twitter.com",
     bio: "Analyste de données spécialisée sur Stata et R, elle supervise les bases et anime les parcours d'économétrie appliquée.",
@@ -60,7 +68,7 @@ function Team() {
         </motion.div>
 
         <motion.div
-          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8"
+          className="grid gap-6 grid-cols-2 md:grid-cols-4 lg:gap-8"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.15 }}
