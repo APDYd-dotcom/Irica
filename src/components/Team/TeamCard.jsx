@@ -54,7 +54,7 @@ function TeamCard({ member, featured = false }) {
           <a
             href={`mailto:${member.email}`}
             aria-label={`Envoyer un email à ${member.name}`}
-            className="mt-2 inline-flex w-fit max-w-full items-center gap-1.5 truncate text-xs text-neutral-500 transition-colors duration-200 hover:text-primary-700 hover:underline"
+            className="mt-2 inline-flex w-fit max-w-full items-center gap-1.5 truncate text-xs text-neutral-900 transition-colors duration-200 hover:text-primary-700 hover:underline"
           >
             <Mail className="h-3.5 w-3.5 shrink-0" />
             <span className="truncate">{member.email}</span>
