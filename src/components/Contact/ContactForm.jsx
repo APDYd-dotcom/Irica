@@ -1,24 +1,37 @@
 import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Container from "../Layout/Container";
 import { EASE } from "../../animations/variants";
+import { submitComment } from "../../api/public";
 
 function ContactForm() {
-  function handleSubmit(event) {
+  const [status, setStatus] = useState("idle");
+  const [error, setError] = useState(null);
+
+  async function handleSubmit(event) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const subject = encodeURIComponent("Demande de consultation IRICA");
-    const body = encodeURIComponent(
-      [
-        `Nom: ${data.get("name") || ""}`,
-        `Email: ${data.get("email") || ""}`,
-        `Organisation: ${data.get("organization") || ""}`,
-        "",
-        data.get("message") || "",
-      ].join("\n")
-    );
+    const form = event.currentTarget;
 
-    window.location.href = `mailto:info.irica@gmail.com?subject=${subject}&body=${body}`;
+    setStatus("loading");
+    setError(null);
+
+    try {
+      await submitComment({
+        name: data.get("name") || "",
+        email: data.get("email") || "",
+        organization: data.get("organization") || "",
+        message: data.get("message") || "",
+      });
+      setStatus("success");
+      form.reset();
+    } catch (err) {
+      console.error("Contact form error:", err);
+      const message = err?.response?.data?.detail || err?.response?.data?.message || "Une erreur est survenue, veuillez réessayer.";
+      setError(message);
+      setStatus("error");
+    }
   }
 
   return (
@@ -119,15 +132,26 @@ function ContactForm() {
               />
             </label>
 
+            {status === "success" && (
+              <p className="mt-4 text-sm text-green-700">
+                Merci, votre message a bien été envoyé. Nous vous répondrons rapidement.
+              </p>
+            )}
+
+            {status === "error" && error && (
+              <p className="mt-4 text-sm text-red-600">{error}</p>
+            )}
+
             <motion.button
               type="submit"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.985 }}
+              whileHover={{ scale: status === "loading" ? 1 : 1.02 }}
+              whileTap={{ scale: status === "loading" ? 1 : 0.985 }}
               transition={{ duration: 0.2, ease: EASE }}
-              className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary-500 px-6 py-4 text-base font-semibold text-white shadow-sm hover:-translate-y-0.5 hover:bg-primary-600 hover:shadow-lg hover:shadow-primary-900/15 focus:outline-none focus:ring-4 focus:ring-primary-500/25 sm:w-auto"
+              disabled={status === "loading"}
+              className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary-500 px-6 py-4 text-base font-semibold text-white shadow-sm hover:-translate-y-0.5 hover:bg-primary-600 hover:shadow-lg hover:shadow-primary-900/15 focus:outline-none focus:ring-4 focus:ring-primary-500/25 sm:w-auto disabled:opacity-60"
             >
-              Envoyer la demande
-              <ArrowRight className="h-5 w-5" />
+              {status === "loading" ? "Envoi en cours..." : "Envoyer la demande"}
+              {status !== "loading" && <ArrowRight className="h-5 w-5" />}
             </motion.button>
           </motion.form>
         </div>

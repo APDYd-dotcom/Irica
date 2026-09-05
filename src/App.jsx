@@ -27,6 +27,7 @@ import AdminProgramForm from "./pages/Admin/AdminProgramForm";
 import AdminPublicationsList from "./pages/Admin/AdminPublicationsList";
 import AdminPublicationForm from "./pages/Admin/AdminPublicationForm";
 import AdminSubscriptions from "./pages/Admin/AdminSubscriptions";
+import AdminNewsletter from "./pages/Admin/AdminNewsletter";
 
 import { PageTransition } from "./animations/PageTransition";
 
@@ -74,6 +75,7 @@ function App() {
               <Route path="publications/:id/edit" element={<AdminPublicationForm />} />
 
               <Route path="subscriptions" element={<AdminSubscriptions />} />
+              <Route path="newsletter" element={<AdminNewsletter />} />
             </Route>
           </Route>
 

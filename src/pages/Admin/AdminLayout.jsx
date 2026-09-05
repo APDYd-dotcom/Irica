@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
-import { BookOpen, FileText, GraduationCap, Mail, Plus } from "lucide-react";
+import { BookOpen, Copy, FileText, GraduationCap, Mail, Plus } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
 import useFetch from "../../hooks/useFetch";
 
@@ -109,12 +109,12 @@ function AdminLayout() {
 
               <div className="rounded-3xl bg-white border border-ink/10 p-5 shadow-sm">
                 <p className="text-xs uppercase tracking-[0.24em] text-ink-soft/70 font-semibold mb-4">
-                  Subscriptions
+                  Newsletter
                 </p>
                 <nav className="space-y-2">
-                  <NavLink to="/admin/subscriptions" end className={linkClass}>
-                    <Mail className="h-4 w-4" />
-                    Subscriptions
+                  <NavLink to="/admin/newsletter" end className={linkClass}>
+                    <Copy className="h-4 w-4" />
+                    Newsletter
                   </NavLink>
                 </nav>
               </div>

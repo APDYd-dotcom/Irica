@@ -1,11 +1,31 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Mail, MapPin, Phone, UserRoundPlus } from "lucide-react";
 import { motion } from "framer-motion";
 import Container from "../Layout/Container";
 import { EASE } from "../../animations/variants";
+import { subscribeNewsletter } from "../../api/public";
 
 function Footer() {
   const currentYear = new Date().getFullYear();
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [newsletterStatus, setNewsletterStatus] = useState("idle");
+  const [newsletterError, setNewsletterError] = useState(null);
+
+  async function handleNewsletterSubmit(event) {
+    event.preventDefault();
+    setNewsletterStatus("loading");
+    setNewsletterError(null);
+
+    try {
+      await subscribeNewsletter(newsletterEmail);
+      setNewsletterStatus("success");
+      setNewsletterEmail("");
+    } catch (err) {
+      setNewsletterError("Une erreur est survenue, veuillez réessayer.");
+      setNewsletterStatus("error");
+    }
+  }
 
   return (
     <motion.footer
@@ -62,21 +82,30 @@ function Footer() {
             <p className="mt-5 text-sm leading-6 text-neutral-300">
               Recevez nos notes, programmes et publications.
             </p>
-            <form className="mt-5 flex rounded-full border border-white/10 bg-white/10 p-1 focus-within:ring-4 focus-within:ring-primary-500/20">
+            <form onSubmit={handleNewsletterSubmit} className="mt-5 flex rounded-full border border-white/10 bg-white/10 p-1 focus-within:ring-4 focus-within:ring-primary-500/20">
               <input
                 type="email"
                 aria-label="Adresse email"
                 placeholder="Email"
+                value={newsletterEmail}
+                onChange={(e) => setNewsletterEmail(e.target.value)}
                 className="min-w-0 flex-1 bg-transparent px-4 py-2 text-sm text-white outline-none placeholder:text-neutral-400"
               />
               <button
                 type="submit"
+                disabled={newsletterStatus === "loading"}
                 aria-label="S'inscrire"
-                className="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-primary-500 text-white hover:bg-primary-400"
+                className="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-primary-500 text-white hover:bg-primary-400 disabled:opacity-60"
               >
                 <ArrowRight className="h-4 w-4" />
               </button>
             </form>
+            {newsletterStatus === "success" && (
+              <p className="mt-2 text-xs text-green-400">Merci !</p>
+            )}
+            {newsletterStatus === "error" && newsletterError && (
+              <p className="mt-2 text-xs text-red-400">{newsletterError}</p>
+            )}
           </div>
         </div>
 
