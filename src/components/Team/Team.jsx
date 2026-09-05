@@ -20,7 +20,7 @@ const team = [
     linkedin: "https://linkedin.com",
     twitter: "https://twitter.com",
     email: "jean-claude.nduwimana@iricaconnect.org",
-    bio: "Juste Axel NDIKUMASABO serves as Technical Director at IRICA (Institute of Research and Immersive Career Advancement). He leads IRICA’s technical strategy, overseeing digital platforms, data systems, and technology infrastructure that power the institute’s research and training programs. Juste ensures that IRICA’s tools and systems are reliable, scalable, and aligned with the organization’s mission to advance careers through immersive learning*.",
+    bio: "Technical Director at IRICA, with expertise in Digital Transformation, Technology Strategy, Data Systems & Infrastructure. Leads IRICA’s technical strategy, overseeing digital platforms and technology infrastructure that support the institute’s research, training, and innovation programs. Skilled in Technology Leadership, Digital Solutions, Systems Management & Strategic Project Development.",
   },
   {
     name: "Alain Gabriel SENGIYUMVA",
@@ -38,7 +38,7 @@ const team = [
     linkedin: "https://linkedin.com",
     twitter: "https://twitter.com",
     email: "aline.niyomwungere@iricaconnect.org",
-    bio: "Odon Delors Irakoze serves as Monitoring & Evaluation Officer at IRICA (Institute of Research and Immersive Career Advancement), where he also oversees the institution's digital communications*.*He holds a Bachelor's degree in statistics.Odon supports IRICA's mission by tracking program impact and helping share its work with a wider audience.*",
+    bio:"Monitoring & Evaluation Officer at IRICA, with expertise in Statistics, Program Monitoring & Evaluation, Data Analysis & Digital Communications. Supports the organization’s mission by tracking program performance and impact while overseeing digital communications to strengthen IRICA’s visibility and engagement. Skilled in Data-Driven Decision Making, Impact Measurement, Statistical Analysis & Strategic Communication.",
   },
 ];
 
