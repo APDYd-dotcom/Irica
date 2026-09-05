@@ -8,10 +8,12 @@ function AdminLayout() {
   const { data: resourcesData } = useFetch("/articles/");
   const { data: programsData } = useFetch("/programs/");
   const { data: publicationsData } = useFetch("/publications/");
+  const { data: subscriptionsData } = useFetch("/newsletter/");
 
   const resourcesCount = resourcesData?.results?.length ?? resourcesData?.length ?? 0;
   const programsCount = programsData?.length ?? programsData?.results?.length ?? 0;
   const publicationsCount = publicationsData?.length ?? publicationsData?.results?.length ?? 0;
+  const subscriptionsCount = subscriptionsData?.results?.length ?? subscriptionsData?.count ?? subscriptionsData?.length ?? 0;
 
   const linkClass = ({ isActive }) =>
     `flex items-center gap-2 rounded-2xl px-4 py-3 text-xs font-medium transition ${
@@ -40,7 +42,7 @@ function AdminLayout() {
             </div>
           </div>
 
-          <div className="mt-6 grid gap-4 sm:grid-cols-3">
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <div className="rounded-3xl bg-slate-50 border border-ink/10 p-4 text-xs">
               <p className="text-ink-soft uppercase tracking-[0.24em] font-semibold">Articles</p>
               <p className="mt-3 text-2xl font-semibold text-ink">{resourcesCount}</p>
@@ -53,6 +55,10 @@ function AdminLayout() {
               <p className="text-ink-soft uppercase tracking-[0.24em] font-semibold">Publications</p>
               <p className="mt-3 text-2xl font-semibold text-ink">{publicationsCount}</p>
             </div>
+            <NavLink to="/admin/subscriptions" className="rounded-3xl bg-slate-50 border border-ink/10 p-4 text-xs hover:border-primary-300 transition">
+              <p className="text-ink-soft uppercase tracking-[0.24em] font-semibold">Subscriptions</p>
+              <p className="mt-3 text-2xl font-semibold text-ink">{subscriptionsCount}</p>
+            </NavLink>
           </div>
         </header>
 
@@ -115,6 +121,18 @@ function AdminLayout() {
                   <NavLink to="/admin/newsletter" end className={linkClass}>
                     <Copy className="h-4 w-4" />
                     Newsletter
+                  </NavLink>
+                </nav>
+              </div>
+
+              <div className="rounded-3xl bg-white border border-ink/10 p-5 shadow-sm">
+                <p className="text-xs uppercase tracking-[0.24em] text-ink-soft/70 font-semibold mb-4">
+                  Subscriptions
+                </p>
+                <nav className="space-y-2">
+                  <NavLink to="/admin/subscriptions" end className={linkClass}>
+                    <Mail className="h-4 w-4" />
+                    Subscriptions
                   </NavLink>
                 </nav>
               </div>
