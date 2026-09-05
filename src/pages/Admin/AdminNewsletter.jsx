@@ -3,6 +3,7 @@ import axiosClient from "../../api/axiosClient";
 import Loader from "../../components/Loader";
 import ErrorMessage from "../../components/ErrorMessage";
 import { getErrorMessage } from "../../utils/getErrorMessage";
+import { Trash2 } from "lucide-react";
 
 function AdminNewsletter() {
   const [subscribers, setSubscribers] = useState([]);
@@ -47,6 +48,15 @@ function AdminNewsletter() {
     }
   }
 
+  async function handleDelete(id) {
+    try {
+      await axiosClient.delete(`/newsletter/${id}/`);
+      setSubscribers((prev) => prev.filter((s) => s.id !== id));
+    } catch (err) {
+      alert(getErrorMessage(err));
+    }
+  }
+
   if (loading) return <Loader />;
   if (error) return <ErrorMessage message={error} />;
 
@@ -75,6 +85,7 @@ function AdminNewsletter() {
             <tr className="border-b border-ink/10">
               <th className="text-left py-3 px-4 font-medium text-ink-soft text-xs uppercase tracking-wider">Email</th>
               <th className="text-left py-3 px-4 font-medium text-ink-soft text-xs uppercase tracking-wider">Date d'inscription</th>
+              <th className="text-right py-3 px-4 font-medium text-ink-soft text-xs uppercase tracking-wider">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -83,6 +94,15 @@ function AdminNewsletter() {
                 <td className="py-3 px-4 text-ink">{subscriber.email}</td>
                 <td className="py-3 px-4 text-ink-soft text-xs">
                   {new Date(subscriber.created_at).toLocaleDateString("fr-FR")}
+                </td>
+                <td className="py-3 px-4 text-right">
+                  <button
+                    onClick={() => handleDelete(subscriber.id)}
+                    className="text-red-600 hover:text-red-800"
+                    title="Supprimer"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </button>
                 </td>
               </tr>
             ))}
