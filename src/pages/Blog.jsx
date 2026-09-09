@@ -120,6 +120,17 @@ function Blog() {
                     <p className="mt-4 text-xs text-ink-soft">
                       {blog.created_at ? formatDate(blog.created_at) : ""}
                     </p>
+                    {blog.file && (
+                      <a
+                        href={blog.file}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary-500 px-4 py-2.5 text-sm font-semibold text-white hover:-translate-y-0.5 hover:bg-primary-600 focus:outline-none focus:ring-4 focus:ring-primary-500/25"
+                      >
+                        <FileText className="h-4 w-4" />
+                        Lire l'article
+                      </a>
+                    )}
                   </div>
                 </motion.div>
               );
