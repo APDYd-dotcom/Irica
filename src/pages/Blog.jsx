@@ -76,7 +76,7 @@ function Blog() {
           className="mb-14"
         >
           <p className="eyebrow text-primary-700">Blog</p>
-          <h2 className="section-title mt-4">Articles &amp; actualités.</h2>
+          <h2 className="section-title mt-4">Blog &amp; actualités.</h2>
           <p className="mt-6 max-w-2xl">
             Découvrez nos derniers articles, analyses et retours d'expérience sur le conseil,
             la recherche et l'innovation en Afrique.
