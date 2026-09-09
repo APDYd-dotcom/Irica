@@ -10,6 +10,8 @@ import PaymentLinkSuccess from "./pages/Payment/PaymentSuccess";
 import Login from "./pages/Login";
 import AdminLogin from "./pages/AdminLogin";
 import NotFound from "./pages/NotFound";
+import DonatePage from "./pages/DonatePage";
+import Blog from "./pages/Blog";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import DashboardLayout from "./pages/Dashboard/DashboardLayout";
@@ -28,6 +30,8 @@ import AdminPublicationsList from "./pages/Admin/AdminPublicationsList";
 import AdminPublicationForm from "./pages/Admin/AdminPublicationForm";
 import AdminSubscriptions from "./pages/Admin/AdminSubscriptions";
 import AdminNewsletter from "./pages/Admin/AdminNewsletter";
+import AdminBlogsList from "./pages/Admin/AdminBlogsList";
+import AdminBlogForm from "./pages/Admin/AdminBlogForm";
 
 import { PageTransition } from "./animations/PageTransition";
 
@@ -45,6 +49,8 @@ function App() {
           <Route path="/programs/:id/pay" element={<ProgramPayment />} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/donate" element={<DonatePage />} />
+          <Route path="/blog" element={<Blog />} />
 
           {/* Member dashboard — students see programs registered to their email */}
           <Route element={<ProtectedRoute />}>
@@ -74,8 +80,12 @@ function App() {
               <Route path="publications/new" element={<AdminPublicationForm />} />
               <Route path="publications/:id/edit" element={<AdminPublicationForm />} />
 
-              <Route path="subscriptions" element={<AdminSubscriptions />} />
-              <Route path="newsletter" element={<AdminNewsletter />} />
+               <Route path="subscriptions" element={<AdminSubscriptions />} />
+               <Route path="newsletter" element={<AdminNewsletter />} />
+
+               <Route path="blogs" element={<AdminBlogsList />} />
+               <Route path="blogs/new" element={<AdminBlogForm />} />
+               <Route path="blogs/:id/edit" element={<AdminBlogForm />} />
             </Route>
           </Route>
 
