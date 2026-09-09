@@ -11,9 +11,9 @@ const TYPE_META = {
 
 function UploadProgress({ progress = 0, fileName = "", type = "text" }) {
   const meta = TYPE_META[type] ?? TYPE_META.text;
-  const Icon = done ? CheckCircle2 : meta.icon;
   const pct  = Math.min(100, Math.max(0, Math.round(progress)));
   const done = pct >= 100;
+  const Icon = done ? CheckCircle2 : meta.icon;
 
   return (
     <div className="rounded-2xl border border-ink/10 bg-white shadow-sm p-5 space-y-3 animate-fade-in">

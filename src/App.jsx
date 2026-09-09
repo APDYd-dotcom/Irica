@@ -32,6 +32,7 @@ import AdminSubscriptions from "./pages/Admin/AdminSubscriptions";
 import AdminNewsletter from "./pages/Admin/AdminNewsletter";
 import AdminBlogsList from "./pages/Admin/AdminBlogsList";
 import AdminBlogForm from "./pages/Admin/AdminBlogForm";
+import AdminComments from "./pages/Admin/AdminComments";
 
 import { PageTransition } from "./animations/PageTransition";
 
@@ -86,6 +87,7 @@ function App() {
                <Route path="blogs" element={<AdminBlogsList />} />
                <Route path="blogs/new" element={<AdminBlogForm />} />
                <Route path="blogs/:id/edit" element={<AdminBlogForm />} />
+               <Route path="comments" element={<AdminComments />} />
             </Route>
           </Route>
 

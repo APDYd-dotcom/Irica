@@ -5,12 +5,13 @@ import { EASE } from "../animations/variants";
 import { getBlogs } from "../api/blogs";
 import Loader from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
-import { FileText, Newspaper } from "lucide-react";
+import { ArrowLeft, ArrowRight, FileText, Newspaper } from "lucide-react";
 
 function Blog() {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     async function fetchAllBlogs() {
@@ -45,7 +46,13 @@ function Blog() {
       year: "numeric",
     });
 
-  if (loading) {
+  const pageSize = 6;
+  const totalPages = Math.ceil(blogs.length / pageSize);
+  const start = page * pageSize;
+  const end = start + pageSize;
+  const paginatedBlogs = blogs.slice(start, end);
+
+    if (loading) {
     return (
       <section className="bg-neutral-50 py-24 md:py-32">
         <Container className="text-center text-neutral-600">
@@ -59,7 +66,7 @@ function Blog() {
     return (
       <section className="bg-neutral-50 py-24 md:py-32">
         <Container className="text-center text-red-600">
-          <ErrorMessage message={error.message || "Impossible de charger les articles."} />
+          <ErrorMessage message={error.message || "Impossible de charger les billets."} />
         </Container>
       </section>
     );
@@ -84,10 +91,10 @@ function Blog() {
         </motion.div>
 
         {blogs.length === 0 ? (
-          <div className="text-center text-sm text-ink-soft py-10">Aucun article pour le moment.</div>
+          <div className="text-center text-sm text-ink-soft py-10">Aucun billet pour le moment.</div>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {blogs.map((blog, index) => {
+            {paginatedBlogs.map((blog, index) => {
               const photo = blog.photo || null;
 
               return (
@@ -135,6 +142,32 @@ function Blog() {
                 </motion.div>
               );
             })}
+          </div>
+        )}
+
+        {totalPages > 1 && (
+          <div className="mt-10 flex items-center justify-center gap-4">
+            <button
+              type="button"
+              onClick={() => setPage((p) => Math.max(0, p - 1))}
+              disabled={page === 0}
+              className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-5 py-2.5 text-sm font-semibold text-neutral-700 shadow-sm hover:-translate-y-0.5 hover:border-primary-200 hover:text-primary-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Précédent
+            </button>
+            <span className="text-sm text-ink-soft">
+              {page + 1} / {totalPages}
+            </span>
+            <button
+              type="button"
+              onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
+              disabled={page >= totalPages - 1}
+              className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-5 py-2.5 text-sm font-semibold text-neutral-700 shadow-sm hover:-translate-y-0.5 hover:border-primary-200 hover:text-primary-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Suivant
+              <ArrowRight className="h-4 w-4" />
+            </button>
           </div>
         )}
       </Container>

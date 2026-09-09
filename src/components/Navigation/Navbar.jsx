@@ -110,14 +110,14 @@ function Navbar() {
             </span>
           </Link>
 
-          <div className="hidden items-center gap-1 lg:flex">
+          <div className="hidden md:flex items-center gap-0.5">
             {navLinks.map((link) => {
               const active = activeId === link.id;
               return (
                 <Link
                   key={link.to}
                   to={link.to}
-                  className={`relative rounded-full px-4 py-2 text-sm font-medium ${
+                  className={`relative rounded-full px-3 py-2 text-xs md:text-sm font-medium whitespace-nowrap ${
                     active
                       ? "text-primary-700"
                       : "text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900"
@@ -125,7 +125,7 @@ function Navbar() {
                 >
                   {link.label}
                   <span
-                    className={`absolute inset-x-4 -bottom-0.5 h-0.5 rounded-full bg-primary-500 ${
+                    className={`absolute inset-x-3 -bottom-0.5 h-0.5 rounded-full bg-primary-500 ${
                       active ? "opacity-100" : "opacity-0"
                     }`}
                   />
@@ -134,46 +134,46 @@ function Navbar() {
             })}
           </div>
 
-          <div className="hidden items-center gap-3 lg:flex">
+          <div className="hidden md:flex items-center gap-2">
             {user ? (
               <button
                 type="button"
                 onClick={handleLogout}
-                className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 focus:outline-none focus:ring-4 focus:ring-primary-500/20"
+                className="inline-flex items-center gap-1.5 md:gap-2 rounded-full px-3 py-2 text-xs md:text-sm font-semibold text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 focus:outline-none focus:ring-4 focus:ring-primary-500/20"
               >
-                <LogOut className="h-4 w-4" />
-                Sortir
+                <LogOut className="h-3.5 w-3.5 md:h-4 md:w-4" />
+                <span className="hidden sm:inline">Sortir</span>
               </button>
             ) : null}
 
             <Link
               to="/donate"
-              className="inline-flex items-center gap-2 rounded-full border border-primary-500 px-4 py-2 text-sm font-semibold text-primary-700 bg-white hover:bg-primary-50 focus:outline-none focus:ring-4 focus:ring-primary-500/20"
+              className="inline-flex items-center gap-1.5 md:gap-2 rounded-full border border-primary-500 px-3 py-2 text-xs md:text-sm font-semibold text-primary-700 bg-white hover:bg-primary-50 focus:outline-none focus:ring-4 focus:ring-primary-500/20"
             >
-              <HeartHandshake className="h-4 w-4" />
-              Faire un don
+              <HeartHandshake className="h-3.5 w-3.5 md:h-4 md:w-4" />
+              <span className="hidden sm:inline">Faire un don</span>
             </Link>
 
             <Link
               to={adminLink}
-              className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 focus:outline-none focus:ring-4 focus:ring-primary-500/20"
+              className="inline-flex items-center gap-1.5 md:gap-2 rounded-full px-3 py-2 text-xs md:text-sm font-semibold text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 focus:outline-none focus:ring-4 focus:ring-primary-500/20"
             >
-              <LockKeyhole className="h-4 w-4" />
-              Admin
+              <LockKeyhole className="h-3.5 w-3.5 md:h-4 md:w-4" />
+              <span className="hidden sm:inline">Admin</span>
             </Link>
 
             <Link
               to={dashboardLink}
-              className="inline-flex items-center gap-2 rounded-full bg-primary-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:-translate-y-0.5 hover:bg-primary-600 hover:shadow-lg hover:shadow-primary-900/15 focus:outline-none focus:ring-4 focus:ring-primary-500/25"
+              className="inline-flex items-center gap-1.5 md:gap-2 rounded-full bg-primary-500 px-3 py-2 text-xs md:text-sm font-semibold text-white shadow-sm hover:-translate-y-0.5 hover:bg-primary-600 hover:shadow-lg hover:shadow-primary-900/15 focus:outline-none focus:ring-4 focus:ring-primary-500/25"
             >
-              <LayoutDashboard className="h-4 w-4" />
-              Espace membre
+              <LayoutDashboard className="h-3.5 w-3.5 md:h-4 md:w-4" />
+              <span className="hidden sm:inline">Espace membre</span>
             </Link>
           </div>
 
           <button
             type="button"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-800 shadow-sm hover:bg-neutral-100 focus:outline-none focus:ring-4 focus:ring-primary-500/20 lg:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-800 shadow-sm hover:bg-neutral-100 focus:outline-none focus:ring-4 focus:ring-primary-500/20 md:hidden"
             aria-label={drawerOpen ? "Fermer le menu" : "Ouvrir le menu"}
             aria-expanded={drawerOpen}
             onClick={() => setDrawerOpen((prev) => !prev)}
@@ -186,7 +186,7 @@ function Navbar() {
       {drawerOpen ? (
         <button
           type="button"
-          className="fixed inset-0 z-30 bg-neutral-900/30 lg:hidden"
+          className="fixed inset-0 z-30 bg-neutral-900/30 md:hidden"
           style={{ top: scrolled ? 64 : 80 }}
           aria-label="Fermer le menu"
           onClick={closeDrawer}
@@ -201,7 +201,7 @@ function Navbar() {
           top: scrolled ? 80 : 96,
         }}
         transition={{ duration: 0.25, ease: EASE }}
-        className={`fixed right-4 z-40 w-[calc(100vw-2rem)] max-w-sm rounded-3xl border border-neutral-200 bg-white p-4 shadow-2xl shadow-neutral-900/15 lg:hidden ${
+        className={`fixed right-4 z-40 w-[calc(100vw-2rem)] max-w-sm rounded-3xl border border-neutral-200 bg-white p-4 shadow-2xl shadow-neutral-900/15 md:hidden ${
           drawerOpen ? "pointer-events-auto" : "pointer-events-none"
         }`}
       >
