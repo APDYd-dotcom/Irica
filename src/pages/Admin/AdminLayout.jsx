@@ -24,7 +24,7 @@ function AdminLayout() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <div className="max-w-7xl mx-auto px-6 py-8">
+        <div className="max-w-7xl mx-auto px-6 pt-28 pb-8">
         <header className="mb-8 rounded-3xl bg-white border border-ink/10 p-6 shadow-sm">
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <div>

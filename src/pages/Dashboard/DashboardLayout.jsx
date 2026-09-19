@@ -19,7 +19,7 @@ function DashboardLayout() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <div className="max-w-7xl mx-auto px-3 py-4 sm:px-6 sm:py-6 lg:py-8">
+      <div className="max-w-7xl mx-auto px-3 pt-24 sm:px-6 sm:pt-28 sm:pb-6 lg:pt-32 lg:pb-8">
         <header className="mb-4 rounded-3xl border border-ink/10 bg-white p-4 shadow-sm sm:mb-6 sm:p-5">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex min-w-0 items-center gap-3 sm:gap-4">
