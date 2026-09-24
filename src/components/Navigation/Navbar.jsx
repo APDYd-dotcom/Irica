@@ -141,7 +141,7 @@ function Navbar() {
               className="w-auto"
             />
             <span className="hidden text-sm font-bold tracking-tight text-neutral-900 sm:block">
-              IRICA
+              {/* IRICA */}
             </span>
           </Link>
 
@@ -187,7 +187,7 @@ function Navbar() {
               to="/donate"
               className="inline-flex items-center gap-1.5 md:gap-2 rounded-full border border-primary-500 px-3 py-2 text-xs md:text-sm font-semibold text-primary-700 bg-white hover:bg-primary-50 focus:outline-none focus:ring-4 focus:ring-primary-500/20"
             >
-              <HeartHandshake className="h-3.5 w-3.5 md:h-4 md:w-4" />
+              <HeartHandshake className="h-3.5 w-3.5" />
               <span className="hidden sm:inline">{t("nav.donate")}</span>
             </Link>
 
@@ -195,16 +195,16 @@ function Navbar() {
               to={adminLink}
               className="inline-flex items-center gap-1.5 md:gap-2 rounded-full px-3 py-2 text-xs md:text-sm font-semibold text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 focus:outline-none focus:ring-4 focus:ring-primary-500/20"
             >
-              <LockKeyhole className="h-3.5 w-3.5 md:h-4 md:w-4" />
+              <LockKeyhole className="h-3.5 w-3.5" />
               <span className="hidden sm:inline">{t("nav.admin")}</span>
             </Link>
 
             <Link
               to={dashboardLink}
-              className="inline-flex items-center gap-1.5 md:gap-2 rounded-full bg-primary-500 px-3 py-2 text-xs md:text-sm font-semibold text-white shadow-sm hover:-translate-y-0.5 hover:bg-primary-600 hover:shadow-lg hover:shadow-primary-900/15 focus:outline-none focus:ring-4 focus:ring-primary-500/25"
-            >
-              <LayoutDashboard className="h-3.5 w-3.5 md:h-4 md:w-4" />
-              <span className="hidden sm:inline">{t("nav.memberSpace")}</span>
+            className="inline-flex items-center gap-1.5 md:gap-2 rounded-full bg-primary-500 px-4 md:px-5 py-2 text-xs md:text-sm font-semibold text-white shadow-sm hover:-translate-y-0.5 hover:bg-primary-600 hover:shadow-lg hover:shadow-primary-900/15 focus:outline-none focus:ring-4 focus:ring-primary-500/25"
+>
+              <LayoutDashboard className="h-3 w-3" />
+              <span className="whitespace-nowrap">{t("nav.memberSpace")}</span>
             </Link>
           </div>
 
@@ -265,7 +265,7 @@ function Navbar() {
             className="inline-flex items-center justify-center gap-2 rounded-full border border-primary-500 px-4 py-3 text-sm font-semibold text-primary-700 bg-white hover:bg-primary-50"
             onClick={closeDrawer}
           >
-            <HeartHandshake className="h-4 w-4" />
+            <HeartHandshake className="h-3.5 w-3.5" />
             {t("nav.donate")}
           </Link>
           <Link
@@ -273,7 +273,7 @@ function Navbar() {
             className="inline-flex items-center justify-center gap-2 rounded-full border border-neutral-200 px-4 py-3 text-sm font-semibold text-neutral-700 hover:bg-neutral-100"
             onClick={closeDrawer}
           >
-            <LockKeyhole className="h-4 w-4" />
+            <LockKeyhole className="h-3.5 w-3.5" />
             {t("nav.admin")}
           </Link>
           <Link
@@ -281,7 +281,7 @@ function Navbar() {
             className="inline-flex items-center justify-center gap-2 rounded-full bg-primary-500 px-4 py-3 text-sm font-semibold text-white hover:bg-primary-600"
             onClick={closeDrawer}
           >
-            <LayoutDashboard className="h-4 w-4" />
+            <LayoutDashboard className="h-3 w-3" />
             {t("nav.memberSpace")}
           </Link>
           {user ? (
