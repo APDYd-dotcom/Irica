@@ -133,7 +133,7 @@ function Materials() {
             ))}
           </aside>
 
-          <section className="min-w-0 rounded-3xl border border-ink/10 bg-white p-4 shadow-sm sm:p-6">
+          <section className="min-w-0 overflow-x-auto rounded-3xl border border-ink/10 bg-white p-4 shadow-sm sm:p-6">
             {!selectedAccess ? (
               <div className="rounded-2xl border border-dashed border-ink/15 p-6 text-center text-xs text-ink-soft sm:p-10">
                 Select a registered program to view its articles.

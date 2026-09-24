@@ -51,7 +51,7 @@ function ProgramGrid({ programs, loading, error, onSelect }) {
           No programs found. Create a program first.
         </div>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {programs.map((program) => (
             <button
               key={program.id}
@@ -76,7 +76,7 @@ function ProgramGrid({ programs, loading, error, onSelect }) {
               {/* Info */}
               <div className="p-5">
                 <div className="flex items-start justify-between gap-3 mb-2">
-                  <h2 className="font-semibold text-xl text-ink leading-snug group-hover:text-forest-800 transition">
+                  <h2 className="min-w-0 truncate font-semibold text-xl text-ink leading-snug group-hover:text-forest-800 transition">
                     {program.title}
                   </h2>
                   <span
@@ -199,7 +199,7 @@ function ArticlesTable({ program, onBack }) {
       ) : error ? (
         <ErrorMessage message={error} />
       ) : (
-        <div className="overflow-hidden rounded-3xl border border-ink/10 bg-white shadow-sm">
+        <div className="overflow-x-auto rounded-3xl border border-ink/10 bg-white shadow-sm">
           {/* Table header */}
           <div className="grid grid-cols-[48px_1.8fr_120px_100px_100px] gap-4 px-5 py-4 text-xs uppercase tracking-[0.25em] text-ink-soft bg-slate-50 border-b border-ink/10">
             <span>#</span>

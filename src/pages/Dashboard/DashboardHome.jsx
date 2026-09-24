@@ -38,7 +38,7 @@ export default function DashboardHome() {
   const pubList = publications?.results || publications || [];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 overflow-x-auto">
       <section className="rounded-3xl border border-ink/10 bg-white p-4 shadow-sm sm:p-6">
         <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
           <div>

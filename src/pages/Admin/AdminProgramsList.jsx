@@ -69,7 +69,7 @@ function AdminProgramsList() {
           </div>
         </div>
 
-        <div className="overflow-hidden rounded-3xl border border-ink/10 bg-white shadow-sm">
+        <div className="overflow-x-auto rounded-3xl border border-ink/10 bg-white shadow-sm">
           <div className="hidden md:grid grid-cols-[56px_1.8fr_1fr_120px_100px] gap-4 px-5 py-4 text-xs uppercase tracking-[0.25em] text-ink-soft bg-slate-50 border-b border-ink/10">
             <span>#</span>
             <span>Program</span>

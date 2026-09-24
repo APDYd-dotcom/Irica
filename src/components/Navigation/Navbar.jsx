@@ -145,19 +145,19 @@ function Navbar() {
             </span>
           </Link>
 
-          <div className="hidden md:flex items-center gap-0.5">
-            {navLinks.map((link) => {
-              const active = activeId === link.id;
-              return (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  className={`relative rounded-full px-3 py-2 text-xs md:text-sm font-medium whitespace-nowrap ${
-                    active
-                      ? "text-primary-700"
-                      : "text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900"
-                  }`}
-                >
+<div className="hidden lg:flex items-center gap-0.5">
+          {navLinks.map((link) => {
+            const active = activeId === link.id;
+            return (
+              <Link
+                key={link.to}
+                to={link.to}
+                className={`relative rounded-full px-3 py-2 text-xs md:text-sm font-medium whitespace-nowrap ${
+                  active
+                    ? "text-primary-700"
+                    : "text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900"
+                }`}
+              >
                   {t(link.labelKey)}
                   <span
                     className={`absolute inset-x-3 -bottom-0.5 h-0.5 rounded-full bg-primary-500 ${
@@ -169,7 +169,7 @@ function Navbar() {
             })}
           </div>
 
-          <div className="hidden md:flex items-center gap-2">
+          <div className="hidden lg:flex items-center gap-2">
             <LanguageToggle />
 
             {user ? (
@@ -210,7 +210,7 @@ function Navbar() {
 
           <button
             type="button"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-800 shadow-sm hover:bg-neutral-100 focus:outline-none focus:ring-4 focus:ring-primary-500/20 md:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-800 shadow-sm hover:bg-neutral-100 focus:outline-none focus:ring-4 focus:ring-primary-500/20 lg:hidden"
             aria-label={drawerOpen ? t("nav.menuClose") : t("nav.menuOpen")}
             aria-expanded={drawerOpen}
             onClick={() => setDrawerOpen((prev) => !prev)}
@@ -223,7 +223,7 @@ function Navbar() {
       {drawerOpen ? (
         <button
           type="button"
-          className="fixed inset-0 z-30 bg-neutral-900/30 md:hidden"
+          className="fixed inset-0 z-30 bg-neutral-900/30 lg:hidden"
           style={{ top: scrolled ? 64 : 80 }}
           aria-label={t("nav.menuClose")}
           onClick={closeDrawer}
@@ -238,7 +238,7 @@ function Navbar() {
           top: scrolled ? 80 : 96,
         }}
         transition={{ duration: 0.25, ease: EASE }}
-        className={`fixed right-4 z-40 w-[calc(100vw-2rem)] max-w-sm rounded-3xl border border-neutral-200 bg-white p-4 shadow-2xl shadow-neutral-900/15 md:hidden ${
+        className={`fixed right-4 z-40 w-[calc(100vw-2rem)] max-w-sm rounded-3xl border border-neutral-200 bg-white p-4 shadow-2xl shadow-neutral-900/15 lg:hidden ${
           drawerOpen ? "pointer-events-auto" : "pointer-events-none"
         }`}
       >

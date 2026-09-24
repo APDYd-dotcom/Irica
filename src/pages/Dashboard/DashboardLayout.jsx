@@ -65,7 +65,7 @@ function DashboardLayout() {
             </div>
           </aside>
 
-          <main className="min-w-0">
+          <main className="min-w-0 overflow-x-auto">
             <Outlet />
           </main>
         </div>
