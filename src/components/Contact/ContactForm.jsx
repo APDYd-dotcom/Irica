@@ -2,10 +2,12 @@ import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Container from "../Layout/Container";
+import { useLanguage } from "../../i18n/LanguageContext";
 import { EASE } from "../../animations/variants";
 import { submitComment } from "../../api/public";
 
 function ContactForm() {
+  const { t } = useLanguage();
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState(null);
 
@@ -28,7 +30,7 @@ function ContactForm() {
       form.reset();
     } catch (err) {
       console.error("Contact form error:", err);
-      const message = err?.response?.data?.detail || err?.response?.data?.message || "Une erreur est survenue, veuillez réessayer.";
+      const message = err?.response?.data?.detail || err?.response?.data?.message || t("contact.errorGeneric");
       setError(message);
       setStatus("error");
     }
@@ -44,11 +46,10 @@ function ContactForm() {
             viewport={{ once: true, amount: 0.25 }}
             transition={{ duration: 0.55, ease: EASE }}
           >
-            <p className="eyebrow text-primary-700">Contact</p>
-            <h2 className="section-title mt-4">Parlons de votre prochain projet.</h2>
+            <p className="eyebrow text-primary-700">{t("contact.eyebrow")}</p>
+            <h2 className="section-title mt-4">{t("contact.title")}</h2>
             <p className="mt-6">
-              Décrivez votre besoin, votre échéance ou votre défi. L'équipe IRICA vous
-              répondra avec une première orientation claire.
+              {t("contact.description")}
             </p>
 
             <div className="mt-10 space-y-4">
@@ -61,7 +62,7 @@ function ContactForm() {
                 <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-50 text-primary-700">
                   <Mail className="h-5 w-5" />
                 </span>
-                info.irica@gmail.com
+                {t("contact.email")}
               </motion.a>
               <motion.a
                 whileHover={{ y: -2 }}
@@ -72,13 +73,13 @@ function ContactForm() {
                 <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-50 text-primary-700">
                   <Phone className="h-5 w-5" />
                 </span>
-                +257 76 891 572
+                {t("contact.phone")}
               </motion.a>
               <div className="flex items-center gap-4 rounded-2xl border border-neutral-200 bg-white p-4 text-neutral-700 shadow-sm">
                 <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-50 text-primary-700">
                   <MapPin className="h-5 w-5" />
                 </span>
-                Afrique de l'Est
+                {t("contact.location")}
               </div>
             </div>
           </motion.div>
@@ -93,48 +94,48 @@ function ContactForm() {
           >
             <div className="grid gap-5 sm:grid-cols-2">
               <label className="block">
-                <span className="text-sm font-semibold text-neutral-800">Nom</span>
+                <span className="text-sm font-semibold text-neutral-800">{t("contact.nameLabel")}</span>
                 <input
                   type="text"
                   name="name"
                   className="mt-2 w-full rounded-2xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-neutral-900 outline-none focus:border-primary-500 focus:bg-white focus:ring-4 focus:ring-primary-500/20"
-                  placeholder="Votre nom"
+                  placeholder={t("contact.namePlaceholder")}
                 />
               </label>
               <label className="block">
-                <span className="text-sm font-semibold text-neutral-800">Email</span>
+                <span className="text-sm font-semibold text-neutral-800">{t("contact.emailLabel")}</span>
                 <input
                   type="email"
                   name="email"
                   className="mt-2 w-full rounded-2xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-neutral-900 outline-none focus:border-primary-500 focus:bg-white focus:ring-4 focus:ring-primary-500/20"
-                  placeholder="vous@exemple.com"
+                  placeholder={t("contact.emailPlaceholder")}
                 />
               </label>
             </div>
 
             <label className="mt-5 block">
-              <span className="text-sm font-semibold text-neutral-800">Organisation</span>
+              <span className="text-sm font-semibold text-neutral-800">{t("contact.organizationLabel")}</span>
               <input
                 type="text"
                 name="organization"
                 className="mt-2 w-full rounded-2xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-neutral-900 outline-none focus:border-primary-500 focus:bg-white focus:ring-4 focus:ring-primary-500/20"
-                placeholder="Votre institution"
+                placeholder={t("contact.organizationPlaceholder")}
               />
             </label>
 
             <label className="mt-5 block">
-              <span className="text-sm font-semibold text-neutral-800">Message</span>
+              <span className="text-sm font-semibold text-neutral-800">{t("contact.messageLabel")}</span>
               <textarea
                 name="message"
                 rows="6"
                 className="mt-2 w-full resize-none rounded-2xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-neutral-900 outline-none focus:border-primary-500 focus:bg-white focus:ring-4 focus:ring-primary-500/20"
-                placeholder="Expliquez brièvement votre besoin"
+                placeholder={t("contact.messagePlaceholder")}
               />
             </label>
 
             {status === "success" && (
               <p className="mt-4 text-sm text-green-700">
-                Merci, votre message a bien été envoyé. Nous vous répondrons rapidement.
+                {t("contact.success")}
               </p>
             )}
 
@@ -150,7 +151,7 @@ function ContactForm() {
               disabled={status === "loading"}
               className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary-500 px-6 py-4 text-base font-semibold text-white shadow-sm hover:-translate-y-0.5 hover:bg-primary-600 hover:shadow-lg hover:shadow-primary-900/15 focus:outline-none focus:ring-4 focus:ring-primary-500/25 sm:w-auto disabled:opacity-60"
             >
-              {status === "loading" ? "Envoi en cours..." : "Envoyer la demande"}
+              {status === "loading" ? t("contact.sending") : t("contact.submit")}
               {status !== "loading" && <ArrowRight className="h-5 w-5" />}
             </motion.button>
           </motion.form>

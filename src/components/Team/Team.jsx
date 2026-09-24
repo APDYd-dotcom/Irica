@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import Container from "../Layout/Container";
 import TeamCard from "./TeamCard";
+import { useLanguage } from "../../i18n/LanguageContext";
 import { EASE } from "../../animations/variants";
 
 const team = [
@@ -8,10 +9,10 @@ const team = [
     name: "Patrick BIZOZA",
     role: "Co-founder, Chief Executive Officer",
     image: "/images/patrick.jpeg",
-    linkedin: "https://www.linkedin.com/in/patrick-bizoza-m-a-b51171134?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    linkedin: "https://www.linkedin.com/in/patrick-bizoza-m-a-b5117134?utm_source=share_via&utm_content=profile&utm_medium=member_android",
     twitter: "https://twitter.com",
     email: "patrick.bizoza@iricaconnect.org",
-    bio: "- PhD. candidate Author of 'Life Out of Cage',Global Keynote Speaker on Leadership and Governance, Experienced programs' manager with a demonstrated history of working in the non-profit organizations, Skilled in Strategic Project Management, Leadership Development & Corporate Governance.",
+    bio: "- PhD. candidate Author of 'Life Out of Cage',Global Keynote Speaker on Leadership and Governance, Experienced programs' manager with a demonstrated history of working in the non-profit Organizations, Skilled in Strategic Project Management, Leadership Development & Corporate Governance.",
   },
   {
     name: "Juste Axel NDIKUMASABO",
@@ -38,11 +39,13 @@ const team = [
     linkedin: "https://linkedin.com",
     twitter: "https://twitter.com",
     email: "aline.niyomwungere@iricaconnect.org",
-    bio:"Monitoring & Evaluation Officer at IRICA, with expertise in Statistics, Program Monitoring & Evaluation, Data Analysis & Digital Communications. Supports the organization’s mission by tracking program performance and impact while overseeing digital communications to strengthen IRICA’s visibility and engagement. Skilled in Data-Driven Decision Making, Impact Measurement, Statistical Analysis & Strategic Communication.",
+    bio: "Monitoring & Evaluation Officer at IRICA, with expertise in Statistics, Program Monitoring & Evaluation, Data Analysis & Digital Communications. Supports the organization’s mission by tracking program performance and impact while overseeing digital communications to strengthen IRICA’s visibility and engagement. Skilled in Data-Driven Decision Making, Impact Measurement, Statistical Analysis & Strategic Communication.",
   },
 ];
 
 function Team() {
+  const { t } = useLanguage();
+
   return (
     <section id="team" className="relative overflow-hidden bg-neutral-50 py-24 md:py-32">
       <div
@@ -59,20 +62,18 @@ function Team() {
         >
           <span className="inline-flex items-center gap-2 rounded-full border border-primary-200 bg-primary-50 px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-primary-700">
             <span className="h-1.5 w-1.5 rounded-full bg-primary-500" />
-            Équipe
+            {t("team.eyebrow")}
           </span>
           <h2 className="mt-5 text-3xl font-semibold leading-tight text-neutral-900 md:text-4xl">
-            Des profils complémentaires,{" "}
-            <span className="text-primary-700">une même exigence.</span>
+            {t("team.title")}
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-neutral-600">
-            Une équipe pluridisciplinaire au service de la recherche, du conseil et du
-            renforcement des capacités.
+            {t("team.description")}
           </p>
         </motion.div>
 
         <motion.div
-          className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:gap-8"
+          className="grid gap-6 grid-cols-2 md:grid-cols-1 lg:grid-cols-4 lg:gap-8"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.15 }}

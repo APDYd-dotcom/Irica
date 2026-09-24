@@ -2,6 +2,7 @@ import { ArrowRight, CalendarCheck } from "lucide-react";
 import { motion } from "framer-motion";
 import videoBg from "../../assets/background.mp4";
 import Container from "../Layout/Container";
+import { useLanguage } from "../../i18n/LanguageContext";
 import { EASE } from "../../animations/variants";
 
 const containerVariants = {
@@ -15,6 +16,8 @@ const itemVariants = {
 };
 
 function Hero() {
+  const { t } = useLanguage();
+
   return (
     <section className="relative min-h-[92vh] overflow-hidden bg-neutral-900 pt-20">
       <video
@@ -42,20 +45,19 @@ function Hero() {
             className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/15 px-4 py-2 text-sm font-semibold text-white shadow-sm backdrop-blur-md"
           >
             <CalendarCheck className="h-4 w-4" />
-            Institut de Recherche et d'Innovation
+            {t("hero.badge")}
           </motion.div>
 
           <motion.h1 variants={itemVariants} className="text-white">
-            Conseil, recherche et innovation pour un
-            <span className="block text-primary-100">impact durable en Afrique.</span>
+            {t("hero.titlePart1")}
+            <span className="block text-primary-100">{t("hero.titlePart2")}</span>
           </motion.h1>
 
           <motion.p
             variants={itemVariants}
             className="mx-auto mt-6 max-w-3xl text-xl leading-8 text-white/88"
           >
-            IRICA accompagne les institutions, organisations et entreprises avec des analyses
-            rigoureuses, des formations pratiques et un conseil orienté résultats.
+            {t("hero.description")}
           </motion.p>
 
           <motion.div
@@ -69,7 +71,7 @@ function Hero() {
               href="#contact"
               className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary-500 px-7 py-4 text-base font-semibold text-white shadow-xl shadow-primary-900/25 hover:-translate-y-0.5 hover:bg-primary-600 focus:outline-none focus:ring-4 focus:ring-white/30 sm:w-auto"
             >
-              Consultation gratuite
+              {t("hero.cta")}
               <ArrowRight className="h-5 w-5" />
             </motion.a>
             <motion.a
@@ -79,7 +81,7 @@ function Hero() {
               href="#services"
               className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/35 bg-white/10 px-7 py-4 text-base font-semibold text-white backdrop-blur-md hover:-translate-y-0.5 hover:bg-white/18 focus:outline-none focus:ring-4 focus:ring-white/25 sm:w-auto"
             >
-              Découvrir nos services
+              {t("hero.secondary")}
             </motion.a>
           </motion.div>
         </motion.div>

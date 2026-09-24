@@ -1,5 +1,6 @@
 import { Link, useSearchParams } from "react-router-dom";
 import { CheckCircle2, Clock, Smartphone, XCircle } from "lucide-react";
+import { useLanguage } from "../i18n/LanguageContext";
 
 function decodeMessage(raw) {
   if (!raw) return "";
@@ -25,6 +26,7 @@ function looksLikeMobileMoneyInstructions(message) {
 }
 
 function PaymentSuccess() {
+  const { t } = useLanguage();
   const [searchParams] = useSearchParams();
   const status = searchParams.get("status") || "";
   const transactionRef = searchParams.get("transaction_ref") || "";
@@ -38,16 +40,15 @@ function PaymentSuccess() {
       <div className="min-h-[80vh] flex items-center justify-center px-6">
         <div className="max-w-md text-center bg-white border border-ink/10 shadow-xl rounded-2xl p-10">
           <div className="text-5xl mb-4">📧</div>
-          <h1 className="text-2xl font-serif text-ink mb-2">Almost there!</h1>
+          <h1 className="text-2xl font-serif text-ink mb-2">{t("paymentSuccess.almostThereTitle")}</h1>
           <p className="text-ink-soft mb-6">
-            If your payment was successful, your login details have been sent to your email.
-            Check your inbox (and spam folder) in the next few minutes.
+            {t("paymentSuccess.almostThereDesc")}
           </p>
           <Link
             to="/login"
             className="inline-block bg-forest-800 hover:bg-forest-700 text-white px-6 py-3 rounded-lg font-medium"
           >
-            Go to Login
+            {t("paymentSuccess.almostThereLink")}
           </Link>
         </div>
       </div>
@@ -59,9 +60,9 @@ function PaymentSuccess() {
       <div className="min-h-[80vh] flex items-center justify-center px-6 py-16">
         <div className="max-w-md w-full text-center bg-white border border-ink/10 shadow-xl rounded-2xl p-10">
           <XCircle className="h-12 w-12 mx-auto text-red-600 mb-4" />
-          <h1 className="text-2xl font-serif text-ink mb-2">Le paiement a échoué</h1>
+          <h1 className="text-2xl font-serif text-ink mb-2">{t("paymentSuccess.errorTitle")}</h1>
           <p className="text-ink-soft mb-6">
-            Une erreur est survenue lors du traitement de votre paiement.
+            {t("paymentSuccess.errorDesc")}
           </p>
 
           {message && (
@@ -75,13 +76,13 @@ function PaymentSuccess() {
               to="/programs"
               className="inline-block bg-forest-800 hover:bg-forest-700 text-white px-6 py-3 rounded-full font-medium"
             >
-              Retour aux programmes
+              {t("paymentSuccess.backToPrograms")}
             </Link>
             <Link
               to="/login"
               className="inline-block bg-white border border-ink/15 text-ink hover:border-forest-800 px-6 py-3 rounded-full font-medium"
             >
-              Aller au login
+              {t("paymentSuccess.goToLogin")}
             </Link>
           </div>
         </div>
@@ -95,10 +96,10 @@ function PaymentSuccess() {
         <div className="max-w-md w-full text-center bg-white border border-ink/10 shadow-xl rounded-2xl p-10">
           <Smartphone className="h-12 w-12 mx-auto text-primary-700 mb-4" />
           <h1 className="text-2xl font-serif text-ink mb-2">
-            Confirmez le paiement sur votre téléphone
+            {t("paymentSuccess.mobileTitle")}
           </h1>
           <p className="text-ink-soft mb-6">
-            Suivez les instructions ci-dessous pour valider votre transaction mobile money.
+            {t("paymentSuccess.mobileDesc")}
           </p>
 
           <div className="text-left bg-neutral-50 border border-ink/10 rounded-2xl p-6 mb-6">
@@ -109,7 +110,7 @@ function PaymentSuccess() {
             to="/"
             className="inline-block bg-forest-800 hover:bg-forest-700 text-white px-6 py-3 rounded-full font-medium"
           >
-            Retour à l'accueil
+            {t("paymentSuccess.backToHome")}
           </Link>
         </div>
       </div>
@@ -121,15 +122,14 @@ function PaymentSuccess() {
       <div className="min-h-[80vh] flex items-center justify-center px-6 py-16">
         <div className="max-w-md text-center bg-white border border-ink/10 shadow-xl rounded-2xl p-10">
           <CheckCircle2 className="h-12 w-12 mx-auto text-primary-700 mb-4" />
-          <h1 className="text-2xl font-serif text-ink mb-2">Paiement confirmé</h1>
+          <h1 className="text-2xl font-serif text-ink mb-2">{t("paymentSuccess.successTitle")}</h1>
           <p className="text-ink-soft mb-6">
-            Si votre paiement a été validé, vos accès ont été envoyés par email.
-            Vérifiez votre boîte de réception (et le dossier spam) dans les prochaines minutes.
+            {t("paymentSuccess.successDesc")}
           </p>
 
           {transactionRef && (
             <p className="text-xs text-ink-soft/70 mb-6">
-              Référence : <span className="font-mono">{transactionRef}</span>
+              {t("paymentSuccess.reference")} <span className="font-mono">{transactionRef}</span>
             </p>
           )}
 
@@ -143,7 +143,7 @@ function PaymentSuccess() {
             to="/login"
             className="inline-block bg-forest-800 hover:bg-forest-700 text-white px-6 py-3 rounded-lg font-medium"
           >
-            Go to Login
+            {t("paymentSuccess.goToLogin")}
           </Link>
         </div>
       </div>
@@ -154,20 +154,20 @@ function PaymentSuccess() {
     <div className="min-h-[80vh] flex items-center justify-center px-6">
       <div className="max-w-md text-center bg-white border border-ink/10 shadow-xl rounded-2xl p-10">
         <Clock className="h-12 w-12 mx-auto text-primary-700 mb-4" />
-        <h1 className="text-2xl font-serif text-ink mb-2">Paiement en cours</h1>
+        <h1 className="text-2xl font-serif text-ink mb-2">{t("paymentSuccess.pendingTitle")}</h1>
         <p className="text-ink-soft mb-6">
-          Votre paiement est en cours de traitement. Vous recevrez une confirmation par email dès qu'il sera validé.
+          {t("paymentSuccess.pendingDesc")}
         </p>
         {transactionRef && (
           <p className="text-xs text-ink-soft/70 mb-6">
-            Référence : <span className="font-mono">{transactionRef}</span>
+            {t("paymentSuccess.reference")} <span className="font-mono">{transactionRef}</span>
           </p>
         )}
         <Link
           to="/"
           className="inline-block bg-forest-800 hover:bg-forest-700 text-white px-6 py-3 rounded-full font-medium"
         >
-          Retour à l'accueil
+          {t("paymentSuccess.backToHome")}
         </Link>
       </div>
     </div>

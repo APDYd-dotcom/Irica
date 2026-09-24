@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Container from "../components/Layout/Container";
+import { useLanguage } from "../i18n/LanguageContext";
 import { EASE } from "../animations/variants";
 import { getBlogs } from "../api/blogs";
 import Loader from "../components/Loader";
@@ -8,6 +9,7 @@ import ErrorMessage from "../components/ErrorMessage";
 import { ArrowLeft, ArrowRight, FileText, Newspaper } from "lucide-react";
 
 function Blog() {
+  const { t, language } = useLanguage();
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -40,7 +42,7 @@ function Blog() {
   }, []);
 
   const formatDate = (date) =>
-    new Date(date).toLocaleDateString("fr-FR", {
+    new Date(date).toLocaleDateString(language === "en" ? "en-US" : "fr-FR", {
       day: "numeric",
       month: "short",
       year: "numeric",
@@ -52,7 +54,7 @@ function Blog() {
   const end = start + pageSize;
   const paginatedBlogs = blogs.slice(start, end);
 
-    if (loading) {
+  if (loading) {
     return (
       <section className="bg-neutral-50 py-24 md:py-32">
         <Container className="text-center text-neutral-600">
@@ -66,7 +68,7 @@ function Blog() {
     return (
       <section className="bg-neutral-50 py-24 md:py-32">
         <Container className="text-center text-red-600">
-          <ErrorMessage message={error.message || "Impossible de charger les billets."} />
+          <ErrorMessage message={error.message || t("blog.error")} />
         </Container>
       </section>
     );
@@ -82,16 +84,15 @@ function Blog() {
           transition={{ duration: 0.5, ease: EASE }}
           className="mb-14"
         >
-          <p className="eyebrow text-primary-700">Blog</p>
-          <h2 className="section-title mt-4">Blog &amp; actualités.</h2>
+          <p className="eyebrow text-primary-700">{t("blog.eyebrow")}</p>
+          <h2 className="section-title mt-4">{t("blog.title")}</h2>
           <p className="mt-6 max-w-2xl">
-            Découvrez nos derniers articles, analyses et retours d'expérience sur le conseil,
-            la recherche et l'innovation en Afrique.
+            {t("blog.description")}
           </p>
         </motion.div>
 
         {blogs.length === 0 ? (
-          <div className="text-center text-sm text-ink-soft py-10">Aucun billet pour le moment.</div>
+          <div className="text-center text-sm text-ink-soft py-10">{t("blog.noPosts")}</div>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {paginatedBlogs.map((blog, index) => {
@@ -135,7 +136,7 @@ function Blog() {
                         className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary-500 px-4 py-2.5 text-sm font-semibold text-white hover:-translate-y-0.5 hover:bg-primary-600 focus:outline-none focus:ring-4 focus:ring-primary-500/25"
                       >
                         <FileText className="h-4 w-4" />
-                        Lire l'article
+                        {t("blog.readArticle")}
                       </a>
                     )}
                   </div>
@@ -154,7 +155,7 @@ function Blog() {
               className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-5 py-2.5 text-sm font-semibold text-neutral-700 shadow-sm hover:-translate-y-0.5 hover:border-primary-200 hover:text-primary-700 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <ArrowLeft className="h-4 w-4" />
-              Précédent
+              {t("blog.prev")}
             </button>
             <span className="text-sm text-ink-soft">
               {page + 1} / {totalPages}
@@ -165,7 +166,7 @@ function Blog() {
               disabled={page >= totalPages - 1}
               className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-5 py-2.5 text-sm font-semibold text-neutral-700 shadow-sm hover:-translate-y-0.5 hover:border-primary-200 hover:text-primary-700 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Suivant
+              {t("blog.next")}
               <ArrowRight className="h-4 w-4" />
             </button>
           </div>

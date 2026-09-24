@@ -6,10 +6,12 @@ import { initiatePayment } from "../api/afripay";
 import { getErrorMessage } from "../utils/getErrorMessage";
 import ErrorMessage from "../components/ErrorMessage";
 import AfriPayAutoForm from "../components/Payment/AfriPayAutoForm";
+import { useLanguage } from "../i18n/LanguageContext";
 
 const EMAIL_REGEX = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
 function ProgramPayment() {
+  const { t, language } = useLanguage();
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -49,7 +51,7 @@ function ProgramPayment() {
     setPaymentError(null);
 
     if (!EMAIL_REGEX.test(email)) {
-      setEmailError("Veuillez saisir une adresse email valide.");
+      setEmailError(t("programPayment.emailError"));
       return;
     }
 
@@ -79,17 +81,18 @@ function ProgramPayment() {
 
   const formatAmount = (value) => {
     const num = Number(value || 0);
-    return `${num.toLocaleString()} FBU`;
+    const formatted = new Intl.NumberFormat(language === "en" ? "en-US" : "fr-FR").format(num);
+    return `${formatted} FBU`;
   };
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-6 py-16">
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
-          <p className="eyebrow text-primary-700 mb-3">Programme</p>
-          <h1 className="font-serif text-3xl text-ink">Paiement du programme</h1>
+          <p className="eyebrow text-primary-700 mb-3">{t("programPayment.eyebrow")}</p>
+          <h1 className="font-serif text-3xl text-ink">{t("programPayment.title")}</h1>
           <p className="text-sm text-ink-soft mt-2">
-            Renseignez votre email pour recevoir votre code d'accès après paiement.
+            {t("programPayment.description")}
           </p>
         </div>
 
@@ -97,7 +100,7 @@ function ProgramPayment() {
           {loadingProgram && (
             <div className="flex items-center justify-center gap-2 py-8 text-ink-soft text-sm">
               <Loader2 className="h-4 w-4 animate-spin" />
-              Chargement du programme...
+              {t("programPayment.loading")}
             </div>
           )}
 
@@ -109,7 +112,7 @@ function ProgramPayment() {
             <>
               <div className="mb-6 rounded-2xl bg-neutral-50 p-5">
                 <h2 className="text-lg font-semibold text-ink">
-                  {program.title || program.name || "Programme"}
+                  {program.title || program.name || t("programPayment.fallback")}
                 </h2>
                 <div className="mt-3 flex items-center gap-2 text-sm text-neutral-600">
                   <CreditCard className="h-4 w-4" />
@@ -127,18 +130,18 @@ function ProgramPayment() {
                     onClick={handleRetry}
                     className="mt-3 text-sm font-medium text-primary-700 hover:underline"
                   >
-                    Réessayer
+                    {t("programPayment.retry")}
                   </button>
                 </div>
               )}
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-ink mb-1">Email</label>
+                  <label className="block text-sm font-medium text-ink mb-1">{t("programPayment.emailLabel")}</label>
                   <input
                     type="email"
                     name="email"
-                    placeholder="you@example.com"
+                    placeholder={t("programPayment.emailPlaceholder")}
                     value={email}
                     onChange={(e) => {
                       setEmail(e.target.value);
@@ -151,7 +154,7 @@ function ProgramPayment() {
                     <p className="text-xs text-red-600 mt-1">{emailError}</p>
                   )}
                   <p className="text-xs text-ink-soft/70 mt-1">
-                    Votre code d'accès sera envoyé à cette adresse après confirmation.
+                    {t("programPayment.emailHint")}
                   </p>
                 </div>
 
@@ -161,7 +164,7 @@ function ProgramPayment() {
                   className="w-full mt-2 bg-forest-800 hover:bg-forest-700 disabled:opacity-50 text-white font-medium py-3 rounded-full transition flex items-center justify-center gap-2"
                 >
                   {sending && <Loader2 className="h-4 w-4 animate-spin" />}
-                  {sending ? "Préparation du paiement..." : "Continuer vers le paiement"}
+                  {sending ? t("programPayment.submitting") : t("programPayment.submit")}
                   {!sending && <ChevronRight className="h-4 w-4" />}
                 </button>
               </form>
@@ -172,7 +175,7 @@ function ProgramPayment() {
             <>
               <div className="flex items-center justify-center gap-2 py-8 text-ink-soft text-sm">
                 <Loader2 className="h-4 w-4 animate-spin" />
-                Redirection vers AfriPay...
+                {t("programPayment.redirecting")}
               </div>
               <AfriPayAutoForm
                 amount={paymentData.amount}
@@ -191,7 +194,7 @@ function ProgramPayment() {
             onClick={() => navigate(-1)}
             className="text-sm text-ink-soft hover:text-primary-700"
           >
-            Retour
+            {t("programPayment.back")}
           </button>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Container from "../components/Layout/Container";
+import { useLanguage } from "../i18n/LanguageContext";
 import { EASE } from "../animations/variants";
 import { initiatePayment } from "../api/afripay";
 import AfriPayAutoForm from "../components/Payment/AfriPayAutoForm";
@@ -9,6 +10,7 @@ import { HeartHandshake } from "lucide-react";
 const SUGGESTED_AMOUNTS = [10000, 25000, 50000, 100000];
 
 function DonatePage() {
+  const { t, language } = useLanguage();
   const [amount, setAmount] = useState("");
   const [selectedPreset, setSelectedPreset] = useState(null);
   const [email, setEmail] = useState("");
@@ -38,11 +40,11 @@ function DonatePage() {
 
     const numericAmount = Number(amount);
     if (!numericAmount || numericAmount <= 0) {
-      setError("Veuillez sélectionner ou saisir un montant valide.");
+      setError(t("donate.errorAmount"));
       return;
     }
     if (!validateEmail(email)) {
-      setError("Veuillez saisir une adresse email valide.");
+      setError(t("donate.errorEmail"));
       return;
     }
 
@@ -55,11 +57,14 @@ function DonatePage() {
       });
       setPaymentData(data);
     } catch (err) {
-      setError("Une erreur est survenue, veuillez réessayer.");
+      setError(t("donate.errorGeneric"));
     } finally {
       setLoading(false);
     }
   }
+
+  const formatAmount = (value) =>
+    new Intl.NumberFormat(language === "en" ? "en-US" : "fr-FR").format(value);
 
   if (paymentData) {
     return (
@@ -90,15 +95,13 @@ function DonatePage() {
           >
             <div className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/15 px-4 py-2 text-sm font-semibold text-white shadow-sm backdrop-blur-md">
               <HeartHandshake className="h-4 w-4" />
-              Soutenez nos actions
+              {t("donate.support")}
             </div>
             <h1 className="text-4xl font-bold text-white md:text-5xl">
-              Votre don donne du poids à nos missions.
+              {t("donate.title")}
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-white/85">
-              Chaque contribution renforce notre capacité à conduire des recherches
-              indépendantes, à former les décideurs et à accompagner les institutions
-              africaines vers des décisions plus claires.
+              {t("donate.description")}
             </p>
           </motion.div>
         </Container>
@@ -115,8 +118,8 @@ function DonatePage() {
             onSubmit={handleSubmit}
             className="rounded-3xl border border-neutral-200 bg-white p-8 shadow-xl shadow-neutral-900/5"
           >
-            <h2 className="text-xl font-semibold text-ink mb-1">Choisissez votre contribution</h2>
-            <p className="text-sm text-ink-soft mb-6">Sélectionnez un montant ou saisissez celui que vous souhaitez.</p>
+            <h2 className="text-xl font-semibold text-ink mb-1">{t("donate.choose")}</h2>
+            <p className="text-sm text-ink-soft mb-6">{t("donate.chooseHint")}</p>
 
             <div className="grid grid-cols-2 gap-3 mb-4">
               {SUGGESTED_AMOUNTS.map((preset) => (
@@ -131,31 +134,31 @@ function DonatePage() {
                       : "border-neutral-200 bg-neutral-100 text-neutral-700 hover:border-primary-200 hover:text-primary-700"
                   }`}
                 >
-                  {preset.toLocaleString("fr-FR")} BIF
+                  {formatAmount(preset)} {t("donate.currency")}
                 </button>
               ))}
             </div>
 
             <label className="block mb-6">
-              <span className="text-sm font-semibold text-neutral-800">Autre montant (BIF)</span>
+              <span className="text-sm font-semibold text-neutral-800">{t("donate.other")}</span>
               <input
                 type="number"
                 min="0"
                 value={amount}
                 onChange={(e) => handleCustomChange(e.target.value)}
                 className="mt-2 w-full rounded-2xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-neutral-900 outline-none focus:border-primary-500 focus:bg-white focus:ring-4 focus:ring-primary-500/20"
-                placeholder="Ex: 15 000"
+                placeholder={t("donate.otherPlaceholder")}
               />
             </label>
 
             <label className="block mb-6">
-              <span className="text-sm font-semibold text-neutral-800">Email</span>
+              <span className="text-sm font-semibold text-neutral-800">{t("donate.emailLabel")}</span>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="mt-2 w-full rounded-2xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-neutral-900 outline-none focus:border-primary-500 focus:bg-white focus:ring-4 focus:ring-primary-500/20"
-                placeholder="vous@exemple.com"
+                placeholder={t("donate.emailPlaceholder")}
                 required
               />
             </label>
@@ -168,7 +171,7 @@ function DonatePage() {
               className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary-500 px-6 py-4 text-base font-semibold text-white shadow-sm hover:-translate-y-0.5 hover:bg-primary-600 hover:shadow-lg hover:shadow-primary-900/15 focus:outline-none focus:ring-4 focus:ring-primary-500/25 disabled:opacity-60"
             >
               <HeartHandshake className="h-5 w-5" />
-              {loading ? "Traitement..." : "Faire un don"}
+              {loading ? t("donate.processing") : t("donate.submit")}
             </button>
           </form>
         </motion.div>

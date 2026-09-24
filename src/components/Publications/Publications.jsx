@@ -4,9 +4,11 @@ import { motion } from "framer-motion";
 import axiosClient from "../../api/axiosClient";
 import { getErrorMessage } from "../../utils/getErrorMessage";
 import Container from "../Layout/Container";
+import { useLanguage } from "../../i18n/LanguageContext";
 import { EASE } from "../../animations/variants";
 
 function Publications() {
+  const { t, language } = useLanguage();
   const [publications, setPublications] = useState([]);
   const [nextUrl, setNextUrl] = useState("/publications/");
   const [loading, setLoading] = useState(false);
@@ -56,11 +58,10 @@ function Publications() {
           className="mb-14 flex flex-col justify-between gap-6 lg:flex-row lg:items-end"
         >
           <div className="max-w-3xl">
-            <p className="eyebrow text-primary-700">Publications</p>
-            <h2 className="section-title mt-4">Analyses et réflexions récentes.</h2>
+            <p className="eyebrow text-primary-700">{t("publications.eyebrow")}</p>
+            <h2 className="section-title mt-4">{t("publications.title")}</h2>
             <p className="mt-6">
-              Les contributions de nos chercheurs et consultants sur les défis sociaux,
-              économiques et institutionnels.
+              {t("publications.description")}
             </p>
           </div>
           <button
@@ -68,7 +69,7 @@ function Publications() {
             onClick={scrollNext}
             className="inline-flex w-max items-center gap-2 rounded-full border border-neutral-200 bg-white px-5 py-3 text-sm font-semibold text-neutral-700 shadow-sm hover:-translate-y-0.5 hover:border-primary-200 hover:text-primary-700"
           >
-            Voir autres
+            {t("publications.viewMore")}
             <ChevronRight className="h-4 w-4" />
           </button>
         </motion.div>
@@ -84,7 +85,7 @@ function Publications() {
           className="scrollbar-hidden flex snap-x snap-mandatory gap-6 overflow-x-auto pb-6"
         >
           {publications.map((pub, index) => {
-            const tag = pub.program_title || pub.type || "Publication";
+            const tag = pub.program_title || pub.type || t("publications.tagFallback");
             const href = pub.file || pub.url || "#contact";
 
             return (
@@ -104,7 +105,7 @@ function Publications() {
                 <div className="mb-5 flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.08em]">
                   <span className="inline-flex items-center gap-1.5 text-neutral-500">
                     <CalendarDays className="h-3.5 w-3.5" />
-                    {pub.created_at ? new Date(pub.created_at).toLocaleDateString("fr-FR") : "Date à venir"}
+                    {pub.created_at ? new Date(pub.created_at).toLocaleDateString(language === "en" ? "en-US" : "fr-FR") : t("publications.comingDate")}
                   </span>
                   <span className="rounded-full bg-primary-50 px-3 py-1 text-primary-700">{tag}</span>
                 </div>
@@ -122,7 +123,7 @@ function Publications() {
                   rel={href === "#contact" ? undefined : "noreferrer"}
                   className="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-primary-700 hover:gap-3 hover:text-primary-800"
                 >
-                  Lire plus
+                  {t("publications.readMore")}
                   <ArrowRight className="h-4 w-4" />
                 </a>
               </motion.article>
@@ -137,7 +138,7 @@ function Publications() {
               disabled
               className="rounded-full bg-primary-500 px-6 py-3 text-sm font-semibold text-white opacity-80"
             >
-              Chargement...
+              {t("publications.loading")}
             </button>
           ) : null}
           {!loading && nextUrl ? (
@@ -146,7 +147,7 @@ function Publications() {
               onClick={loadMore}
               className="rounded-full bg-primary-500 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:-translate-y-0.5 hover:bg-primary-600 hover:shadow-lg hover:shadow-primary-900/15 focus:outline-none focus:ring-4 focus:ring-primary-500/25"
             >
-              Charger plus
+              {t("publications.loadMore")}
             </button>
           ) : null}
         </div>

@@ -3,9 +3,11 @@ import { CalendarDays, ChevronRight, CreditCard, LockKeyhole } from "lucide-reac
 import { motion } from "framer-motion";
 import useFetch from "../hooks/useFetch";
 import Container from "./Layout/Container";
+import { useLanguage } from "../i18n/LanguageContext";
 import { EASE } from "../animations/variants";
 
 function ProgramsSection() {
+    const { t, language } = useLanguage();
     const { data, loading, error } = useFetch("/programs/");
     const programs = data?.results || [];
     const rowRef = useRef(null);
@@ -39,19 +41,19 @@ function ProgramsSection() {
         switch (s) {
             case "enrollment":
             case "enroll":
-                return "ENROLLMENT";
+                return t("programs.status.enrollment");
             case "inprogress":
             case "paid":
-                return "PAID";
+                return t("programs.status.paid");
             case "completed":
-                return "COMPLETED";
+                return t("programs.status.completed");
             default:
-                return status?.toUpperCase() || "ENROLLMENT";
+                return status?.toUpperCase() || t("programs.status.enrollment");
         }
     };
 
     const formatDate = (date) =>
-        new Date(date).toLocaleDateString("fr-FR", {
+        new Date(date).toLocaleDateString(language === "en" ? "en-US" : "fr-FR", {
             day: "numeric",
             month: "short",
             year: "numeric",
@@ -61,7 +63,7 @@ function ProgramsSection() {
         return (
             <section id="programs" className="bg-neutral-50 py-24 md:py-32">
                 <Container className="text-center text-neutral-600">
-                    Chargement des programmes...
+                    {t("programs.loading")}
                 </Container>
             </section>
         );
@@ -71,7 +73,7 @@ function ProgramsSection() {
         return (
             <section id="programs" className="bg-neutral-50 py-24 md:py-32">
                 <Container className="text-center text-red-600">
-                    Erreur : {error.message || "Impossible de charger les programmes."}
+                    {t("programs.errorPrefix")}: {error.message || t("programs.errorFallback")}
                 </Container>
             </section>
         );
@@ -88,18 +90,15 @@ function ProgramsSection() {
                     className="mb-14 flex flex-col justify-between gap-6 lg:flex-row lg:items-end"
                 >
                     <div className="max-w-3xl">
-                        <p className="eyebrow text-primary-700">Programmes</p>
-                        <h2 className="section-title mt-4">Programmes IRICA.</h2>
-                        <p className="mt-6">
-                        Accès aux programmes gratuits ou payants. Inscription via Google
-                        Form avec email et code d'accès.
-                        </p>
+                        <p className="eyebrow text-primary-700">{t("programs.eyebrow")}</p>
+                        <h2 className="section-title mt-4">{t("programs.title")}</h2>
+                        <p className="mt-6">{t("programs.description")}</p>
                     </div>
                     <button
                         onClick={scrollNext}
                         className="inline-flex w-max items-center gap-2 rounded-full border border-neutral-200 bg-white px-5 py-3 text-sm font-semibold text-neutral-700 shadow-sm hover:-translate-y-0.5 hover:border-primary-200 hover:text-primary-700"
                     >
-                        Voir autres
+                        {t("programs.viewMore")}
                         <ChevronRight className="h-4 w-4" />
                     </button>
                 </motion.div>
@@ -110,7 +109,7 @@ function ProgramsSection() {
                     style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
                 >
                     {programs.map((prog, index) => {
-                        const title = prog.title || prog.name || prog.program_title || "Programme";
+                        const title = prog.title || prog.name || prog.program_title || t("programs.fallback");
                         const desc =
                             prog.descr || prog.desc || prog.description || "";
                         const photo = prog.photo || prog.image || null;
@@ -158,7 +157,7 @@ function ProgramsSection() {
                                     </h3>
                                     {hasSubtitle && (
                                         <p className="mt-1 text-sm font-semibold uppercase tracking-[0.08em] text-white/75">
-                                            {subtitle || "INTERNSHIP PROGRAM"}
+                                            {subtitle || t("programs.internship")}
                                         </p>
                                     )}
                                 </div>
@@ -172,19 +171,19 @@ function ProgramsSection() {
                                         <div className="rounded-2xl bg-neutral-50 p-4">
                                             <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-neutral-500">
                                                 <CreditCard className="h-3.5 w-3.5" />
-                                                Prix
+                                                {t("programs.priceLabel")}
                                             </div>
                                             <div className="font-semibold text-neutral-900">
-                                                {isFree ? "Gratuit" : `${Number(price).toLocaleString()} FBU`}
+                                                {isFree ? t("programs.free") : `${Number(price).toLocaleString()} FBU`}
                                             </div>
                                         </div>
                                         <div className="rounded-2xl bg-neutral-50 p-4">
                                             <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-neutral-500">
                                                 <CalendarDays className="h-3.5 w-3.5" />
-                                                Publié
+                                                {t("programs.publishedLabel")}
                                             </div>
                                             <div className="font-semibold text-neutral-900">
-                                                {createdAt ? formatDate(createdAt) : "A venir"}
+                                                {createdAt ? formatDate(createdAt) : t("programs.comingSoon")}
                                             </div>
                                         </div>
                                     </div>
@@ -192,11 +191,11 @@ function ProgramsSection() {
                                     <div className="mt-5 flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-[0.08em]">
                                         <span
                                             className={`rounded-full px-3 py-1 ${isFree
-                                                    ? "bg-primary-50 text-primary-700"
-                                                    : "bg-neutral-100 text-neutral-700"
+                                                ? "bg-primary-50 text-primary-700"
+                                                : "bg-neutral-100 text-neutral-700"
                                                 }`}
                                         >
-                                            {isFree ? "FREE" : "PAID"}
+                                            {isFree ? t("programs.freeBadge") : t("programs.paidBadge")}
                                         </span>
                                         <span className="inline-flex items-center gap-1.5 rounded-full bg-neutral-100 px-3 py-1 text-neutral-700">
                                             <LockKeyhole className="h-3.5 w-3.5" />
@@ -209,7 +208,7 @@ function ProgramsSection() {
                                             href={isFree ? link : `/programs/${prog.id}/pay`}
                                             className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary-500 px-4 py-3 text-sm font-semibold text-white hover:-translate-y-0.5 hover:bg-primary-600 focus:outline-none focus:ring-4 focus:ring-primary-500/25"
                                         >
-                                            {isFree ? "Voir le programme" : "Payer maintenant"}
+                                            {isFree ? t("programs.viewProgram") : t("programs.payNow")}
                                             <ChevronRight className="h-4 w-4" />
                                         </a>
                                     </div>

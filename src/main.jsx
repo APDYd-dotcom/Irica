@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { MotionConfig } from "framer-motion";
 import App from "./App.jsx";
 import { AuthProvider } from "./hooks/useAuth.jsx";
+import { LanguageProvider } from "./i18n/LanguageContext";
 import "./index.css";
 
 const router = createBrowserRouter(
@@ -27,8 +28,10 @@ const router = createBrowserRouter(
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <MotionConfig reducedMotion="user" transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}>
-      <RouterProvider router={router} />
-    </MotionConfig>
+    <LanguageProvider>
+      <MotionConfig reducedMotion="user" transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}>
+        <RouterProvider router={router} />
+      </MotionConfig>
+    </LanguageProvider>
   </StrictMode>
 );

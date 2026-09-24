@@ -1,8 +1,11 @@
 import { Mail, MessageCircle, UserRoundPlus } from "lucide-react";
 import { motion } from "framer-motion";
+import { useLanguage } from "../../i18n/LanguageContext";
 import { EASE } from "../../animations/variants";
 
 function TeamCard({ member, featured = false }) {
+  const { t } = useLanguage();
+
   return (
     <motion.article
       whileHover={{ y: -4, scale: 1.015 }}
@@ -30,12 +33,12 @@ function TeamCard({ member, featured = false }) {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-neutral-900/40 to-transparent" />
 
         {member.role && (
-<div className="absolute inset-x-3 bottom-3 max-w-[85%] flex justify-center">
-          <span className="inline-flex items-center gap-1.5 rounded-md bg-white/90 px-2.5 py-1 text-[10px] font-semibold uppercase leading-snug tracking-wide text-primary-700 ring-1 ring-primary-200/70 backdrop-blur">
-            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary-500" />
-            <span className="text-center">{member.role}</span>
-          </span>
-        </div>
+          <div className="absolute inset-x-3 bottom-3 max-w-[85%] flex justify-center">
+            <span className="inline-flex items-center gap-1.5 rounded-md bg-white/90 px-2.5 py-1 text-[10px] font-semibold uppercase leading-snug tracking-wide text-primary-700 ring-1 ring-primary-200/70 backdrop-blur">
+              <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary-500" />
+              <span className="text-center">{member.role}</span>
+            </span>
+          </div>
         )}
       </div>
 
@@ -53,7 +56,7 @@ function TeamCard({ member, featured = false }) {
         {member.email && (
           <a
             href={`mailto:${member.email}`}
-            aria-label={`Envoyer un email à ${member.name}`}
+            aria-label={t("team.emailLabel", { name: member.name })}
             className="mt-2 inline-flex w-fit max-w-full items-center gap-1.5 truncate text-xs text-neutral-900 transition-colors duration-200 hover:text-primary-700 hover:underline"
           >
             <Mail className="h-3.5 w-3.5 shrink-0" />
@@ -64,14 +67,14 @@ function TeamCard({ member, featured = false }) {
         <div className="mt-auto border-t border-neutral-200/70 pt-3 flex items-center justify-end gap-1">
           <a
             href={member.linkedin}
-            aria-label={`Profil professionnel de ${member.name}`}
+            aria-label={t("team.linkedinLabel", { name: member.name })}
             className="flex h-7 w-7 items-center justify-center rounded-full text-neutral-500 transition-colors duration-200 hover:bg-primary-50 hover:text-primary-700"
           >
             <UserRoundPlus className="h-3.5 w-3.5" />
           </a>
           <a
             href={member.twitter}
-            aria-label={`Contacter ${member.name}`}
+            aria-label={t("team.contactLabel", { name: member.name })}
             className="flex h-7 w-7 items-center justify-center rounded-full text-neutral-500 transition-colors duration-200 hover:bg-primary-50 hover:text-primary-700"
           >
             <MessageCircle className="h-3.5 w-3.5" />

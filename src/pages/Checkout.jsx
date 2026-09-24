@@ -3,11 +3,13 @@ import axiosClient from "../api/axiosClient";
 import { handleChange } from "../utils/formHandles";
 import { getErrorMessage } from "../utils/getErrorMessage";
 import ErrorMessage from "../components/ErrorMessage";
+import { useLanguage } from "../i18n/LanguageContext";
 
 // This form is really a REGISTRATION form in disguise.
 // No account exists yet — Django creates it AFTER Afripay confirms payment
 // (via a webhook that runs on the backend, not triggered by this page).
 function Checkout() {
+  const { t } = useLanguage();
   const initialFormState = {
     full_name: "",
     email: "",
@@ -37,10 +39,10 @@ function Checkout() {
     <div className="min-h-[80vh] flex items-center justify-center px-6 py-16">
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
-          <p className="eyebrow text-primary-700 mb-3">Membership</p>
-          <h1 className="font-serif text-3xl text-ink">Subscribe</h1>
+          <p className="eyebrow text-primary-700 mb-3">{t("checkout.eyebrow")}</p>
+          <h1 className="font-serif text-3xl text-ink">{t("checkout.title")}</h1>
           <p className="text-sm text-ink-soft mt-2">
-            One month of full access — your login details arrive by email right after payment.
+            {t("checkout.description")}
           </p>
         </div>
 
@@ -53,10 +55,10 @@ function Checkout() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-ink mb-1">Full Name</label>
+              <label className="block text-sm font-medium text-ink mb-1">{t("checkout.nameLabel")}</label>
               <input
                 name="full_name"
-                placeholder="Jean Bosco"
+                placeholder={t("checkout.namePlaceholder")}
                 value={formData.full_name}
                 onChange={(e) => handleChange(e, setFormData)}
                 required
@@ -65,24 +67,24 @@ function Checkout() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-ink mb-1">Email</label>
+              <label className="block text-sm font-medium text-ink mb-1">{t("checkout.emailLabel")}</label>
               <input
                 type="email"
                 name="email"
-                placeholder="you@gmail.com"
+                placeholder={t("checkout.emailPlaceholder")}
                 value={formData.email}
                 onChange={(e) => handleChange(e, setFormData)}
                 required
                 className="w-full border border-ink/15 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-forest-800/40"
               />
-              <p className="text-xs text-ink-soft/70 mt-1">Your login details will be sent here.</p>
+              <p className="text-xs text-ink-soft/70 mt-1">{t("checkout.emailHint")}</p>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-ink mb-1">Phone Number</label>
+              <label className="block text-sm font-medium text-ink mb-1">{t("checkout.phoneLabel")}</label>
               <input
                 name="phone_number"
-                placeholder="+257 ..."
+                placeholder={t("checkout.phonePlaceholder")}
                 value={formData.phone_number}
                 onChange={(e) => handleChange(e, setFormData)}
                 required
@@ -96,7 +98,7 @@ function Checkout() {
               className="w-full mt-2 bg-forest-800 hover:bg-forest-700 disabled:opacity-50 text-white font-medium py-3 rounded-full transition flex items-center justify-center gap-2"
             >
               {sending && <span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin"></span>}
-              {sending ? "Redirecting to payment..." : "Pay & Subscribe"}
+              {sending ? t("checkout.submitting") : t("checkout.submit")}
             </button>
           </form>
         </div>

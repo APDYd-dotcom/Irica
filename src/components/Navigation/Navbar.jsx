@@ -4,18 +4,52 @@ import { HeartHandshake, LayoutDashboard, LockKeyhole, LogOut, Menu, X } from "l
 import { motion } from "framer-motion";
 import { useAuth } from "../../hooks/useAuth";
 import { useScrollDirection } from "../../hooks/useScrollDirection";
+import { useLanguage } from "../../i18n/LanguageContext";
 import { EASE } from "../../animations/variants";
 import Container from "../Layout/Container";
 
 const navLinks = [
-  { to: "/#services", label: "Services", id: "services" },
-  { to: "/#about", label: "À propos", id: "about" },
-  { to: "/#programs", label: "Programmes", id: "programs" },
-  { to: "/#publications", label: "Publications", id: "publications" },
-  { to: "/blog", label: "Blog", id: "blog" },
-  { to: "/#team", label: "Équipe", id: "team" },
-  { to: "/#contact", label: "Contact", id: "contact" },
+  { to: "/#services", labelKey: "nav.services", id: "services" },
+  { to: "/#about", labelKey: "nav.about", id: "about" },
+  { to: "/#programs", labelKey: "nav.programs", id: "programs" },
+  { to: "/#publications", labelKey: "nav.publications", id: "publications" },
+  { to: "/blog", labelKey: "nav.blog", id: "blog" },
+  { to: "/#team", labelKey: "nav.team", id: "team" },
+  { to: "/#contact", labelKey: "nav.contact", id: "contact" },
 ];
+
+function LanguageToggle() {
+  const { language, setLanguage, t } = useLanguage();
+
+  return (
+    <div className="inline-flex items-center gap-1 rounded-full border border-neutral-200 bg-neutral-100 p-1 text-xs font-semibold">
+      <button
+        type="button"
+        onClick={() => setLanguage("fr")}
+        className={`rounded-full px-2.5 py-1 transition ${
+          language === "fr"
+            ? "bg-primary-500 text-white"
+            : "text-neutral-500 hover:text-neutral-900"
+        }`}
+        aria-label={t("nav.lang.fr")}
+      >
+        {t("nav.lang.fr")}
+      </button>
+      <button
+        type="button"
+        onClick={() => setLanguage("en")}
+        className={`rounded-full px-2.5 py-1 transition ${
+          language === "en"
+            ? "bg-primary-500 text-white"
+            : "text-neutral-500 hover:text-neutral-900"
+        }`}
+        aria-label={t("nav.lang.en")}
+      >
+        {t("nav.lang.en")}
+      </button>
+    </div>
+  );
+}
 
 function Navbar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -24,6 +58,7 @@ function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
   const scrolled = useScrollDirection();
+  const { t } = useLanguage();
 
   const dashboardLink = user && !user.is_staff ? "/dashboard/programs" : "/login";
   const adminLink = user?.is_staff ? "/admin/articles" : "/admin/login";
@@ -123,7 +158,7 @@ function Navbar() {
                       : "text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900"
                   }`}
                 >
-                  {link.label}
+                  {t(link.labelKey)}
                   <span
                     className={`absolute inset-x-3 -bottom-0.5 h-0.5 rounded-full bg-primary-500 ${
                       active ? "opacity-100" : "opacity-0"
@@ -135,6 +170,8 @@ function Navbar() {
           </div>
 
           <div className="hidden md:flex items-center gap-2">
+            <LanguageToggle />
+
             {user ? (
               <button
                 type="button"
@@ -142,7 +179,7 @@ function Navbar() {
                 className="inline-flex items-center gap-1.5 md:gap-2 rounded-full px-3 py-2 text-xs md:text-sm font-semibold text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 focus:outline-none focus:ring-4 focus:ring-primary-500/20"
               >
                 <LogOut className="h-3.5 w-3.5 md:h-4 md:w-4" />
-                <span className="hidden sm:inline">Sortir</span>
+                <span className="hidden sm:inline">{t("nav.logout")}</span>
               </button>
             ) : null}
 
@@ -151,7 +188,7 @@ function Navbar() {
               className="inline-flex items-center gap-1.5 md:gap-2 rounded-full border border-primary-500 px-3 py-2 text-xs md:text-sm font-semibold text-primary-700 bg-white hover:bg-primary-50 focus:outline-none focus:ring-4 focus:ring-primary-500/20"
             >
               <HeartHandshake className="h-3.5 w-3.5 md:h-4 md:w-4" />
-              <span className="hidden sm:inline">Faire un don</span>
+              <span className="hidden sm:inline">{t("nav.donate")}</span>
             </Link>
 
             <Link
@@ -159,7 +196,7 @@ function Navbar() {
               className="inline-flex items-center gap-1.5 md:gap-2 rounded-full px-3 py-2 text-xs md:text-sm font-semibold text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 focus:outline-none focus:ring-4 focus:ring-primary-500/20"
             >
               <LockKeyhole className="h-3.5 w-3.5 md:h-4 md:w-4" />
-              <span className="hidden sm:inline">Admin</span>
+              <span className="hidden sm:inline">{t("nav.admin")}</span>
             </Link>
 
             <Link
@@ -167,14 +204,14 @@ function Navbar() {
               className="inline-flex items-center gap-1.5 md:gap-2 rounded-full bg-primary-500 px-3 py-2 text-xs md:text-sm font-semibold text-white shadow-sm hover:-translate-y-0.5 hover:bg-primary-600 hover:shadow-lg hover:shadow-primary-900/15 focus:outline-none focus:ring-4 focus:ring-primary-500/25"
             >
               <LayoutDashboard className="h-3.5 w-3.5 md:h-4 md:w-4" />
-              <span className="hidden sm:inline">Espace membre</span>
+              <span className="hidden sm:inline">{t("nav.memberSpace")}</span>
             </Link>
           </div>
 
           <button
             type="button"
             className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-800 shadow-sm hover:bg-neutral-100 focus:outline-none focus:ring-4 focus:ring-primary-500/20 md:hidden"
-            aria-label={drawerOpen ? "Fermer le menu" : "Ouvrir le menu"}
+            aria-label={drawerOpen ? t("nav.menuClose") : t("nav.menuOpen")}
             aria-expanded={drawerOpen}
             onClick={() => setDrawerOpen((prev) => !prev)}
           >
@@ -188,7 +225,7 @@ function Navbar() {
           type="button"
           className="fixed inset-0 z-30 bg-neutral-900/30 md:hidden"
           style={{ top: scrolled ? 64 : 80 }}
-          aria-label="Fermer le menu"
+          aria-label={t("nav.menuClose")}
           onClick={closeDrawer}
         />
       ) : null}
@@ -213,9 +250,13 @@ function Navbar() {
               className="rounded-2xl px-4 py-3 text-base font-semibold text-neutral-700 hover:bg-neutral-100 hover:text-primary-700"
               onClick={closeDrawer}
             >
-              {link.label}
+              {t(link.labelKey)}
             </Link>
           ))}
+        </div>
+
+        <div className="mt-4 flex items-center justify-center">
+          <LanguageToggle />
         </div>
 
         <div className="mt-4 grid gap-2 border-t border-neutral-200 pt-4">
@@ -225,7 +266,7 @@ function Navbar() {
             onClick={closeDrawer}
           >
             <HeartHandshake className="h-4 w-4" />
-            Faire un don
+            {t("nav.donate")}
           </Link>
           <Link
             to={adminLink}
@@ -233,7 +274,7 @@ function Navbar() {
             onClick={closeDrawer}
           >
             <LockKeyhole className="h-4 w-4" />
-            Admin
+            {t("nav.admin")}
           </Link>
           <Link
             to={dashboardLink}
@@ -241,7 +282,7 @@ function Navbar() {
             onClick={closeDrawer}
           >
             <LayoutDashboard className="h-4 w-4" />
-            Espace membre
+            {t("nav.memberSpace")}
           </Link>
           {user ? (
             <button
@@ -250,7 +291,7 @@ function Navbar() {
               className="inline-flex items-center justify-center gap-2 rounded-full px-4 py-3 text-sm font-semibold text-neutral-600 hover:bg-neutral-100"
             >
               <LogOut className="h-4 w-4" />
-              Sortir
+              {t("nav.logout")}
             </button>
           ) : null}
         </div>

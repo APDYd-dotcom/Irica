@@ -3,9 +3,11 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getPayment, payProgram } from "../../api/payments";
 import Loader from "../../components/Loader";
 import ErrorMessage from "../../components/ErrorMessage";
+import { useLanguage } from "../../i18n/LanguageContext";
 import { getErrorMessage } from "../../utils/getErrorMessage";
 
 function PaymentPage() {
+  const { t } = useLanguage();
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -81,30 +83,30 @@ function PaymentPage() {
     <div className="min-h-[80vh] flex items-center justify-center px-6 py-16">
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
-          <p className="eyebrow text-primary-700 mb-3">Paiement</p>
-          <h1 className="font-serif text-3xl text-ink">Récapitulatif</h1>
+          <p className="eyebrow text-primary-700 mb-3">{t("payment.eyebrow")}</p>
+          <h1 className="font-serif text-3xl text-ink">{t("payment.title")}</h1>
         </div>
 
         <div className="bg-white border border-ink/10 rounded-2xl p-8">
           {isPaid ? (
             <div className="text-center">
-              <p className="text-ink-soft mb-4">Ce paiement a déjà été effectué.</p>
+              <p className="text-ink-soft mb-4">{t("payment.alreadyPaid")}</p>
             </div>
           ) : (
             <>
               <div className="space-y-3 mb-6">
                 <div className="flex justify-between text-sm">
-                  <span className="text-ink-soft">Programme</span>
+                  <span className="text-ink-soft">{t("payment.programLabel")}</span>
                   <span className="text-ink font-medium">{payment.program?.title || "—"}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-ink-soft">Montant</span>
+                  <span className="text-ink-soft">{t("payment.amountLabel")}</span>
                   <span className="text-ink font-medium">
                     {payment.amount} {payment.currency || ""}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-ink-soft">Email</span>
+                  <span className="text-ink-soft">{t("payment.emailLabel")}</span>
                   <span className="text-ink font-medium">{payment.email || "—"}</span>
                 </div>
               </div>
@@ -119,13 +121,13 @@ function PaymentPage() {
                 type="button"
                 onClick={handlePay}
                 disabled={paying}
-                aria-label="Payer maintenant"
+                aria-label={t("payment.payNow")}
                 className="w-full mt-2 bg-forest-800 hover:bg-forest-700 disabled:opacity-50 text-white font-medium py-3 rounded-full transition flex items-center justify-center gap-2"
               >
                 {paying && (
                   <span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin"></span>
                 )}
-                {paying ? "Traitement..." : "Payer maintenant"}
+                {paying ? t("payment.processing") : t("payment.payNow")}
               </button>
             </>
           )}
