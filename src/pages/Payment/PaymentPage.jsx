@@ -39,7 +39,6 @@ function PaymentPage() {
     try {
       setPaying(true);
       setPayError(null);
-      // TODO: Adapter le payload selon le body exact attendu par POST /access-programs/pay/
       const payload = {
         payment_id: payment.id,
         // program: payment.program?.id,
@@ -76,7 +75,6 @@ function PaymentPage() {
     return null;
   }
 
-  // TODO: Ajuster les noms de champs status selon la vraie valeur renvoyée par l'API
   const isPaid = payment.status === "success" || payment.status === "paid";
 
   return (
@@ -95,12 +93,10 @@ function PaymentPage() {
           ) : (
             <>
               <div className="space-y-3 mb-6">
-                {/* TODO: Ajuster payment.program.title selon le schéma réel */}
                 <div className="flex justify-between text-sm">
                   <span className="text-ink-soft">Programme</span>
                   <span className="text-ink font-medium">{payment.program?.title || "—"}</span>
                 </div>
-                {/* TODO: Ajuster payment.amount / payment.currency selon le schéma réel */}
                 <div className="flex justify-between text-sm">
                   <span className="text-ink-soft">Montant</span>
                   <span className="text-ink font-medium">

@@ -1,10 +1,9 @@
 import axios from "axios";
 
-// ONE central place that knows your Django API's address.
-// Change VITE_API_URL in .env, and it updates everywhere in the app.
 const axiosClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
 });
+
 
 // Before EVERY request, attach the saved JWT token automatically
 // — like stamping every letter with your ID badge without doing it by hand each time.
