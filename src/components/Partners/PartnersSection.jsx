@@ -39,7 +39,7 @@ function PartnersSection() {
   }
 
   return (
-    <section className="w-full bg-white py-16 md:py-20">
+    <section className="w-full bg-white py-8 md:py-10">
       <div className="flex flex-col items-center text-center">
         <h2 className="text-2xl md:text-3xl font-bold text-neutral-900 text-center">{t("partners.title")}</h2>
         <div className="mt-10 flex flex-wrap items-center justify-center gap-10 md:gap-16">
@@ -48,7 +48,7 @@ function PartnersSection() {
               key={partner.id}
               src={partner.logo}
               alt={partner.name}
-              className="h-16 md:h-20 w-auto object-contain"
+              className="h-20 md:h-24 w-auto object-contain"
             />
           ))}
         </div>
