@@ -127,7 +127,7 @@ function Navbar() {
       <Container>
         <motion.nav
           initial={false}
-          animate={{ height: scrolled ? 64 : 80 }}
+          animate={{ height: scrolled ? 72 : 96 }}
           transition={{ duration: 0.3, ease: EASE }}
           className="flex items-center justify-between gap-6"
         >
@@ -136,9 +136,9 @@ function Navbar() {
               src="/images/logo.png"
               alt="IRICA"
               initial={false}
-              animate={{ height: scrolled ? 44 : 56 }}
+              animate={{ height: scrolled ? 56 : 80 }}
               transition={{ duration: 0.3, ease: EASE }}
-              className="w-auto"
+              className="h-auto w-auto max-h-full max-w-[180px] object-contain"
             />
             <span className="hidden text-sm font-bold tracking-tight text-neutral-900 sm:block">
               {/* IRICA */}

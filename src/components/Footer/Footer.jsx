@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Mail, MapPin, Phone, UserRoundPlus } from "lucide-react";
+import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
 import { motion } from "framer-motion";
 import Container from "../Layout/Container";
 import { useLanguage } from "../../i18n/LanguageContext";
@@ -72,7 +72,7 @@ function Footer() {
                 {t("footer.phone")}
               </a>
               <div className="flex items-center gap-3">
-                <MapPin className="h-4 w-4 text-primary-300" />
+                <MapPin className="h-4 w-10 text-primary-300" />
                 {t("footer.location")}
               </div>
             </div>
@@ -113,8 +113,15 @@ function Footer() {
         <div className="mt-14 flex flex-col gap-5 border-t border-white/10 pt-8 text-sm text-neutral-400 md:flex-row md:items-center md:justify-between">
           <p>{t("footer.copyright", { year: currentYear })}</p>
           <div className="flex items-center gap-4">
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-white" aria-label="LinkedIn">
-              <UserRoundPlus className="h-4 w-4" />
+            <a href="https://www.facebook.com/profile.php?id=61581983698428" target="_blank" rel="noopener noreferrer" className="hover:text-white" aria-label="Facebook">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+            </a>
+            <a href="https://www.linkedin.com/company/insitute-of-research-and-immersive-career-advancement/" target="_blank" rel="noopener noreferrer" className="hover:text-white" aria-label="LinkedIn">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
+                <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.24 8.5h4.5V24H.24V8.5zm8.32 0h4.32v2.16c.62-1 1.7-2.2 3.48-2.2 3.73 0 4.42 2.45 4.42 5.64V24h-4.5v-7.15c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.86-2.75 3.78V24h-4.5V8.5z"/>
+              </svg>
             </a>
             <a href="#contact" className="hover:text-white">{t("footer.privacy")}</a>
             <a href="#contact" className="hover:text-white">{t("footer.terms")}</a>

@@ -37,8 +37,8 @@ function ContactForm() {
   }
 
   return (
-    <section id="contact" className="bg-neutral-50 py-24 md:py-32">
-      <Container>
+    <section id="contact" className="bg-neutral-50 pt-24 md:pt-32 pb-0">
+      <Container className="pb-16 md:pb-20">
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -67,7 +67,7 @@ function ContactForm() {
               <motion.a
                 whileHover={{ y: -2 }}
                 transition={{ duration: 0.2, ease: EASE }}
-                href="tel:+25776891572"
+                href="tel:+25776891572/+25766479153"
                 className="flex items-center gap-4 rounded-2xl border border-neutral-200 bg-white p-4 text-neutral-700 shadow-sm hover:-translate-y-0.5 hover:border-primary-200 hover:text-primary-700"
               >
                 <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-50 text-primary-700">
@@ -157,6 +157,28 @@ function ContactForm() {
           </motion.form>
         </div>
       </Container>
+
+      <div className="relative mt-16 w-full overflow-hidden">
+        <iframe
+          title="Localisation IRICA"
+          src="https://maps.google.com/maps?q=-3.382328,29.366774&z=15&output=embed"
+          width="100%"
+          height="420"
+          style={{ border: 0 }}
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          className="block h-[320px] w-full md:h-[420px]"
+        />
+        <a
+          href="https://www.google.com/maps/place/-3.382328,29.366774"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-lg bg-white px-3 py-2 text-sm font-semibold text-primary-700 shadow-md hover:bg-neutral-50"
+        >
+          {t("contact.openInMaps")}
+          <ArrowRight className="h-4 w-4" />
+        </a>
+      </div>
     </section>
   );
 }

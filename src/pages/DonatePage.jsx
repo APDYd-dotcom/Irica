@@ -84,7 +84,7 @@ function DonatePage() {
 
   return (
     <div className="min-h-screen bg-neutral-50">
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 pt-24 pb-20">
+      <section className="relative overflow-hidden bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 pt-28 pb-20">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(255,255,255,0.08),_transparent_45%)]" />
         <Container className="relative z-10">
           <motion.div

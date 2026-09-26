@@ -11,7 +11,7 @@ const team = [
     image: "/images/patrick.jpeg",
     linkedin: "https://www.linkedin.com/in/patrick-bizoza-m-a-b5117134?utm_source=share_via&utm_content=profile&utm_medium=member_android",
     twitter: "https://twitter.com",
-    email: "patrick.bizoza@iricaconnect.org",
+    email: "bizopatrick@gmail.com",
     bio: "- PhD. candidate Author of 'Life Out of Cage',Global Keynote Speaker on Leadership and Governance, Experienced programs' manager with a demonstrated history of working in the non-profit Organizations, Skilled in Strategic Project Management, Leadership Development & Corporate Governance.",
   },
   {
@@ -20,7 +20,7 @@ const team = [
     image: "/images/axel.jpeg",
     linkedin: "https://linkedin.com",
     twitter: "https://twitter.com",
-    email: "jean-claude.nduwimana@iricaconnect.org",
+    email: "Justeaxelndikumasabo772@gmail.com",
     bio: "Technical Director at IRICA, with expertise in Digital Transformation, Technology Strategy, Data Systems & Infrastructure. Leads IRICA’s technical strategy, overseeing digital platforms and technology infrastructure that support the institute’s research, training, and innovation programs. Skilled in Technology Leadership, Digital Solutions, Systems Management & Strategic Project Development.",
   },
   {
@@ -29,7 +29,7 @@ const team = [
     image: "/images/alain.jpg",
     linkedin: "https://linkedin.com",
     twitter: "https://twitter.com",
-    email: "aline.niyomwungere@iricaconnect.org",
+    email: "alaingabrielnsengiyumva4@gmail.com",
     bio: "Analyste de données spécialisée sur Stata et R, elle supervise les bases et anime les parcours d'économétrie appliquée.",
   },
   {
@@ -38,7 +38,7 @@ const team = [
     image: "/images/odon1.jpeg",
     linkedin: "https://linkedin.com",
     twitter: "https://twitter.com",
-    email: "aline.niyomwungere@iricaconnect.org",
+    email: "irakozeodondelors@gmail.com",
     bio: "Monitoring & Evaluation Officer at IRICA, with expertise in Statistics, Program Monitoring & Evaluation, Data Analysis & Digital Communications. Supports the organization’s mission by tracking program performance and impact while overseeing digital communications to strengthen IRICA’s visibility and engagement. Skilled in Data-Driven Decision Making, Impact Measurement, Statistical Analysis & Strategic Communication.",
   },
 ];

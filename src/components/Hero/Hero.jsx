@@ -19,7 +19,7 @@ function Hero() {
   const { t } = useLanguage();
 
   return (
-    <section className="relative min-h-[92vh] overflow-hidden bg-neutral-900 pt-20">
+    <section className="relative min-h-[92vh] overflow-hidden bg-neutral-900 pt-24">
       <video
         autoPlay
         loop
