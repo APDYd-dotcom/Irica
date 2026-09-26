@@ -24,6 +24,8 @@ const translations = {
       loadMore: "Charger plus",
       readMore: "En savoir plus",
       send: "Envoyer",
+      previous: "Précédent",
+      next: "Suivant",
     },
     footer: {
       description:
@@ -175,6 +177,9 @@ const translations = {
     partners: {
       title: "Partenaires",
     },
+    testimonies: {
+      title: "Témoignages",
+    },
     blog: {
       eyebrow: "Blog",
       title: "Blog & actualités.",
@@ -301,6 +306,8 @@ const translations = {
       loadMore: "Load more",
       readMore: "Read more",
       send: "Send",
+      previous: "Previous",
+      next: "Next",
     },
     footer: {
       description:
@@ -452,6 +459,9 @@ const translations = {
     },
     partners: {
       title: "Partners",
+    },
+    testimonies: {
+      title: "Testimonials",
     },
     blog: {
       eyebrow: "Blog",

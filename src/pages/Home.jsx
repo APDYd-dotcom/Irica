@@ -5,6 +5,7 @@ import ProgramsSection from "../components/ProgramsSection";
 import Publications from "../components/Publications/Publications";
 import Services from "../components/Services/Services";
 import Team from "../components/Team/Team";
+import TestimoniesSection from "../components/Testimonies/TestimoniesSection";
 import { useFadeInOnScroll } from "../hooks/useFadeInOnScroll";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
       <About />
       <ProgramsSection />
       <Publications />
+      <TestimoniesSection />
       <Team />
       <ContactForm />
     </div>
