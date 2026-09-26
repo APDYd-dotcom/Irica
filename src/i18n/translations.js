@@ -172,6 +172,9 @@ const translations = {
       sending: "Envoi en cours...",
       openInMaps: "Ouvrir dans Google Maps",
     },
+    partners: {
+      title: "Partenaires",
+    },
     blog: {
       eyebrow: "Blog",
       title: "Blog & actualités.",
@@ -446,6 +449,9 @@ const translations = {
       submit: "Send request",
       sending: "Sending...",
       openInMaps: "Open in Google Maps",
+    },
+    partners: {
+      title: "Partners",
     },
     blog: {
       eyebrow: "Blog",

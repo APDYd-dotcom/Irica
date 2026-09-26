@@ -5,6 +5,7 @@ import Container from "../Layout/Container";
 import { useLanguage } from "../../i18n/LanguageContext";
 import { EASE } from "../../animations/variants";
 import { submitComment } from "../../api/public";
+import PartnersSection from "../Partners/PartnersSection";
 
 function ContactForm() {
   const { t } = useLanguage();
@@ -157,6 +158,8 @@ function ContactForm() {
           </motion.form>
         </div>
       </Container>
+
+      <PartnersSection />
 
       <div className="relative mt-16 w-full overflow-hidden">
         <iframe
