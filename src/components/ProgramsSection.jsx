@@ -1,14 +1,42 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CalendarDays, ChevronRight, CreditCard, LockKeyhole } from "lucide-react";
 import { motion } from "framer-motion";
 import useFetch from "../hooks/useFetch";
 import Container from "./Layout/Container";
 import { useLanguage } from "../i18n/LanguageContext";
 import { EASE } from "../animations/variants";
+import ProgramsComingSoon from "./Programs/ProgramsComingSoon";
+
+const PROGRAMS_VISIBLE_KEY = "irica_programs_visible";
+
+function readProgramsVisible() {
+    if (typeof window === "undefined") return true;
+    return window.localStorage.getItem(PROGRAMS_VISIBLE_KEY) !== "false";
+}
 
 function ProgramsSection() {
     const { t, language } = useLanguage();
-    const { data, loading, error } = useFetch("/programs/");
+    const [programsVisible, setProgramsVisible] = useState(readProgramsVisible);
+
+    useEffect(() => {
+        const syncVisibility = () => setProgramsVisible(readProgramsVisible());
+
+        // Same tab (admin preview): custom event.
+        window.addEventListener("programs-visibility-changed", syncVisibility);
+        // Other tab: native storage event.
+        window.addEventListener("storage", syncVisibility);
+
+        // Re-sync on mount in case it changed before this component mounted.
+        syncVisibility();
+
+        return () => {
+            window.removeEventListener("programs-visibility-changed", syncVisibility);
+            window.removeEventListener("storage", syncVisibility);
+        };
+    }, []);
+
+    // Pass null when hidden so useFetch skips the request entirely.
+    const { data, loading, error } = useFetch(programsVisible ? "/programs/" : null);
     const programs = data?.results || [];
     const rowRef = useRef(null);
 
@@ -59,6 +87,14 @@ function ProgramsSection() {
             year: "numeric",
         });
 
+    if (!programsVisible) {
+        return (
+            <section id="programs">
+                <ProgramsComingSoon />
+            </section>
+        );
+    }
+
     if (loading) {
         return (
             <section id="programs" className="bg-neutral-50 py-24 md:py-32">
@@ -82,33 +118,33 @@ function ProgramsSection() {
     return (
         <section id="programs" className="bg-neutral-50 py-24 md:py-32">
             <Container>
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.5, ease: EASE }}
-                    className="mb-14 flex flex-col justify-between gap-6 lg:flex-row lg:items-end"
-                >
-                    <div className="max-w-3xl">
-                        <p className="eyebrow text-primary-700">{t("programs.eyebrow")}</p>
-                        <h2 className="section-title mt-4">{t("programs.title")}</h2>
-                        <p className="mt-6">{t("programs.description")}</p>
-                    </div>
-                    <button
-                        onClick={scrollNext}
-                        className="inline-flex w-max items-center gap-2 rounded-full border border-neutral-200 bg-white px-5 py-3 text-sm font-semibold text-neutral-700 shadow-sm hover:-translate-y-0.5 hover:border-primary-200 hover:text-primary-700"
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        transition={{ duration: 0.5, ease: EASE }}
+                        className="mb-14 flex flex-col justify-between gap-6 lg:flex-row lg:items-end"
                     >
-                        {t("programs.viewMore")}
-                        <ChevronRight className="h-4 w-4" />
-                    </button>
-                </motion.div>
+                        <div className="max-w-3xl">
+                            <p className="eyebrow text-primary-700">{t("programs.eyebrow")}</p>
+                            <h2 className="section-title mt-4">{t("programs.title")}</h2>
+                            <p className="mt-6">{t("programs.description")}</p>
+                        </div>
+                        <button
+                            onClick={scrollNext}
+                            className="inline-flex w-max items-center gap-2 rounded-full border border-neutral-200 bg-white px-5 py-3 text-sm font-semibold text-neutral-700 shadow-sm hover:-translate-y-0.5 hover:border-primary-200 hover:text-primary-700"
+                        >
+                            {t("programs.viewMore")}
+                            <ChevronRight className="h-4 w-4" />
+                        </button>
+                    </motion.div>
 
-                <div
-                    ref={rowRef}
-                    className="scrollbar-hidden flex snap-x snap-mandatory gap-6 overflow-x-auto pb-6"
-                    style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-                >
-                    {programs.map((prog, index) => {
+                    <div
+                        ref={rowRef}
+                        className="scrollbar-hidden flex snap-x snap-mandatory gap-6 overflow-x-auto pb-6"
+                        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+                    >
+                        {programs.map((prog, index) => {
                         const title = prog.title || prog.name || prog.program_title || t("programs.fallback");
                         const desc =
                             prog.descr || prog.desc || prog.description || "";
@@ -217,7 +253,6 @@ function ProgramsSection() {
                         );
                     })}
                 </div>
-
             </Container>
         </section>
     );

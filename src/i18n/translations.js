@@ -130,6 +130,14 @@ const translations = {
       viewProgram: "Voir le programme",
       payNow: "Payer maintenant",
       fallback: "Programme",
+      comingSoon: {
+        title: "De nouvelles formations arrivent bientôt",
+        subtitle:
+          "IRICA propose des formations certifiantes, un programme de stage et un programme Capstone pour développer vos compétences.",
+        certifying: "Formations Certifiantes",
+        internship: "Internship Program",
+        capstone: "Capstone Program",
+      },
     },
     publications: {
       eyebrow: "Publications",
@@ -414,6 +422,14 @@ const translations = {
       viewProgram: "View program",
       payNow: "Pay now",
       fallback: "Program",
+      comingSoon: {
+        title: "New programs are coming soon",
+        subtitle:
+          "IRICA offers certifying training, an internship program and a Capstone program to build your skills.",
+        certifying: "Certifying Training",
+        internship: "Internship Program",
+        capstone: "Capstone Program",
+      },
     },
     publications: {
       eyebrow: "Publications",
