@@ -8,7 +8,10 @@ function TestimoniesSection() {
   const [testimonies, setTestimonies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [paused, setPaused] = useState(false);
   const scrollContainerRef = useRef(null);
+  const autoPlayTimerRef = useRef(null);
+  const touchResumeTimerRef = useRef(null);
 
   useEffect(() => {
     async function fetchAllTestimonies() {
@@ -36,6 +39,34 @@ function TestimoniesSection() {
     fetchAllTestimonies();
   }, []);
 
+  useEffect(() => {
+    if (testimonies.length <= 1) return;
+
+    const startAutoPlay = () => {
+      clearInterval(autoPlayTimerRef.current);
+      autoPlayTimerRef.current = setInterval(() => {
+        const container = scrollContainerRef.current;
+        if (!container) return;
+        const { scrollLeft, scrollWidth, clientWidth } = container;
+        const isAtEnd = scrollLeft + clientWidth >= scrollWidth - 2;
+        if (isAtEnd) {
+          container.scrollTo({ left: 0, behavior: "smooth" });
+        } else {
+          container.scrollBy({ left: clientWidth, behavior: "smooth" });
+        }
+      }, 5000);
+    };
+
+    if (!paused) {
+      startAutoPlay();
+    }
+
+    return () => {
+      clearInterval(autoPlayTimerRef.current);
+      autoPlayTimerRef.current = null;
+    };
+  }, [testimonies.length, paused]);
+
   if (loading || error || testimonies.length === 0) {
     return null;
   }
@@ -48,6 +79,16 @@ function TestimoniesSection() {
       left: direction === "next" ? amount : -amount,
       behavior: "smooth",
     });
+  };
+
+  const handleMouseEnter = () => setPaused(true);
+  const handleMouseLeave = () => setPaused(false);
+  const handleTouchStart = () => {
+    setPaused(true);
+    clearTimeout(touchResumeTimerRef.current);
+    touchResumeTimerRef.current = setTimeout(() => {
+      setPaused(false);
+    }, 5000);
   };
 
   const showArrows = testimonies.length > 1;
@@ -76,6 +117,9 @@ function TestimoniesSection() {
           <div
             ref={scrollContainerRef}
             className="flex snap-x snap-mandatory overflow-x-auto scrollbar-hidden px-6 sm:px-10"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            onTouchStart={handleTouchStart}
           >
             {testimonies.map((testimonial) => (
               <div

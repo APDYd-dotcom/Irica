@@ -12,6 +12,7 @@ import AdminLogin from "./pages/AdminLogin";
 import NotFound from "./pages/NotFound";
 import DonatePage from "./pages/DonatePage";
 import Blog from "./pages/Blog";
+import BlogDetail from "./pages/BlogDetail";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import DashboardLayout from "./pages/Dashboard/DashboardLayout";
@@ -52,6 +53,7 @@ function App() {
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/donate" element={<DonatePage />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:id" element={<BlogDetail />} />
 
           {/* Member dashboard — students see programs registered to their email */}
           <Route element={<ProtectedRoute />}>

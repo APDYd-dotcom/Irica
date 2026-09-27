@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Container from "../components/Layout/Container";
@@ -128,17 +129,13 @@ function Blog() {
                     <p className="mt-4 text-xs text-ink-soft">
                       {blog.created_at ? formatDate(blog.created_at) : ""}
                     </p>
-                    {blog.file && (
-                      <a
-                        href={blog.file}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary-500 px-4 py-2.5 text-sm font-semibold text-white hover:-translate-y-0.5 hover:bg-primary-600 focus:outline-none focus:ring-4 focus:ring-primary-500/25"
-                      >
-                        <FileText className="h-4 w-4" />
-                        {t("blog.readArticle")}
-                      </a>
-                    )}
+                    <Link
+                      to={`/blog/${blog.id}`}
+                      className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary-500 px-4 py-2.5 text-sm font-semibold text-white hover:-translate-y-0.5 hover:bg-primary-600 focus:outline-none focus:ring-4 focus:ring-primary-500/25"
+                    >
+                      <FileText className="h-4 w-4" />
+                      {t("blog.readArticle")}
+                    </Link>
                   </div>
                 </motion.div>
               );
