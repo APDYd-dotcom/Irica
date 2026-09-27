@@ -7,7 +7,7 @@ import { EASE } from "../animations/variants";
 import { getBlogs } from "../api/blogs";
 import Loader from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
-import { ArrowLeft, ArrowRight, FileText, Newspaper } from "lucide-react";
+import { ArrowLeft, ArrowRight, Newspaper } from "lucide-react";
 
 function Blog() {
   const { t, language } = useLanguage();
@@ -124,18 +124,18 @@ function Blog() {
                   </div>
 
                   <div className="flex flex-1 flex-col p-6">
-                    <h3 className="line-clamp-2 text-base font-semibold text-ink">{blog.title}</h3>
-                    <p className="mt-2 line-clamp-3 text-sm leading-6 text-neutral-600">{blog.desc}</p>
-                    <p className="mt-4 text-xs text-ink-soft">
-                      {blog.created_at ? formatDate(blog.created_at) : ""}
-                    </p>
+                    <h3 className="line-clamp-2 text-base font-semibold text-primary-700">{blog.title}</h3>
                     <Link
                       to={`/blog/${blog.id}`}
-                      className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary-500 px-4 py-2.5 text-sm font-semibold text-white hover:-translate-y-0.5 hover:bg-primary-600 focus:outline-none focus:ring-4 focus:ring-primary-500/25"
+                      className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-primary-700 hover:text-primary-900 hover:underline"
                     >
-                      <FileText className="h-4 w-4" />
                       {t("blog.readArticle")}
+                      <span aria-hidden="true">»</span>
                     </Link>
+                    <p className="mt-2 line-clamp-3 text-sm leading-6 text-neutral-600">{blog.desc}</p>
+                    <p className="mt-auto pt-4 text-xs text-ink-soft">
+                      {blog.created_at ? formatDate(blog.created_at) : ""}
+                    </p>
                   </div>
                 </motion.div>
               );

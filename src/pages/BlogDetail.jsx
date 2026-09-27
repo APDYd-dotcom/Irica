@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, FileText } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import Container from "../components/Layout/Container";
 import { useLanguage } from "../i18n/LanguageContext";
 import { getBlog } from "../api/blogs";
@@ -93,20 +93,6 @@ function BlogDetail() {
         <div className="mt-8">
           {linkifyParagraphs(blog.desc)}
         </div>
-
-        {blog.file && (
-          <div className="mt-10 flex justify-center">
-            <a
-              href={blog.file}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-primary-500 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:-translate-y-0.5 hover:bg-primary-600 focus:outline-none focus:ring-4 focus:ring-primary-500/25"
-            >
-              <FileText className="h-4 w-4" />
-              {t("blog.downloadPdf")}
-            </a>
-          </div>
-        )}
       </Container>
     </section>
   );

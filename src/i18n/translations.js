@@ -186,8 +186,8 @@ const translations = {
       description:
         "Découvrez nos derniers articles, analyses et retours d'expérience sur le conseil, la recherche et l'innovation en Afrique.",
       noPosts: "Aucun billet pour le moment.",
-      readArticle: "Lire l'article",
-      backToArticles: "Retour aux articles",
+      readArticle: "Lire plus",
+      backToArticles: "Retour",
       downloadPdf: "Télécharger le PDF",
       error: "Impossible de charger les billets.",
       prev: "Précédent",
@@ -471,8 +471,8 @@ const translations = {
       description:
         "Discover our latest articles, analyses and feedback on advisory, research and innovation in Africa.",
       noPosts: "No posts yet.",
-      readArticle: "Read the article",
-      backToArticles: "Back to articles",
+      readArticle: "Read More",
+      backToArticles: "Go back",
       downloadPdf: "Download PDF",
       error: "Unable to load posts.",
       prev: "Previous",
