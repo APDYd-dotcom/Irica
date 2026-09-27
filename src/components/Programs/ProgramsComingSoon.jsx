@@ -33,8 +33,10 @@ function ProgramsComingSoon() {
   }, []);
 
   return (
-    <section className="w-full bg-primary-900 py-20 md:py-24">
-      <div className="flex flex-col items-center text-center px-6">
+    <section className="relative w-full pt-20 md:pt-24 pb-6 md:pb-8">
+      <div className="absolute inset-0 bg-primary-900/90" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(0,122,51,0.18),transparent_60%)]" />
+      <div className="relative flex flex-col items-center text-center px-6">
         <h2 className="text-2xl md:text-3xl font-bold text-white text-center">
           {t("programs.comingSoon.title")}
         </h2>
@@ -42,7 +44,7 @@ function ProgramsComingSoon() {
           {t("programs.comingSoon.subtitle")}
         </p>
 
-        <div className="relative mt-12 w-full max-w-4xl overflow-hidden rounded-2xl">
+        <div className="relative mt-12 w-full overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.div
               key={SLIDES[current].key}
@@ -57,7 +59,7 @@ function ProgramsComingSoon() {
                 alt={t(SLIDES[current].titleKey)}
                 className="h-full w-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary-900/80 via-primary-900/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
               <div className="absolute inset-0 flex items-end justify-center pb-10">
                 <motion.h3
                   initial={{ opacity: 0, y: 20 }}
