@@ -1,23 +1,42 @@
+import { Link } from "react-router-dom";
+import { BookOpen } from "lucide-react";
 import useFetch from "../../hooks/useFetch";
 import Loader from "../../components/Loader";
-import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 
-function SmallItem({ title, subtitle, href }) {
+function StatCard({ label, value, note, icon: Icon }) {
   return (
-    <Link to={href} className="block rounded-2xl border border-ink/10 bg-white p-4 transition hover:border-forest-800/30 hover:shadow-sm">
-      <p className="text-xs uppercase tracking-[0.18em] text-ink-soft/70 font-semibold mb-2">{subtitle}</p>
-      <h3 className="break-words font-medium text-ink leading-snug">{title}</h3>
+    <div className="rounded-2xl border border-neutral-200 bg-white p-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
+      <div className="flex items-start justify-between gap-4">
+        <div className="min-w-0">
+          <p className="text-sm text-neutral-500">{label}</p>
+          <p className="mt-3 text-4xl font-bold text-neutral-900">{value}</p>
+          <p className="mt-3 break-words text-xs text-neutral-400">{note}</p>
+        </div>
+        {Icon && <Icon className="h-6 w-6 flex-none text-primary-500/40" />}
+      </div>
+    </div>
+  );
+}
+
+function ProgramItem({ title }) {
+  return (
+    <Link
+      to="/dashboard/programs"
+      className="block rounded-xl border border-neutral-200 bg-neutral-50 p-5 transition-all duration-200 hover:-translate-y-0.5 hover:bg-white hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40"
+    >
+      <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-neutral-400">
+        Registered
+      </p>
+      <h3 className="mt-2 line-clamp-2 text-lg font-semibold text-neutral-900">{title}</h3>
     </Link>
   );
 }
 
-function StatCard({ label, value, note }) {
+function EmptyState({ message }) {
   return (
-    <div className="rounded-3xl border border-ink/10 bg-white p-5 shadow-sm">
-      <p className="text-xs text-ink-soft">{label}</p>
-      <p className="mt-2 text-2xl font-semibold text-ink sm:text-3xl">{value}</p>
-      <p className="mt-2 break-words text-xs text-ink-soft/80">{note}</p>
+    <div className="rounded-xl border border-dashed border-neutral-200 p-6 text-sm leading-relaxed text-neutral-500">
+      {message}
     </div>
   );
 }
@@ -28,105 +47,70 @@ export default function DashboardHome() {
   const { data: accessData, loading: accessLoading } = useFetch(
     email ? `/access-programs/?email=${encodeURIComponent(email)}` : null
   );
-  const { data: publications, loading: pubLoading } = useFetch("/publications/");
+  const { loading: pubLoading } = useFetch("/publications/");
 
-  const loading = accessLoading || pubLoading;
-
-  if (loading) return <Loader />;
+  if (accessLoading || pubLoading) return <Loader />;
 
   const accessList = accessData?.results || accessData || [];
-  const pubList = publications?.results || publications || [];
 
   return (
-    <div className="space-y-6 overflow-x-auto">
-      <section className="rounded-3xl border border-ink/10 bg-white p-4 shadow-sm sm:p-6">
-        <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
-          <div>
-            <p className="text-xs uppercase tracking-[0.18em] text-ink-soft/70 font-semibold mb-2 sm:text-xs sm:tracking-[0.22em]">
+    <div className="space-y-6 lg:space-y-8">
+      <section className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm lg:p-8">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div className="min-w-0">
+            <p className="text-xs font-semibold uppercase tracking-[0.15em] text-neutral-400">
               Overview
             </p>
-            <h2 className="text-xl font-serif text-ink sm:text-2xl">Your learning dashboard</h2>
-            <p className="mt-2 max-w-2xl text-xs leading-relaxed text-ink-soft">
+            <h2 className="mt-3 text-2xl font-bold tracking-tight text-neutral-900 lg:text-3xl">
+              Your learning dashboard
+            </h2>
+            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-neutral-500">
               View programs registered to your email and open their related articles.
             </p>
           </div>
-
           <Link
-            to="programs"
-            className="inline-flex w-full items-center justify-center rounded-full bg-forest-800 px-5 py-3 text-xs font-semibold text-white shadow-sm transition hover:bg-forest-700 sm:w-auto"
+            to="/dashboard/programs"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary-500 px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-primary-600 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2 lg:w-auto"
           >
+            <BookOpen className="h-4 w-4" />
             View my programs
           </Link>
         </div>
       </section>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      <div className="mx-auto w-full max-w-md">
         <StatCard
           label="Registered Programs"
           value={accessData?.count ?? accessList.length ?? 0}
           note="Linked to your email"
-        />
-        <StatCard
-          label="Email"
-          value={email ? "1" : "0"}
-          note={email || "No email saved"}
-        />
-        <StatCard
-          label="Publications"
-          value={publications?.count ?? pubList.length ?? 0}
-          note="Reports and papers"
+          icon={BookOpen}
         />
       </div>
 
-      <div className="grid grid-cols-1 gap-6 xl:grid-cols-[1.3fr_0.9fr]">
-        <section className="rounded-3xl border border-ink/10 bg-white p-4 shadow-sm sm:p-5">
-          <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div className="min-w-0">
-              <h2 className="text-base font-serif text-ink">My Registered Programs</h2>
-              <p className="text-xs text-ink-soft">Programs connected to your logged-in email.</p>
-            </div>
-            <Link to="programs" className="text-xs font-semibold text-forest-800 hover:underline">See all</Link>
+      <section className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm lg:p-8">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div className="min-w-0">
+            <h2 className="text-lg font-bold text-neutral-900">My Registered Programs</h2>
+            <p className="mt-1 text-sm text-neutral-500">
+              Programs connected to your logged-in email.
+            </p>
           </div>
-
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {accessList.slice(0, 4).map((access) => (
-              <SmallItem
-                key={access.id}
-                title={access.program_title || "Program"}
-                subtitle="Registered"
-                href="programs"
-              />
-            ))}
-            {accessList.length === 0 && (
-              <div className="rounded-2xl border border-dashed border-ink/15 p-6 text-xs text-ink-soft">
-                No registered programs found for your email.
-              </div>
-            )}
-          </div>
-        </section>
-
-        <section className="rounded-3xl border border-ink/10 bg-white p-4 shadow-sm sm:p-5">
-          <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div className="min-w-0">
-              <h2 className="text-base font-serif text-ink">Latest Publications</h2>
-              <p className="text-xs text-ink-soft">Recent reports and papers from IRICA.</p>
-            </div>
-            <Link to="/" className="text-xs font-semibold text-forest-800 hover:underline">View site</Link>
-          </div>
-
-          <div className="grid grid-cols-1 gap-3">
-            {pubList.slice(0, 3).map((p) => (
-              <SmallItem key={p.id} title={p.title || p.name} subtitle={p.category || "Publication"} href={p.url || p.file || "/"} />
-            ))}
-
-            {pubList.length === 0 && (
-              <div className="rounded-2xl border border-dashed border-ink/15 p-6 text-xs text-ink-soft">
-                No updates yet.
-              </div>
-            )}
-          </div>
-        </section>
-      </div>
+          <Link
+            to="/dashboard/programs"
+            className="shrink-0 rounded text-sm font-semibold text-primary-600 transition-all duration-200 hover:text-primary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
+          >
+            See all
+          </Link>
+        </div>
+        <div className="mt-5 space-y-4">
+          {accessList.slice(0, 4).map((access) => (
+            <ProgramItem key={access.id} title={access.program_title || "Program"} />
+          ))}
+          {accessList.length === 0 && (
+            <EmptyState message="No registered programs found for your email." />
+          )}
+        </div>
+      </section>
     </div>
   );
 }
