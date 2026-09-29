@@ -8,17 +8,17 @@ const SLIDES = [
   {
     key: "certifying",
     titleKey: "programs.comingSoon.certifying",
-    image: "/assets/activity.jpeg",
+    image: "/images/5.jpg",
   },
   {
     key: "internship",
     titleKey: "programs.comingSoon.internship",
-    image: "/images/5.jpg",
+    image: "/images/train4.jpeg",
   },
   {
     key: "capstone",
     titleKey: "programs.comingSoon.capstone",
-    image: "/assets/activity.jpeg", // TODO: photo dédiée à remplacer
+    image: "/images/train2.jpeg",
   },
 ];
 

@@ -1,11 +1,12 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { BookOpen, ChevronRight, House, LockKeyhole } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 const NAV_ITEMS = [
-  { to: "/dashboard", label: "Overview", icon: House, end: true },
-  { to: "/dashboard/programs", label: "Programs", icon: BookOpen },
-  { to: "/dashboard/subscription", label: "Access", icon: LockKeyhole },
+  { to: "/dashboard", labelKey: "dashboard.nav.overview", icon: House, end: true },
+  { to: "/dashboard/programs", labelKey: "dashboard.nav.programs", icon: BookOpen },
+  { to: "/dashboard/subscription", labelKey: "dashboard.nav.access", icon: LockKeyhole },
 ];
 
 const linkClass = ({ isActive }) =>
@@ -26,6 +27,7 @@ const chevronClass = ({ isActive }) =>
 
 function DashboardLayout() {
   const { user } = useAuth();
+  const { t } = useLanguage();
   const email = user?.email || user?.username || "";
   const initial = (email.charAt(0) || "M").toUpperCase();
 
@@ -40,18 +42,20 @@ function DashboardLayout() {
               </div>
               <div className="min-w-0">
                 <p className="text-xs font-semibold uppercase tracking-[0.15em] text-neutral-400">
-                  Member Dashboard
+                  {t("dashboard.headerLabel")}
                 </p>
                 <p className="mt-1 break-words text-lg font-semibold text-neutral-900 lg:text-xl">
-                  {email || "No email saved"}
+                  {email || t("dashboard.noEmail")}
                 </p>
               </div>
             </div>
 
             <div className="max-w-md rounded-2xl bg-primary-50 p-6">
-              <p className="text-base font-semibold text-primary-800">IRICA learning space</p>
+              <p className="text-base font-semibold text-primary-800">
+                {t("dashboard.spaceTitle")}
+              </p>
               <p className="mt-1 text-sm leading-relaxed text-primary-700/80">
-                Your registered programs and articles in one place.
+                {t("dashboard.spaceDescription")}
               </p>
             </div>
           </div>
@@ -61,12 +65,12 @@ function DashboardLayout() {
           <aside className="min-w-0">
             <div className="rounded-2xl border border-neutral-200 bg-white p-3 shadow-sm lg:sticky lg:top-24">
               <nav className="scrollbar-hidden flex gap-2 overflow-x-auto pb-1 lg:block lg:space-y-1 lg:overflow-visible lg:pb-0">
-                {NAV_ITEMS.map(({ to, label, icon: Icon, end }) => (
+                {NAV_ITEMS.map(({ to, labelKey, icon: Icon, end }) => (
                   <NavLink key={to} to={to} end={end} className={linkClass}>
                     {({ isActive }) => (
                       <>
                         <Icon className="h-4 w-4 flex-none" />
-                        {label}
+                        {t(labelKey)}
                         <ChevronRight className={chevronClass({ isActive })} />
                       </>
                     )}
