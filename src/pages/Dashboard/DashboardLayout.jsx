@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
-import { BookOpen, House, LockKeyhole } from "lucide-react";
+import { BookOpen, ChevronRight, House, LockKeyhole } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
 
 const NAV_ITEMS = [
@@ -10,12 +10,18 @@ const NAV_ITEMS = [
 
 const linkClass = ({ isActive }) =>
   [
-    "flex shrink-0 items-center gap-3 whitespace-nowrap rounded-xl px-4 py-3",
+    "group flex shrink-0 items-center gap-3 whitespace-nowrap rounded-xl px-4 py-3",
     "text-sm font-medium transition-all duration-200",
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40",
     isActive
       ? "bg-primary-500 text-white shadow-sm"
       : "text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900",
+  ].join(" ");
+
+const chevronClass = ({ isActive }) =>
+  [
+    "ml-auto h-4 w-4 flex-none transition-all duration-200",
+    isActive ? "opacity-60" : "opacity-40 lg:opacity-0 lg:group-hover:opacity-60",
   ].join(" ");
 
 function DashboardLayout() {
@@ -57,8 +63,13 @@ function DashboardLayout() {
               <nav className="scrollbar-hidden flex gap-2 overflow-x-auto pb-1 lg:block lg:space-y-1 lg:overflow-visible lg:pb-0">
                 {NAV_ITEMS.map(({ to, label, icon: Icon, end }) => (
                   <NavLink key={to} to={to} end={end} className={linkClass}>
-                    <Icon className="h-4 w-4 flex-none" />
-                    {label}
+                    {({ isActive }) => (
+                      <>
+                        <Icon className="h-4 w-4 flex-none" />
+                        {label}
+                        <ChevronRight className={chevronClass({ isActive })} />
+                      </>
+                    )}
                   </NavLink>
                 ))}
               </nav>
