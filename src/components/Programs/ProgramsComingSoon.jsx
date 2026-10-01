@@ -13,7 +13,7 @@ const SLIDES = [
   {
     key: "internship",
     titleKey: "programs.comingSoon.internship",
-    image: "/images/train4.jpeg",
+    image: "/images/train.jpeg",
   },
   {
     key: "capstone",
@@ -55,7 +55,7 @@ function ProgramsComingSoon() {
             type="button"
             onClick={() => goTo(current - 1)}
             aria-label={t("common.previous")}
-            className="absolute left-2 top-1/2 z-10 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-primary-300/40 bg-primary-800/50 text-white transition hover:bg-primary-700 sm:flex"
+            className="absolute left-4 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-md transition-all duration-200 hover:bg-white/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 lg:left-6 lg:h-12 lg:w-12"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
@@ -67,23 +67,40 @@ function ProgramsComingSoon() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.8, ease: "easeInOut" }}
-              className="relative h-[40vh] md:h-[50vh]"
+              className="relative h-[220px] w-full sm:h-[260px] md:h-[300px] lg:h-[340px] xl:h-[380px]"
             >
               <img
                 src={SLIDES[current].image}
                 alt={t(SLIDES[current].titleKey)}
-                className="h-full w-full object-cover"
+                className="absolute inset-0 h-full w-full object-fit object-cover object-center"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-              <div className="absolute inset-0 flex items-end justify-center pb-10">
+              <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 flex flex-col items-center justify-end pb-3 lg:pb-4">
                 <motion.h3
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                  className="text-2xl md:text-3xl font-bold text-white text-center"
+                  className="text-center text-2xl font-bold tracking-tight text-white drop-shadow-lg md:text-3xl lg:text-4xl"
                 >
                   {t(SLIDES[current].titleKey)}
                 </motion.h3>
+
+                <div className="mt-3 flex items-center gap-2 lg:mt-4">
+                  {SLIDES.map((slide, index) => (
+                    <button
+                      key={slide.key}
+                      type="button"
+                      onClick={() => setCurrent(index)}
+                      aria-label={`Afficher ${t(slide.titleKey)}`}
+                      aria-current={index === current}
+                      className={`h-2 rounded-full transition-all duration-200 ${
+                        index === current
+                          ? "w-6 bg-white"
+                          : "w-2 bg-white/50 hover:bg-white/80"
+                      }`}
+                    />
+                  ))}
+                </div>
               </div>
             </motion.div>
           </AnimatePresence>
@@ -92,25 +109,10 @@ function ProgramsComingSoon() {
             type="button"
             onClick={() => goTo(current + 1)}
             aria-label={t("common.next")}
-            className="absolute right-2 top-1/2 z-10 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-primary-300/40 bg-primary-800/50 text-white transition hover:bg-primary-700 sm:flex"
+            className="absolute right-4 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-md transition-all duration-200 hover:bg-white/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 lg:right-6 lg:h-12 lg:w-12"
           >
             <ChevronRight className="h-5 w-5" />
           </button>
-
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-            {SLIDES.map((slide, index) => (
-              <button
-                key={slide.key}
-                type="button"
-                onClick={() => setCurrent(index)}
-                aria-label={`Afficher ${t(slide.titleKey)}`}
-                aria-current={index === current}
-                className={`h-2 w-2 rounded-full transition hover:bg-white/70 ${
-                  index === current ? "bg-white" : "bg-white/40"
-                }`}
-              />
-            ))}
-          </div>
         </div>
     </section>
   );
