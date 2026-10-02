@@ -30,6 +30,10 @@ import AdminProgramsList from "./pages/Admin/AdminProgramsList";
 import AdminProgramForm from "./pages/Admin/AdminProgramForm";
 import AdminPublicationsList from "./pages/Admin/AdminPublicationsList";
 import AdminPublicationForm from "./pages/Admin/AdminPublicationForm";
+import AdminTestimoniesList from "./pages/Admin/AdminTestimoniesList";
+import AdminTestimonyForm from "./pages/Admin/AdminTestimonyForm";
+import AdminCertificatesList from "./pages/Admin/AdminCertificatesList";
+import AdminCertificateForm from "./pages/Admin/AdminCertificateForm";
 import AdminSubscriptions from "./pages/Admin/AdminSubscriptions";
 import AdminNewsletter from "./pages/Admin/AdminNewsletter";
 import AdminBlogsList from "./pages/Admin/AdminBlogsList";
@@ -86,6 +90,13 @@ function App() {
               <Route path="publications" element={<AdminPublicationsList />} />
               <Route path="publications/new" element={<AdminPublicationForm />} />
               <Route path="publications/:id/edit" element={<AdminPublicationForm />} />
+
+              <Route path="testimonies" element={<AdminTestimoniesList />} />
+              <Route path="testimonies/new" element={<AdminTestimonyForm />} />
+              <Route path="testimonies/:id/edit" element={<AdminTestimonyForm />} />
+
+              <Route path="certificates" element={<AdminCertificatesList />} />
+              <Route path="certificates/new" element={<AdminCertificateForm />} />
 
                <Route path="subscriptions" element={<AdminSubscriptions />} />
                <Route path="newsletter" element={<AdminNewsletter />} />

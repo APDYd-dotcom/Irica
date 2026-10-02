@@ -31,3 +31,12 @@ export const getCertificate = async (id) => {
     return results.find((item) => String(item.id) === String(id)) || null;
   }
 };
+
+// VERIFIED on 2026-10-02 against the live API via OPTIONS:
+//   /certified/     -> Allow: GET, POST, HEAD, OPTIONS
+//   /certified/{id}/ -> Allow: GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+// Required fields reported by POST /certified/ {}: first_name, last_name,
+// telephone, email, start_date, end_date, type_of_program.
+// No file field exists on this resource, so creation posts plain JSON.
+export const createCertificate = (formData) => api.post("/certified/", formData);
+export const deleteCertificate = (id) => api.delete(`/certified/${id}/`);

@@ -203,6 +203,8 @@ const translations = {
     },
     testimonies: {
       title: "Témoignages",
+      readMore: "Lire la suite",
+      readLess: "Réduire",
     },
     dashboard: {
       headerLabel: "Espace membre",
@@ -584,6 +586,8 @@ const translations = {
     },
     testimonies: {
       title: "Testimonials",
+      readMore: "Read more",
+      readLess: "Show less",
     },
     dashboard: {
       headerLabel: "Member dashboard",

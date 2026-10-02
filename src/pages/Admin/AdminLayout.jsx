@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
-import { BookOpen, Copy, FileText, GraduationCap, Mail, Newspaper, Plus } from "lucide-react";
+import { BadgeCheck, BookOpen, Copy, FileText, GraduationCap, Mail, MessageSquareQuote, Newspaper, Plus } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
 import useFetch from "../../hooks/useFetch";
 
@@ -125,6 +125,38 @@ function AdminLayout() {
                   <NavLink to="/admin/blogs/new" className={linkClass}>
                     <Plus className="h-4 w-4" />
                     Add Blog Post
+                  </NavLink>
+                </nav>
+              </div>
+
+              <div className="rounded-3xl bg-white border border-ink/10 p-5 shadow-sm">
+                <p className="text-xs uppercase tracking-[0.24em] text-ink-soft/70 font-semibold mb-4">
+                  Testimonials
+                </p>
+                <nav className="space-y-2">
+                  <NavLink to="/admin/testimonies" end className={linkClass}>
+                    <MessageSquareQuote className="h-4 w-4" />
+                    Testimonials
+                  </NavLink>
+                  <NavLink to="/admin/testimonies/new" className={linkClass}>
+                    <Plus className="h-4 w-4" />
+                    Add Testimonial
+                  </NavLink>
+                </nav>
+              </div>
+
+              <div className="rounded-3xl bg-white border border-ink/10 p-5 shadow-sm">
+                <p className="text-xs uppercase tracking-[0.24em] text-ink-soft/70 font-semibold mb-4">
+                  Certificates
+                </p>
+                <nav className="space-y-2">
+                  <NavLink to="/admin/certificates" end className={linkClass}>
+                    <BadgeCheck className="h-4 w-4" />
+                    Certificates
+                  </NavLink>
+                  <NavLink to="/admin/certificates/new" className={linkClass}>
+                    <Plus className="h-4 w-4" />
+                    Add Certificate
                   </NavLink>
                 </nav>
               </div>

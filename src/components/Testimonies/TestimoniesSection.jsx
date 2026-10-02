@@ -9,9 +9,11 @@ function TestimoniesSection() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [paused, setPaused] = useState(false);
+  const [expandedId, setExpandedId] = useState(null);
   const scrollContainerRef = useRef(null);
   const autoPlayTimerRef = useRef(null);
   const touchResumeTimerRef = useRef(null);
+  const activeIndexRef = useRef(0);
 
   useEffect(() => {
     async function fetchAllTestimonies() {
@@ -83,6 +85,20 @@ function TestimoniesSection() {
 
   const handleMouseEnter = () => setPaused(true);
   const handleMouseLeave = () => setPaused(false);
+
+  // Any slide change (manual scroll, arrows, or auto-scroll) collapses the
+  // expanded testimonial so a new one never appears already opened.
+  const handleScroll = () => {
+    const container = scrollContainerRef.current;
+    if (!container || !container.clientWidth) return;
+
+    const index = Math.round(container.scrollLeft / container.clientWidth);
+    if (index !== activeIndexRef.current) {
+      activeIndexRef.current = index;
+      setExpandedId(null);
+    }
+  };
+
   const handleTouchStart = () => {
     setPaused(true);
     clearTimeout(touchResumeTimerRef.current);
@@ -94,7 +110,7 @@ function TestimoniesSection() {
   const showArrows = testimonies.length > 1;
 
   return (
-    <section className="relative w-full py-20 md:py-24">
+    <section className="relative w-full pt-20 pb-10 md:pt-24 md:pb-12">
       <div className="absolute inset-0 bg-primary-900/90" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(0,122,51,0.18),transparent_60%)]" />
       <div className="relative flex flex-col items-center text-center">
@@ -120,12 +136,19 @@ function TestimoniesSection() {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             onTouchStart={handleTouchStart}
+            onScroll={handleScroll}
           >
-            {testimonies.map((testimonial) => (
-              <div
-                key={testimonial.id}
-                className="snap-center shrink-0 w-full flex flex-col items-center text-center px-4"
-              >
+            {testimonies.map((testimonial) => {
+              const content = testimonial.content || "";
+              const isExpanded = expandedId === testimonial.id;
+              // Rough heuristic: only offer "read more" for genuinely long texts.
+              const canExpand = content.length > 400;
+
+              return (
+                <div
+                  key={testimonial.id}
+                  className="snap-center shrink-0 w-full flex flex-col items-center text-center px-4 sm:px-8 lg:px-16"
+                >
                 {testimonial.photo ? (
                   <img
                     src={testimonial.photo}
@@ -145,11 +168,26 @@ function TestimoniesSection() {
                     {testimonial.position}
                   </p>
                 )}
-                <p className="mt-4 max-w-2xl whitespace-pre-line text-base leading-relaxed text-primary-50/90 italic">
+                <p
+                  className={`mt-4 max-w-4xl whitespace-pre-line text-sm sm:text-base leading-relaxed text-primary-50/90 italic ${
+                    isExpanded ? "" : "line-clamp-6"
+                  }`}
+                >
                   {testimonial.content}
                 </p>
-              </div>
-            ))}
+                {canExpand && (
+                  <button
+                    type="button"
+                    onClick={() => setExpandedId(isExpanded ? null : testimonial.id)}
+                    aria-expanded={isExpanded}
+                    className="mt-3 text-sm font-semibold text-primary-200 transition hover:text-white hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-200/60"
+                  >
+                    {isExpanded ? t("testimonies.readLess") : t("testimonies.readMore")}
+                  </button>
+                )}
+                </div>
+              );
+            })}
           </div>
 
           {showArrows && (
