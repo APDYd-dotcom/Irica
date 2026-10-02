@@ -8,17 +8,17 @@ const SLIDES = [
   {
     key: "certifying",
     titleKey: "programs.comingSoon.certifying",
-    image: "/images/5.jpg",
+    image: "/images/train4.jpeg",
   },
   {
     key: "internship",
     titleKey: "programs.comingSoon.internship",
-    image: "/images/train.jpeg",
+    image: "/images/traincover.jpeg",
   },
   {
     key: "capstone",
     titleKey: "programs.comingSoon.capstone",
-    image: "/images/train2.jpeg",
+    image: "/images/train2cover.jpeg",
   },
 ];
 
@@ -72,7 +72,7 @@ function ProgramsComingSoon() {
               <img
                 src={SLIDES[current].image}
                 alt={t(SLIDES[current].titleKey)}
-                className="absolute inset-0 h-full w-full object-fit object-cover object-center"
+                className="absolute inset-0 h-full w-full object-cover object-top"
               />
               <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 flex flex-col items-center justify-end pb-3 lg:pb-4">
