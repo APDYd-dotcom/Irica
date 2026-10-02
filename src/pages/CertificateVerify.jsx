@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { CalendarDays, CheckCircle2, Mail, Phone, QrCode, UserRound, XCircle } from "lucide-react";
+import { CalendarDays, CheckCircle2, Mail, Phone, UserRound, XCircle } from "lucide-react";
 import { getCertificate } from "../api/certified";
 import { useLanguage } from "../i18n/LanguageContext";
 import Loader from "../components/Loader";
@@ -66,11 +66,6 @@ function CertificateVerify() {
     };
   }, [id]);
 
-  const verifyUrl = useMemo(
-    () => (typeof window === "undefined" ? "" : window.location.href),
-    [status]
-  );
-
   if (status === "loading") return <Loader />;
 
   if (status === "missing" || status === "error") {
@@ -116,8 +111,8 @@ function CertificateVerify() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-x-8 px-5 sm:grid-cols-2 sm:px-8">
-          <div>
+        <div className="grid grid-cols-1 gap-x-8 px-5 pb-6 sm:grid-cols-2 sm:px-8">
+          <div className="[&>div:last-child]:border-b-0">
             <Field
               icon={UserRound}
               label={t("certificate.fullName")}
@@ -130,7 +125,7 @@ function CertificateVerify() {
             />
             <Field icon={CalendarDays} label={t("certificate.period")} value={period} />
           </div>
-          <div>
+          <div className="[&>div:last-child]:border-b-0">
             <Field icon={Mail} label={t("certificate.email")} value={certificate.email} />
             <Field
               icon={Phone}
@@ -142,24 +137,6 @@ function CertificateVerify() {
               label={t("certificate.issuedOn")}
               value={issued}
             />
-          </div>
-        </div>
-
-        <div className="mt-auto flex flex-col items-center gap-4 border-t border-neutral-200 bg-neutral-50 px-5 py-[2.5vh] sm:flex-row sm:gap-6 sm:px-8">
-          <img
-            src={`https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(verifyUrl)}`}
-            alt={t("certificate.qrAlt")}
-            className="h-[16vh] max-h-44 min-h-28 w-auto flex-none rounded-xl border border-neutral-200 bg-white p-1.5"
-            loading="lazy"
-          />
-          <div className="min-w-0 text-center sm:text-left">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-neutral-400">
-              {t("certificate.qrLabel")}
-            </p>
-            <p className="mt-1 flex items-start justify-center gap-2 text-sm leading-snug text-neutral-500 sm:justify-start">
-              <QrCode className="mt-0.5 h-4 w-4 flex-none text-primary-500" />
-              <span>{t("certificate.qrHint")}</span>
-            </p>
           </div>
         </div>
       </article>
