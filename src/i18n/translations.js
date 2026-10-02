@@ -56,49 +56,37 @@ const translations = {
       secondary: "Découvrir nos services",
     },
     services: {
-      eyebrow: "Services",
-      title: "Des expertises intégrées, sans complexité inutile.",
+      eyebrow: "Nos Services",
+      title: "Trois pôles d'expertises immersives",
       description:
-        "IRICA réunit recherche, évaluation, conseil et formation dans une expérience sobre, structurée et orientée vers l'action.",
+        "Votre partenaire pour l'information de qualité, la performance organisationnelle et l'ouverture au monde.",
       items: {
-        research: {
-          title: "Recherche appliquée et données",
+        conseilAudit: {
+          title: "Pôle Conseil & Audit",
           description:
-            "Des études quantitatives et qualitatives pour éclairer les décisions publiques, privées et associatives.",
+            "Nous garantissons la robustesse de vos initiatives, de la conception à l'évaluation.",
           points: [
-            "Enquêtes de terrain et collecte de données",
-            "Analyses statistiques avec R, Stata, SPSS et Power BI",
-            "Rapports techniques et publications scientifiques",
+            "Consultance : Suivi-Évaluation, Gestion et Création de projets",
+            "Gouvernance : Audit organisationnel et financier pour une transparence totale",
+            "Finance : Conseil stratégique pour une gestion financière optimisée",
           ],
         },
-        project: {
-          title: "Gestion de projets et évaluation",
+        formationLangues: {
+          title: "Pôle Formation & Langues",
           description:
-            "Un accompagnement méthodique pour concevoir, piloter et mesurer l'impact des projets.",
+            "Nous dotons vos professionnels des compétences de demain.",
           points: [
-            "Cadres logiques et plans de suivi",
-            "Évaluations indépendantes selon les critères OECD-DAC",
-            "Capitalisation des apprentissages",
+            "Formations Certifiantes : Management de Projets, Suivi-Évaluation, Entrepreneuriat, Audit et Finances",
+            "Communication Internationale : Maîtrisez l'Anglais (cours professionnels et généraux)",
           ],
         },
-        audit: {
-          title: "Audit et conseil institutionnel",
+        rechercheInterpretariat: {
+          title: "Pôle Recherche & Interprétariat",
           description:
-            "Des diagnostics clairs pour renforcer la gouvernance, la performance et la conformité.",
+            "Votre partenaire pour l'information de qualité et l'ouverture au monde.",
           points: [
-            "Audit organisationnel et financier",
-            "Conseil stratégique pour institutions et PME",
-            "Accompagnement des propositions aux bailleurs",
-          ],
-        },
-        capacity: {
-          title: "Formation et capacités",
-          description:
-            "Des parcours pratiques conçus pour rendre les équipes autonomes sur les méthodes et outils.",
-          points: [
-            "Formations professionnelles courtes",
-            "Mentorat en recherche et statistiques",
-            "Ateliers sur outils numériques de collecte",
+            "Recherche et Étude : Études approfondies sur les défis du développement socio-économique",
+            "Service Linguistique : Traduction et Interprétariat de documents techniques et scientifiques",
           ],
         },
       },
@@ -438,49 +426,37 @@ const translations = {
       secondary: "Discover our services",
     },
     services: {
-      eyebrow: "Services",
-      title: "Integrated expertise, without unnecessary complexity.",
+      eyebrow: "Our Services",
+      title: "Three pillars of immersive expertise",
       description:
-        "IRICA brings together research, evaluation, advisory and training in a sober, structured, action-oriented experience.",
+        "Your partner for quality information, organizational performance, and global openness.",
       items: {
-        research: {
-          title: "Applied Research & Data",
+        conseilAudit: {
+          title: "Advisory & Audit Pillar",
           description:
-            "Quantitative and qualitative studies to inform public, private and civil-society decisions.",
+            "We ensure the robustness of your initiatives, from design to evaluation.",
           points: [
-            "Field surveys and data collection",
-            "Statistical analysis with R, Stata, SPSS and Power BI",
-            "Technical reports and scientific publications",
+            "Consulting: Monitoring & Evaluation, Project Management and Design",
+            "Governance: Organizational and financial audit for full transparency",
+            "Finance: Strategic advisory for optimized financial management",
           ],
         },
-        project: {
-          title: "Project Management & Evaluation",
+        formationLangues: {
+          title: "Training & Languages Pillar",
           description:
-            "Methodical support to design, manage and measure the impact of projects.",
+            "We equip your professionals with tomorrow's skills.",
           points: [
-            "Logical frameworks and monitoring plans",
-            "Independent evaluations against OECD-DAC criteria",
-            "Learning capitalization",
+            "Certified Training: Project Management, Monitoring & Evaluation, Entrepreneurship, Audit and Finance",
+            "International Communication: Master English (professional and general courses)",
           ],
         },
-        audit: {
-          title: "Audit & Institutional Advisory",
+        rechercheInterpretariat: {
+          title: "Research & Interpretation Pillar",
           description:
-            "Clear diagnostics to strengthen governance, performance and compliance.",
+            "Your partner for quality information and global openness.",
           points: [
-            "Organizational and financial audit",
-            "Strategic advisory for institutions and SMEs",
-            "Support for funder proposals",
-          ],
-        },
-        capacity: {
-          title: "Training & Capacity Building",
-          description:
-            "Hands-on programmes designed to make teams self-sufficient in methods and tools.",
-          points: [
-            "Short professional training courses",
-            "Mentoring in research and statistics",
-            "Workshops on digital data-collection tools",
+            "Research & Study: In-depth studies on socio-economic development challenges",
+            "Language Services: Translation and interpretation of technical and scientific documents",
           ],
         },
       },

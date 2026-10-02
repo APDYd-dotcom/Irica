@@ -13,7 +13,7 @@ const SLIDES = [
   {
     key: "internship",
     titleKey: "programs.comingSoon.internship",
-    image: "/images/5.jpg",
+    image: "/images/train4.jpeg",
   },
   {
     key: "capstone",

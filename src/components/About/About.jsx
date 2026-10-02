@@ -3,10 +3,22 @@ import { motion } from "framer-motion";
 import Container from "../Layout/Container";
 import { EASE } from "../../animations/variants";
 
-const stats = [
-  { value: "30+", label: "missions accompagnées" },
-  { value: "12", label: "domaines d'expertise" },
-  { value: "5+", label: "années d'impact" },
+const objectives = [
+  {
+    name: "Professionnaliser",
+    description:
+      "Former les individus et les organisations à exceller en gestion, finance et entrepreneuriat",
+  },
+  {
+    name: "Structurer",
+    description:
+      "Offrir des services de conseil et d'audit afin de garantir l'efficacité, la transparence et la réussite des projets de développement",
+  },
+  {
+    name: "Innover/Informer",
+    description:
+      "Mener des recherches et études scientifiques afin de proposer des solutions concrètes aux défis du développement socio-économique",
+  },
 ];
 
 function About() {
@@ -20,27 +32,29 @@ function About() {
             viewport={{ once: true, amount: 0.25 }}
             transition={{ duration: 0.55, ease: EASE }}
           >
-            <p className="eyebrow text-primary-700">Notre histoire</p>
-            <h2 className="section-title mt-4">
-              Une institution de conseil pensée pour les réalités africaines.
-            </h2>
+            <p className="eyebrow text-primary-700">Notre Mission</p>
+            <h2 className="section-title mt-4">L'accélérateur de croissance</h2>
             <p className="mt-8">
-              IRICA combine rigueur académique, connaissance du terrain et culture de
-              l'innovation pour aider les organisations à prendre de meilleures décisions.
-            </p>
-            <p className="mt-5">
-              Notre approche est volontairement claire : écouter, mesurer, analyser, puis
-              transformer les résultats en actions compréhensibles par les équipes.
+              Nous stimulons le développement socio-économique en renforçant les capacités de
+              vos équipes et de vos structures. Notre mission est de vous fournir l'expertise et
+              les connaissances scientifiques nécessaires à une prise de décision réussie et
+              éclairée.
             </p>
 
-            <div className="mt-10 grid gap-4 sm:grid-cols-3">
-              {stats.map((stat) => (
-                <div key={stat.label} className="rounded-2xl border border-neutral-200 bg-neutral-50 p-5">
-                  <div className="text-3xl font-bold tracking-tight text-primary-700">{stat.value}</div>
-                  <div className="mt-2 text-sm leading-5 text-neutral-600">{stat.label}</div>
-                </div>
+            <p className="mt-12 text-sm font-semibold uppercase tracking-wide text-primary-700">
+              Nos 3 objectifs clés (piliers de l'impact)
+            </p>
+            <ul className="mt-6 space-y-6">
+              {objectives.map((objective) => (
+                <li key={objective.name} className="flex gap-4">
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 flex-none text-primary-600" />
+                  <div>
+                    <p className="font-semibold text-ink">{objective.name}</p>
+                    <p className="mt-1 text-sm text-neutral-600">{objective.description}</p>
+                  </div>
+                </li>
               ))}
-            </div>
+            </ul>
           </motion.div>
 
           <motion.div
