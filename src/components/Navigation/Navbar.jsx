@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { HeartHandshake, LayoutDashboard, LockKeyhole, LogOut, Menu, X } from "lucide-react";
+import { HeartHandshake, LayoutDashboard, LogOut, Menu, X } from "lucide-react";
 import { motion } from "framer-motion";
 import { useAuth } from "../../hooks/useAuth";
 import { useScrollDirection } from "../../hooks/useScrollDirection";
@@ -61,7 +61,6 @@ function Navbar() {
   const { t } = useLanguage();
 
   const dashboardLink = user && !user.is_staff ? "/dashboard/programs" : "/login";
-  const adminLink = user?.is_staff ? "/admin/articles" : "/admin/login";
 
   function handleLogout() {
     logout();
@@ -192,14 +191,6 @@ function Navbar() {
             </Link>
 
             <Link
-              to={adminLink}
-              className="inline-flex items-center gap-1.5 md:gap-2 rounded-full px-3 py-2 text-xs md:text-sm font-semibold text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 focus:outline-none focus:ring-4 focus:ring-primary-500/20"
-            >
-              <LockKeyhole className="h-3.5 w-3.5" />
-              <span className="hidden sm:inline">{t("nav.admin")}</span>
-            </Link>
-
-            <Link
               to={dashboardLink}
             className="inline-flex items-center gap-1.5 md:gap-2 rounded-full bg-primary-500 px-4 md:px-5 py-2 text-xs md:text-sm font-semibold text-white shadow-sm hover:-translate-y-0.5 hover:bg-primary-600 hover:shadow-lg hover:shadow-primary-900/15 focus:outline-none focus:ring-4 focus:ring-primary-500/25"
 >
@@ -267,14 +258,6 @@ function Navbar() {
           >
             <HeartHandshake className="h-3.5 w-3.5" />
             {t("nav.donate")}
-          </Link>
-          <Link
-            to={adminLink}
-            className="inline-flex items-center justify-center gap-2 rounded-full border border-neutral-200 px-4 py-3 text-sm font-semibold text-neutral-700 hover:bg-neutral-100"
-            onClick={closeDrawer}
-          >
-            <LockKeyhole className="h-3.5 w-3.5" />
-            {t("nav.admin")}
           </Link>
           <Link
             to={dashboardLink}

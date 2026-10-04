@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axiosClient from "../api/axiosClient";
 import { handleChange } from "../utils/formHandles";
 import { getErrorMessage } from "../utils/getErrorMessage";
 import { useAuth } from "../hooks/useAuth";
+import { useLanguage } from "../i18n/LanguageContext";
 import ErrorMessage from "../components/ErrorMessage";
 
 function Login() {
@@ -12,6 +13,7 @@ function Login() {
   const [error, setError] = useState(null);
 
   const { login } = useAuth();
+  const { t } = useLanguage();
   const navigate = useNavigate();
 
   function handleSubmit(e) {
@@ -38,11 +40,9 @@ function Login() {
     <div className="min-h-[80vh] flex items-center justify-center px-6 py-16">
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
-          <p className="eyebrow text-primary-700 mb-3">Member Portal</p>
-          <h1 className="font-serif text-3xl text-ink">Dashboard Login</h1>
-          <p className="text-sm text-ink-soft mt-2">
-            Enter your email and access code to open your registered program dashboard.
-          </p>
+          <p className="eyebrow text-primary-700 mb-3">{t("login.eyebrow")}</p>
+          <h1 className="font-serif text-3xl text-ink">{t("login.title")}</h1>
+          <p className="text-sm text-ink-soft mt-2">{t("login.subtitle")}</p>
         </div>
 
         <div className="bg-white border border-ink/10 rounded-2xl p-8">
@@ -54,7 +54,7 @@ function Login() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-ink mb-1">Email</label>
+              <label className="block text-sm font-medium text-ink mb-1">{t("login.email")}</label>
               <input
                 type="email"
                 name="email"
@@ -66,7 +66,9 @@ function Login() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-ink mb-1">Access Code</label>
+              <label className="block text-sm font-medium text-ink mb-1">
+                {t("login.accessCode")}
+              </label>
               <input
                 type="password"
                 name="access_code"
@@ -82,16 +84,9 @@ function Login() {
               disabled={sending}
               className="w-full mt-2 bg-forest-800 hover:bg-forest-700 disabled:opacity-50 text-white font-medium py-3 rounded-full transition"
             >
-              {sending ? "Verifying..." : "Enter Dashboard"}
+              {sending ? t("login.verifying") : t("login.signIn")}
             </button>
           </form>
-
-          <p className="mt-5 text-center text-sm text-ink-soft">
-            Admin?{" "}
-            <Link to="/admin/login" className="font-semibold text-forest-800 hover:underline">
-              Use admin login
-            </Link>
-          </p>
         </div>
       </div>
     </div>

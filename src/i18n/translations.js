@@ -55,6 +55,16 @@ const translations = {
       cta: "Consultation gratuite",
       secondary: "Découvrir nos services",
     },
+    login: {
+      eyebrow: "Portail membre",
+      title: "Connexion",
+      subtitle:
+        "Saisissez votre adresse e-mail et votre code d'accès pour ouvrir vos programmes inscrits.",
+      email: "Adresse e-mail",
+      accessCode: "Code d'accès",
+      verifying: "Vérification...",
+      signIn: "Se connecter",
+    },
     services: {
       eyebrow: "Nos Services",
       title: "Trois pôles d'expertises immersives",
@@ -424,6 +434,16 @@ const translations = {
         "IRICA supports institutions, organizations and businesses with rigorous analyses, practical training and results-oriented advisory services.",
       cta: "Free consultation",
       secondary: "Discover our services",
+    },
+    login: {
+      eyebrow: "Member Portal",
+      title: "Login",
+      subtitle:
+        "Enter your email and access code to open your registered program dashboard.",
+      email: "Email",
+      accessCode: "Access Code",
+      verifying: "Verifying...",
+      signIn: "Sign In",
     },
     services: {
       eyebrow: "Our Services",
