@@ -12,7 +12,6 @@ const navLinks = [
   { to: "/#services", labelKey: "nav.services", id: "services" },
   { to: "/#about", labelKey: "nav.about", id: "about" },
   { to: "/#programs", labelKey: "nav.programs", id: "programs" },
-  { to: "/#publications", labelKey: "nav.publications", id: "publications" },
   { to: "/blog", labelKey: "nav.blog", id: "blog" },
   { to: "/#team", labelKey: "nav.team", id: "team" },
   { to: "/#contact", labelKey: "nav.contact", id: "contact" },

@@ -2,7 +2,7 @@ import About from "../components/About/About";
 import ContactForm from "../components/Contact/ContactForm";
 import Hero from "../components/Hero/Hero";
 import ProgramsSection from "../components/ProgramsSection";
-import Publications from "../components/Publications/Publications";
+import LatestBlogSection from "../components/Blog/LatestBlogSection";
 import Services from "../components/Services/Services";
 import Team from "../components/Team/Team";
 import TestimoniesSection from "../components/Testimonies/TestimoniesSection";
@@ -17,7 +17,7 @@ export default function Home() {
       <Services />
       <About />
       <ProgramsSection />
-      <Publications />
+      <LatestBlogSection />
       <TestimoniesSection />
       <Team />
       <ContactForm />

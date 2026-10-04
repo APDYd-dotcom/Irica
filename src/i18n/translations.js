@@ -277,6 +277,10 @@ const translations = {
       },
     },
     blog: {
+      latestEyebrow: "Blog",
+      latestTitle: "Nos derniers articles.",
+      latestDescription:
+        "Analyses, retours d'expérience et nouvelles de nos travaux sur le conseil, la recherche et l'innovation en Afrique.",
       eyebrow: "Blog",
       title: "Blog & actualités.",
       description:
@@ -658,6 +662,10 @@ const translations = {
       },
     },
     blog: {
+      latestEyebrow: "Blog",
+      latestTitle: "Our latest articles.",
+      latestDescription:
+        "Analyses, feedback and news from our work on advisory, research and innovation in Africa.",
       eyebrow: "Blog",
       title: "Blog & News.",
       description:

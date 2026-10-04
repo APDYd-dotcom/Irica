@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axiosClient from "../api/axiosClient";
 import { handleChange } from "../utils/formHandles";
 import { getErrorMessage } from "../utils/getErrorMessage";
@@ -86,13 +86,6 @@ function AdminLogin() {
               {sending ? "Logging in..." : "Log In"}
             </button>
           </form>
-
-          <p className="mt-5 text-center text-xs text-ink-soft">
-            Student?{" "}
-            <Link to="/login" className="font-semibold text-forest-800 hover:underline">
-              Use dashboard login
-            </Link>
-          </p>
         </div>
       </div>
     </div>
