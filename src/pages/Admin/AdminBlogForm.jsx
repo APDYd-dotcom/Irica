@@ -10,7 +10,7 @@ import UploadProgress from "../../components/UploadProgress";
 const initialFormState = {
   title: "",
   desc: "",
-  file: null,
+  created_at: "",
   photo: null,
 };
 
@@ -34,7 +34,8 @@ function AdminBlogForm() {
       setFormData({
         title: existing.title || "",
         desc: existing.desc || "",
-        file: null,
+        // ISO datetime -> YYYY-MM-DD for <input type="date">
+        created_at: existing.created_at ? existing.created_at.slice(0, 10) : "",
         photo: null,
       });
     }
@@ -122,18 +123,24 @@ function AdminBlogForm() {
           />
         </div>
 
-        {/* File Upload */}
+        {/* Published Date */}
         <div>
-          <label className="block text-xs font-medium text-ink mb-1">File (optional)</label>
+          {/* TODO: created_at is READ-ONLY on the backend. Verified 2026-10-04 —
+              PATCH /blogs/{id}/ with a different created_at returns HTTP 200 but
+              silently ignores the value and returns the original one. This input
+              will therefore appear to save but have no effect. Remove it, or ask
+              the backend to expose created_at as a writable field. */}
+          <label className="block text-xs font-medium text-ink mb-1">Published date</label>
           <input
-            type="file"
-            name="file"
+            type="date"
+            name="created_at"
+            value={formData.created_at}
             onChange={(e) => handleChange(e, setFormData)}
-            className="w-full text-xs text-ink-soft"
+            className="w-full border border-ink/15 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-forest-800/40"
           />
-          {isEditing && (
-            <p className="text-xs text-ink-soft/70 mt-1">Leave empty to keep the current file.</p>
-          )}
+          <p className="text-xs text-ink-soft/70 mt-1">
+            Not saved by the API: created_at is read-only server-side.
+          </p>
         </div>
 
         {/* Photo Upload */}

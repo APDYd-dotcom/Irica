@@ -71,11 +71,11 @@ function BlogDetail() {
         </Link>
 
         {blog.photo && (
-          <div className="mt-8 overflow-hidden rounded-2xl">
+          <div className="mt-8 overflow-hidden rounded-2xl max-h-[420px]">
             <img
               src={blog.photo}
               alt={blog.title}
-              className="h-full w-full object-cover"
+              className="h-[420px] w-full object-cover object-top"
             />
           </div>
         )}
@@ -90,7 +90,7 @@ function BlogDetail() {
           </p>
         )}
 
-        <div className="mt-8">
+        <div className="mt-8 mx-auto max-w-2xl">
           {linkifyParagraphs(blog.desc)}
         </div>
       </Container>

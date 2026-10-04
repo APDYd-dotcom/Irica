@@ -30,7 +30,7 @@ export function linkifyParagraphs(text) {
   const paragraphs = normalized.split("\n").filter((p) => p.length > 0);
 
   return paragraphs.map((paragraph, index) => (
-    <p key={index} className="mb-4 leading-7 text-neutral-700">
+    <p key={index} className="mb-4 leading-7 text-neutral-700 text-justify">
       {linkifyText(paragraph)}
     </p>
   ));
