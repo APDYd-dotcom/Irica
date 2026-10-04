@@ -1,4 +1,4 @@
-import { Mail, MessageCircle, UserRoundPlus } from "lucide-react";
+import { Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLanguage } from "../../i18n/LanguageContext";
 import { EASE } from "../../animations/variants";
@@ -70,14 +70,15 @@ function TeamCard({ member, featured = false }) {
             aria-label={t("team.linkedinLabel", { name: member.name })}
             className="flex h-7 w-7 items-center justify-center rounded-full text-neutral-500 transition-colors duration-200 hover:bg-primary-50 hover:text-primary-700"
           >
-            <UserRoundPlus className="h-3.5 w-3.5" />
-          </a>
-          <a
-            href={member.twitter}
-            aria-label={t("team.contactLabel", { name: member.name })}
-            className="flex h-7 w-7 items-center justify-center rounded-full text-neutral-500 transition-colors duration-200 hover:bg-primary-50 hover:text-primary-700"
-          >
-            <MessageCircle className="h-3.5 w-3.5" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="h-3.5 w-3.5"
+              aria-hidden="true"
+            >
+              <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.24 8.5h4.5V24H.24V8.5zm8.32 0h4.32v2.16c.62-1 1.7-2.2 3.48-2.2 3.73 0 4.42 2.45 4.42 5.64V24h-4.5v-7.15c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.86-2.75 3.78V24h-4.5V8.5z" />
+            </svg>
           </a>
         </div>
       </div>
