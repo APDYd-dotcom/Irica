@@ -73,7 +73,7 @@ function Team() {
         </motion.div>
 
         <motion.div
-          className="grid gap-6 grid-cols-2 md:grid-cols-1 lg:grid-cols-4 lg:gap-8"
+          className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-4 lg:gap-8"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.15 }}
