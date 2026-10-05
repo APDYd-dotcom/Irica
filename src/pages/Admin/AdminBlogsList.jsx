@@ -4,6 +4,7 @@ import useFetch from "../../hooks/useFetch";
 import { handleDelete } from "../../utils/formHandles";
 import Loader from "../../components/Loader";
 import ErrorMessage from "../../components/ErrorMessage";
+import { blogExcerpt } from "../../components/BlogContent";
 import { FileText } from "lucide-react";
 
 function AdminBlogsList() {
@@ -83,10 +84,14 @@ function AdminBlogsList() {
                 <FileText className="h-5 w-5" />
               </div>
               <div>
-                <p className="font-medium text-ink">{blog.title}</p>
-                <p className="text-xs text-ink-soft/70 line-clamp-1">{blog.desc || "No description available."}</p>
+                <p className="font-medium text-ink">{blogExcerpt(blog.title, 200)}</p>
+                <p className="text-xs text-ink-soft/70 line-clamp-1">
+                  {blogExcerpt(blog.desc, 160) || "No description available."}
+                </p>
               </div>
-              <div className="text-xs text-ink-soft line-clamp-1">{blog.desc ? blog.desc.slice(0, 60) + (blog.desc.length > 60 ? "..." : "") : "—"}</div>
+              <div className="text-xs text-ink-soft line-clamp-1">
+                {blogExcerpt(blog.desc, 60) || "—"}
+              </div>
               <Link
                 to={`/admin/blogs/${blog.id}/edit`}
                 className="text-xs font-medium text-forest-800 hover:underline text-right"

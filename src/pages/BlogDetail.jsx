@@ -6,7 +6,7 @@ import { useLanguage } from "../i18n/LanguageContext";
 import { getBlog } from "../api/blogs";
 import Loader from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
-import { linkifyParagraphs } from "../utils/linkify";
+import BlogContent from "../components/BlogContent";
 import { stripReplacementChars } from "../utils/sanitizeText";
 
 function BlogDetail() {
@@ -94,7 +94,7 @@ function BlogDetail() {
         )}
 
         <div className="mt-8 mx-auto max-w-2xl">
-          {linkifyParagraphs(blog.desc)}
+          <BlogContent content={blog.desc} />
         </div>
       </Container>
     </section>

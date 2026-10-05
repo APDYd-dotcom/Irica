@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ChevronRight, Newspaper } from "lucide-react";
 import { motion } from "framer-motion";
 import { getBlogs } from "../../api/blogs";
+import { blogExcerpt } from "../BlogContent";
 import Container from "../Layout/Container";
 import { useLanguage } from "../../i18n/LanguageContext";
 import { EASE } from "../../animations/variants";
@@ -77,6 +78,8 @@ function LatestBlogSection() {
         <div className="scrollbar-hidden flex gap-6 overflow-x-auto pb-6">
           {blogs.map((blog, index) => {
             const photo = blog.photo || null;
+              const title = blogExcerpt(blog.title, 200);
+              const desc = blogExcerpt(blog.desc, 180);
 
             return (
               <motion.div

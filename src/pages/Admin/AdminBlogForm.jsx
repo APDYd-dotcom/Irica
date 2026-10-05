@@ -7,6 +7,7 @@ import SuccessMessage from "../../components/SuccessMessage";
 import Loader from "../../components/Loader";
 import UploadProgress from "../../components/UploadProgress";
 import { hasReplacementChars } from "../../utils/sanitizeText";
+import RichEditor from "../../components/RichEditor";
 
 const initialFormState = {
   title: "",
@@ -54,6 +55,16 @@ function AdminBlogForm() {
       setError(
         "Le texte contient des caractères invalides (probablement collés depuis une source mal encodée). Merci de retaper ou recoller le texte proprement avant d'enregistrer."
       );
+      return;
+    }
+
+    // The rich text editor has no native `required`, so validate here instead.
+    const plainText = String(formData.desc || "")
+      .replace(/<[^>]*>/g, "")
+      .replace(/&nbsp;/gi, " ")
+      .trim();
+    if (!plainText) {
+      setError("Le contenu de l'article est obligatoire.");
       return;
     }
 
@@ -120,17 +131,17 @@ function AdminBlogForm() {
           />
         </div>
 
-        {/* Description */}
+        {/* Content — rich text editor: the value is now an HTML string */}
         <div>
           <label className="block text-xs font-medium text-ink mb-1">Description</label>
-          <textarea
-            name="desc"
-            rows="4"
-            value={formData.desc}
-            onChange={(e) => handleChange(e, setFormData)}
-            required
-            className="w-full border border-ink/15 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-forest-800/40"
-          />
+          <div className="rich-editor">
+            <RichEditor
+              value={formData.desc}
+              onChange={(html) =>
+                setFormData((prev) => ({ ...prev, desc: html }))
+              }
+            />
+          </div>
         </div>
 
         {/* Published Date */}
