@@ -1,27 +1,32 @@
-import { useRef } from "react";
-import { CalendarDays, ChevronRight, CreditCard, LockKeyhole } from "lucide-react";
+import { useRef, useState, useLayoutEffect } from "react";
+import { CalendarDays, ChevronRight, CreditCard } from "lucide-react";
 import { motion } from "framer-motion";
 import useFetch from "../hooks/useFetch";
 import Container from "./Layout/Container";
 import { useLanguage } from "../i18n/LanguageContext";
 import { EASE } from "../animations/variants";
+import { htmlToExcerpt } from "../utils/htmlToExcerpt";
 import ProgramsComingSoon from "./Programs/ProgramsComingSoon";
 
-function ProgramsSection() {
-    const { t, language } = useLanguage();
+function ProgramCard({ prog, t, language, index }) {
+    const [expanded, setExpanded] = useState(false);
+    const [isClamped, setIsClamped] = useState(false);
+    const descRef = useRef(null);
 
-    const { data, loading, error } = useFetch("/programs/");
-    const allPrograms = data?.results || data || [];
-    const programs = allPrograms.filter((p) => p.is_open === true);
-    const rowRef = useRef(null);
+    const title = prog.title || prog.name || prog.program_title || t("programs.fallback");
+    const desc = htmlToExcerpt(prog.descr || prog.desc || prog.description || "", 99999);
+    const photo = prog.photo || prog.image || null;
+    const link = prog.link || `/programs/${prog.id}`;
+    const status = prog.status || prog.state || "enrollment";
+    const isFree =
+        typeof prog.is_free !== "undefined"
+            ? prog.is_free
+            : prog.isFree || false;
+    const price = prog.price || prog.cost || 0;
+    const createdAt = prog.created_at || prog.createdAt || null;
+    const subtitle = prog.subtitle || prog.sub_title || "";
 
-    function scrollNext() {
-        if (!rowRef.current) return;
-        rowRef.current.scrollBy({
-            left: rowRef.current.clientWidth,
-            behavior: "smooth",
-        });
-    }
+    const hasSubtitle = subtitle || (status?.toLowerCase() === "completed" && title === "COMPLETED");
 
     const statusStyles = (status) => {
         const s = status?.toLowerCase() || "";
@@ -39,7 +44,7 @@ function ProgramsSection() {
         }
     };
 
-    const statusLabel = (status) => {
+    const statusLabelFn = (status) => {
         const s = status?.toLowerCase() || "";
         switch (s) {
             case "enrollment":
@@ -61,6 +66,130 @@ function ProgramsSection() {
             month: "short",
             year: "numeric",
         });
+
+    useLayoutEffect(() => {
+        if (expanded) return;
+        const el = descRef.current;
+        if (!el) {
+            setIsClamped(false);
+            return;
+        }
+        setIsClamped(el.scrollHeight > el.clientHeight + 1);
+    }, [expanded, desc]);
+
+    const handleToggle = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setExpanded((prev) => !prev);
+    };
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.5, ease: EASE, delay: Math.min(index, 6) * 0.06 }}
+            whileHover={{ y: -4, scale: 1.015 }}
+            className="flex w-[21rem] flex-none snap-start flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm hover:shadow-xl hover:shadow-neutral-900/10 sm:w-[24rem]"
+        >
+            <div
+                className="relative flex h-52 flex-shrink-0 flex-col justify-end bg-primary-700 px-6 pb-5"
+                style={
+                    photo
+                        ? {
+                            backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url(${photo})`,
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                        }
+                        : {}
+                }
+            >
+                <span
+                    className={`absolute right-4 top-4 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.08em] ${statusStyles(status)}`}
+                >
+                    {statusLabelFn(status)}
+                </span>
+                <h3 className="text-2xl font-bold leading-tight text-white">
+                    {title}
+                </h3>
+                {hasSubtitle && (
+                    <p className="mt-1 text-sm font-semibold uppercase tracking-[0.08em] text-white/75">
+                        {subtitle || t("programs.internship")}
+                    </p>
+                )}
+            </div>
+
+            <div className="flex flex-1 flex-col p-6">
+                <p
+                    ref={descRef}
+                    className={`text-sm leading-6 text-neutral-600 ${
+                        expanded ? "whitespace-pre-line" : "line-clamp-3"
+                    }`}
+                >
+                    {desc}
+                </p>
+
+                {(isClamped || expanded) && (
+                    <button
+                        type="button"
+                        aria-expanded={expanded}
+                        onClick={handleToggle}
+                        className="mt-2 text-xs font-semibold text-primary-700 hover:text-primary-800 hover:underline"
+                    >
+                        {expanded ? "Show less" : "Read more"}
+                    </button>
+                )}
+
+                <div className="mt-6 grid grid-cols-2 gap-3 text-sm text-neutral-600">
+                    <div className="rounded-2xl bg-neutral-50 p-4">
+                        <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-neutral-500">
+                            <CreditCard className="h-3.5 w-3.5" />
+                            {t("programs.priceLabel")}
+                        </div>
+                        <div className="font-semibold text-neutral-900">
+                            {isFree ? t("programs.free") : `${Number(price).toLocaleString()} FBU`}
+                        </div>
+                    </div>
+                    <div className="rounded-2xl bg-neutral-50 p-4">
+                        <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-neutral-500">
+                            <CalendarDays className="h-3.5 w-3.5" />
+                            {t("programs.publishedLabel")}
+                        </div>
+                        <div className="font-semibold text-neutral-900">
+                            {createdAt ? formatDate(createdAt) : t("programs.comingSoon")}
+                        </div>
+                    </div>
+                </div>
+
+                <div className="mt-auto pt-6">
+                    <a
+                        href={isFree ? link : `/programs/${prog.id}/pay`}
+                        className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary-500 px-4 py-3 text-sm font-semibold text-white hover:-translate-y-0.5 hover:bg-primary-600 focus:outline-none focus:ring-4 focus:ring-primary-500/25"
+                    >
+                        {isFree ? t("programs.viewProgram") : t("programs.payNow")}
+                        <ChevronRight className="h-4 w-4" />
+                    </a>
+                </div>
+            </div>
+        </motion.div>
+    );
+}
+
+function ProgramsSection() {
+    const { t, language } = useLanguage();
+
+    const { data, loading, error } = useFetch("/programs/");
+    const allPrograms = data?.results || data || [];
+    const programs = allPrograms.filter((p) => p.is_open === true);
+    const rowRef = useRef(null);
+
+    function scrollNext() {
+        if (!rowRef.current) return;
+        rowRef.current.scrollBy({
+            left: rowRef.current.clientWidth,
+            behavior: "smooth",
+        });
+    }
 
     if (loading) {
         return (
@@ -119,114 +248,9 @@ function ProgramsSection() {
                         className="scrollbar-hidden flex snap-x snap-mandatory gap-6 overflow-x-auto pb-6"
                         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
                     >
-                        {programs.map((prog, index) => {
-                        const title = prog.title || prog.name || prog.program_title || t("programs.fallback");
-                        const desc =
-                            prog.descr || prog.desc || prog.description || "";
-                        const photo = prog.photo || prog.image || null;
-                        const link = prog.link || `/programs/${prog.id}`;
-                        const status = prog.status || prog.state || "enrollment";
-                        const isFree =
-                            typeof prog.is_free !== "undefined"
-                                ? prog.is_free
-                                : prog.isFree || false;
-                        const price = prog.price || prog.cost || 0;
-                        const createdAt = prog.created_at || prog.createdAt || null;
-                        const subtitle = prog.subtitle || prog.sub_title || "";
-
-                        const hasSubtitle = subtitle || (status?.toLowerCase() === "completed" && title === "COMPLETED");
-
-                        return (
-                            <motion.div
-                                key={prog.id || title}
-                                initial={{ opacity: 0, y: 22 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, amount: 0.2 }}
-                                transition={{ duration: 0.5, ease: EASE, delay: Math.min(index, 6) * 0.06 }}
-                                whileHover={{ y: -4, scale: 1.015 }}
-                                className="flex w-[21rem] flex-none snap-start flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm hover:shadow-xl hover:shadow-neutral-900/10 sm:w-[24rem]"
-                            >
-                                <div
-                                    className="relative flex h-52 flex-shrink-0 flex-col justify-end bg-primary-700 px-6 pb-5"
-                                    style={
-                                        photo
-                                            ? {
-                                                backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url(${photo})`,
-                                                backgroundSize: "cover",
-                                                backgroundPosition: "center",
-                                            }
-                                            : {}
-                                    }
-                                >
-                                    <span
-                                        className={`absolute right-4 top-4 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.08em] ${statusStyles(status)}`}
-                                    >
-                                        {statusLabel(status)}
-                                    </span>
-                                    <h3 className="text-2xl font-bold leading-tight text-white">
-                                        {title}
-                                    </h3>
-                                    {hasSubtitle && (
-                                        <p className="mt-1 text-sm font-semibold uppercase tracking-[0.08em] text-white/75">
-                                            {subtitle || t("programs.internship")}
-                                        </p>
-                                    )}
-                                </div>
-
-                                <div className="flex flex-1 flex-col p-6">
-                                    <p className="line-clamp-3 text-sm leading-6 text-neutral-600">
-                                        {desc}
-                                    </p>
-
-                                    <div className="mt-6 grid grid-cols-2 gap-3 text-sm text-neutral-600">
-                                        <div className="rounded-2xl bg-neutral-50 p-4">
-                                            <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-neutral-500">
-                                                <CreditCard className="h-3.5 w-3.5" />
-                                                {t("programs.priceLabel")}
-                                            </div>
-                                            <div className="font-semibold text-neutral-900">
-                                                {isFree ? t("programs.free") : `${Number(price).toLocaleString()} FBU`}
-                                            </div>
-                                        </div>
-                                        <div className="rounded-2xl bg-neutral-50 p-4">
-                                            <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-neutral-500">
-                                                <CalendarDays className="h-3.5 w-3.5" />
-                                                {t("programs.publishedLabel")}
-                                            </div>
-                                            <div className="font-semibold text-neutral-900">
-                                                {createdAt ? formatDate(createdAt) : t("programs.comingSoon")}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="mt-5 flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-[0.08em]">
-                                        <span
-                                            className={`rounded-full px-3 py-1 ${isFree
-                                                ? "bg-primary-50 text-primary-700"
-                                                : "bg-neutral-100 text-neutral-700"
-                                                }`}
-                                        >
-                                            {isFree ? t("programs.freeBadge") : t("programs.paidBadge")}
-                                        </span>
-                                        <span className="inline-flex items-center gap-1.5 rounded-full bg-neutral-100 px-3 py-1 text-neutral-700">
-                                            <LockKeyhole className="h-3.5 w-3.5" />
-                                            EMAIL + CODE
-                                        </span>
-                                    </div>
-
-                                    <div className="mt-auto pt-6">
-                                        <a
-                                            href={isFree ? link : `/programs/${prog.id}/pay`}
-                                            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary-500 px-4 py-3 text-sm font-semibold text-white hover:-translate-y-0.5 hover:bg-primary-600 focus:outline-none focus:ring-4 focus:ring-primary-500/25"
-                                        >
-                                            {isFree ? t("programs.viewProgram") : t("programs.payNow")}
-                                            <ChevronRight className="h-4 w-4" />
-                                        </a>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        );
-                    })}
+                        {programs.map((prog, index) => (
+                            <ProgramCard key={prog.id || prog.title} prog={prog} t={t} language={language} index={index} />
+                        ))}
                     </div>
             </Container>
         </section>
