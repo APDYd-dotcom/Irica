@@ -6,6 +6,7 @@ import ErrorMessage from "../../components/ErrorMessage";
 import SuccessMessage from "../../components/SuccessMessage";
 import Loader from "../../components/Loader";
 import UploadProgress from "../../components/UploadProgress";
+import { hasReplacementChars } from "../../utils/sanitizeText";
 
 const initialFormState = {
   title: "",
@@ -46,6 +47,15 @@ function AdminBlogForm() {
     setError(null);
     setSuccess(false);
     setUploadState(null);
+
+    // Block text that already contains lost/replacement characters (U+FFFD).
+    // Saving it again would persist permanently broken content.
+    if (hasReplacementChars(formData.title) || hasReplacementChars(formData.desc)) {
+      setError(
+        "Le texte contient des caractères invalides (probablement collés depuis une source mal encodée). Merci de retaper ou recoller le texte proprement avant d'enregistrer."
+      );
+      return;
+    }
 
     const uploadFileName = formData.file?.name || formData.photo?.name || formData.title || "Blog";
     const updateUploadProgress = (progress) => {

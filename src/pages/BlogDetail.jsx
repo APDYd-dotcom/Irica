@@ -7,6 +7,7 @@ import { getBlog } from "../api/blogs";
 import Loader from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
 import { linkifyParagraphs } from "../utils/linkify";
+import { stripReplacementChars } from "../utils/sanitizeText";
 
 function BlogDetail() {
   const { id } = useParams();
@@ -38,6 +39,8 @@ function BlogDetail() {
       month: "short",
       year: "numeric",
     });
+
+  const title = stripReplacementChars(blog?.title);
 
   if (loading) {
     return (
@@ -74,14 +77,14 @@ function BlogDetail() {
           <div className="mt-8 overflow-hidden rounded-2xl max-h-[420px]">
             <img
               src={blog.photo}
-              alt={blog.title}
+              alt={title}
               className="h-[420px] w-full object-cover object-top"
             />
           </div>
         )}
 
         <h1 className="mt-8 text-3xl md:text-4xl font-bold text-neutral-900 text-center">
-          {blog.title}
+          {title}
         </h1>
 
         {blog.created_at && (

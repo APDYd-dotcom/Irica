@@ -5,6 +5,7 @@ import Container from "../components/Layout/Container";
 import { useLanguage } from "../i18n/LanguageContext";
 import { EASE } from "../animations/variants";
 import { getBlogs } from "../api/blogs";
+import { stripReplacementChars } from "../utils/sanitizeText";
 import Loader from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
 import { ArrowLeft, ArrowRight, Newspaper } from "lucide-react";
@@ -98,6 +99,8 @@ function Blog() {
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {paginatedBlogs.map((blog, index) => {
               const photo = blog.photo || null;
+              const title = stripReplacementChars(blog.title);
+              const desc = stripReplacementChars(blog.desc);
 
               return (
                 <motion.div
@@ -124,7 +127,7 @@ function Blog() {
                   </div>
 
                   <div className="flex flex-1 flex-col p-6">
-                    <h3 className="line-clamp-2 text-base font-semibold text-primary-700">{blog.title}</h3>
+                    <h3 className="line-clamp-2 text-base font-semibold text-primary-700">{title}</h3>
                     <Link
                       to={`/blog/${blog.id}`}
                       className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-primary-700 hover:text-primary-900 hover:underline"
@@ -132,7 +135,7 @@ function Blog() {
                       {t("blog.readArticle")}
                       <span aria-hidden="true">»</span>
                     </Link>
-                    <p className="mt-2 line-clamp-3 text-sm leading-6 text-neutral-600">{blog.desc}</p>
+                    <p className="mt-2 line-clamp-3 text-sm leading-6 text-neutral-600">{desc}</p>
                     <p className="mt-auto pt-4 text-xs text-ink-soft">
                       {blog.created_at ? formatDate(blog.created_at) : ""}
                     </p>
