@@ -104,6 +104,33 @@ const translations = {
         readMore: "En savoir plus",
       },
     },
+    about: {
+      eyebrow: "Notre Mission",
+      title: "L'accélérateur de croissance",
+      mission:
+        "Nous stimulons le développement socio-économique en renforçant les capacités de vos équipes et de vos structures. Notre mission est de vous fournir l'expertise et les connaissances scientifiques nécessaires à une prise de décision réussie et éclairée.",
+      objectivesTitle: "Nos 3 objectifs clés (piliers de l'impact)",
+      objectives: {
+        professionalize: {
+          name: "Professionnaliser",
+          description:
+            "Former les individus et les organisations à exceller en gestion, finance et entrepreneuriat",
+        },
+        structure: {
+          name: "Structurer",
+          description:
+            "Offrir des services de conseil et d'audit afin de garantir l'efficacité, la transparence et la réussite des projets de développement",
+        },
+        innovate: {
+          name: "Innover/Informer",
+          description:
+            "Mener des recherches et études scientifiques afin de proposer des solutions concrètes aux défis du développement socio-économique",
+        },
+      },
+      imageAlt: "Équipe IRICA en conférence",
+      cardTitle: "Du terrain à la décision",
+      cardDescription: "Méthodes robustes, livrables lisibles, accompagnement humain.",
+    },
     programs: {
       eyebrow: "Programmes",
       title: "Programmes IRICA.",
@@ -487,6 +514,33 @@ const translations = {
       card: {
         readMore: "Find out more",
       },
+    },
+    about: {
+      eyebrow: "Our Mission",
+      title: "The growth accelerator",
+      mission:
+        "We stimulate socio-economic development by strengthening the capacity of your teams and your structures. Our mission is to provide you with the expertise and scientific knowledge needed for successful, well-informed decision-making.",
+      objectivesTitle: "Our 3 key objectives (impact pillars)",
+      objectives: {
+        professionalize: {
+          name: "Professionalize",
+          description:
+            "Train individuals and organizations to excel in management, finance and entrepreneurship",
+        },
+        structure: {
+          name: "Structure",
+          description:
+            "Provide advisory and audit services to guarantee the effectiveness, transparency and success of development projects",
+        },
+        innovate: {
+          name: "Innovate/Inform",
+          description:
+            "Conduct research and scientific studies to propose concrete solutions to socio-economic development challenges",
+        },
+      },
+      imageAlt: "IRICA team at a conference",
+      cardTitle: "From the field to the decision",
+      cardDescription: "Robust methods, readable deliverables, human support.",
     },
     programs: {
       eyebrow: "Programs",
