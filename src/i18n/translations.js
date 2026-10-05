@@ -155,6 +155,8 @@ const translations = {
       viewProgram: "Voir le programme",
       payNow: "Payer maintenant",
       fallback: "Programme",
+      readMore: "Lire la suite",
+      readLess: "Réduire",
       comingSoon: {
         title: "De nouvelles formations arrivent bientôt",
         subtitle:
@@ -566,6 +568,8 @@ const translations = {
       viewProgram: "View program",
       payNow: "Pay now",
       fallback: "Program",
+      readMore: "Read more",
+      readLess: "Show less",
       comingSoon: {
         title: "New programs are coming soon",
         subtitle:

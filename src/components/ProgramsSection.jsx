@@ -136,7 +136,7 @@ function ProgramCard({ prog, t, language, index }) {
                         onClick={handleToggle}
                         className="mt-2 text-xs font-semibold text-primary-700 hover:text-primary-800 hover:underline"
                     >
-                        {expanded ? "Show less" : "Read more"}
+                        {expanded ? t("programs.readLess") : t("programs.readMore")}
                     </button>
                 )}
 
