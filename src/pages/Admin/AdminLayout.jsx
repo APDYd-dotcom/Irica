@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
-import { BadgeCheck, BookOpen, Copy, FileText, GraduationCap, Mail, MessageSquareQuote, Newspaper, Plus } from "lucide-react";
+import { BadgeCheck, BookOpen, Copy, FileText, GraduationCap, Handshake, Mail, MessageSquareQuote, Newspaper, Plus } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
 import useFetch from "../../hooks/useFetch";
 
@@ -157,6 +157,22 @@ function AdminLayout() {
                   <NavLink to="/admin/certificates/new" className={linkClass}>
                     <Plus className="h-4 w-4" />
                     Add Certificate
+                  </NavLink>
+                </nav>
+              </div>
+
+              <div className="rounded-3xl bg-white border border-ink/10 p-5 shadow-sm">
+                <p className="text-xs uppercase tracking-[0.24em] text-ink-soft/70 font-semibold mb-4">
+                  Partners
+                </p>
+                <nav className="space-y-2">
+                  <NavLink to="/admin/partners" end className={linkClass}>
+                    <Handshake className="h-4 w-4" />
+                    Partners
+                  </NavLink>
+                  <NavLink to="/admin/partners/new" className={linkClass}>
+                    <Plus className="h-4 w-4" />
+                    Add Partner
                   </NavLink>
                 </nav>
               </div>

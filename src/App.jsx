@@ -34,6 +34,8 @@ import AdminTestimoniesList from "./pages/Admin/AdminTestimoniesList";
 import AdminTestimonyForm from "./pages/Admin/AdminTestimonyForm";
 import AdminCertificatesList from "./pages/Admin/AdminCertificatesList";
 import AdminCertificateForm from "./pages/Admin/AdminCertificateForm";
+import AdminPartnersList from "./pages/Admin/AdminPartnersList";
+import AdminPartnerForm from "./pages/Admin/AdminPartnerForm";
 import AdminSubscriptions from "./pages/Admin/AdminSubscriptions";
 import AdminNewsletter from "./pages/Admin/AdminNewsletter";
 import AdminBlogsList from "./pages/Admin/AdminBlogsList";
@@ -97,6 +99,10 @@ function App() {
 
               <Route path="certificates" element={<AdminCertificatesList />} />
               <Route path="certificates/new" element={<AdminCertificateForm />} />
+
+              <Route path="partners" element={<AdminPartnersList />} />
+              <Route path="partners/new" element={<AdminPartnerForm />} />
+              <Route path="partners/:id/edit" element={<AdminPartnerForm />} />
 
                <Route path="subscriptions" element={<AdminSubscriptions />} />
                <Route path="newsletter" element={<AdminNewsletter />} />
