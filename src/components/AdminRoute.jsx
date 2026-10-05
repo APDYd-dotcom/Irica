@@ -9,7 +9,7 @@ function AdminRoute() {
 
   if (loading) return <Loader />;
 
-  if (!user) return <Navigate to="/admin/login" replace />;
+  if (!user) return <Navigate to="/loginadmin" replace />;
 
   // Logged in, but NOT an admin — send them to their normal dashboard instead.
   const isAdmin = user.is_staff;

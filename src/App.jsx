@@ -55,7 +55,7 @@ function App() {
           <Route path="/payment-success" element={<PaymentSuccess />} />
           <Route path="/programs/:id/pay" element={<ProgramPayment />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/loginadmin" element={<AdminLogin />} />
           <Route path="/donate" element={<DonatePage />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:id" element={<BlogDetail />} />
