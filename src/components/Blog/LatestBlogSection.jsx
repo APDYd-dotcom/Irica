@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ChevronRight, Newspaper } from "lucide-react";
 import { motion } from "framer-motion";
 import { getBlogs } from "../../api/blogs";
-import { blogExcerpt } from "../BlogContent";
+import { htmlToExcerpt } from "../../utils/htmlToExcerpt";
 import Container from "../Layout/Container";
 import { useLanguage } from "../../i18n/LanguageContext";
 import { EASE } from "../../animations/variants";
@@ -78,8 +78,8 @@ function LatestBlogSection() {
         <div className="scrollbar-hidden flex gap-6 overflow-x-auto pb-6">
           {blogs.map((blog, index) => {
             const photo = blog.photo || null;
-              const title = blogExcerpt(blog.title, 200);
-              const desc = blogExcerpt(blog.desc, 180);
+              const title = htmlToExcerpt(blog.title, 200);
+              const desc = htmlToExcerpt(blog.desc, 180);
 
             return (
               <motion.div
@@ -107,7 +107,7 @@ function LatestBlogSection() {
 
                 <div className="flex flex-1 flex-col p-6">
                   <h3 className="line-clamp-2 text-base font-semibold text-primary-700">
-                    {blog.title}
+                    {title}
                   </h3>
                   <Link
                     to={`/blog/${blog.id}`}
@@ -117,7 +117,7 @@ function LatestBlogSection() {
                     <span aria-hidden="true">»</span>
                   </Link>
                   <p className="mt-2 line-clamp-3 text-sm leading-6 text-neutral-600">
-                    {blog.desc}
+                    {desc}
                   </p>
                   <p className="mt-auto pt-4 text-xs text-ink-soft">
                     {blog.created_at ? formatDate(blog.created_at) : ""}

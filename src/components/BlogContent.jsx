@@ -66,17 +66,7 @@ function BlogContent({ content = "", className = "" }) {
   );
 }
 
-/** Short plain-text excerpt for cards and admin list rows. */
-export function blogExcerpt(content = "", maxLength = 160) {
-  if (!content) return "";
-
-  const text = HAS_HTML.test(content)
-    ? new DOMParser().parseFromString(content, "text/html").body.textContent || ""
-    : content;
-
-  const clean = normalizeLegacyText(text).replace(/\s+/g, " ").trim();
-
-  return clean.length > maxLength ? `${clean.slice(0, maxLength)}…` : clean;
-}
-
+// Cards and previews use htmlToExcerpt() from src/utils/htmlToExcerpt.js
+// instead — it lives outside this component so non-rendering code does not
+// have to import a React component.
 export default BlogContent;

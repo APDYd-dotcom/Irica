@@ -4,7 +4,7 @@ import useFetch from "../../hooks/useFetch";
 import { handleDelete } from "../../utils/formHandles";
 import Loader from "../../components/Loader";
 import ErrorMessage from "../../components/ErrorMessage";
-import { blogExcerpt } from "../../components/BlogContent";
+import { htmlToExcerpt } from "../../utils/htmlToExcerpt";
 import { FileText } from "lucide-react";
 
 function AdminBlogsList() {
@@ -84,13 +84,13 @@ function AdminBlogsList() {
                 <FileText className="h-5 w-5" />
               </div>
               <div>
-                <p className="font-medium text-ink">{blogExcerpt(blog.title, 200)}</p>
+                <p className="font-medium text-ink">{htmlToExcerpt(blog.title, 200)}</p>
                 <p className="text-xs text-ink-soft/70 line-clamp-1">
-                  {blogExcerpt(blog.desc, 160) || "No description available."}
+                  {htmlToExcerpt(blog.desc, 160) || "No description available."}
                 </p>
               </div>
               <div className="text-xs text-ink-soft line-clamp-1">
-                {blogExcerpt(blog.desc, 60) || "—"}
+                {htmlToExcerpt(blog.desc, 60) || "—"}
               </div>
               <Link
                 to={`/admin/blogs/${blog.id}/edit`}

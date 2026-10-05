@@ -5,7 +5,7 @@ import Container from "../components/Layout/Container";
 import { useLanguage } from "../i18n/LanguageContext";
 import { EASE } from "../animations/variants";
 import { getBlogs } from "../api/blogs";
-import { blogExcerpt } from "../components/BlogContent";
+import { htmlToExcerpt } from "../utils/htmlToExcerpt";
 import { stripReplacementChars } from "../utils/sanitizeText";
 import Loader from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
@@ -101,7 +101,7 @@ function Blog() {
             {paginatedBlogs.map((blog, index) => {
               const photo = blog.photo || null;
               const title = stripReplacementChars(blog.title);
-              const desc = blogExcerpt(blog.desc, 180);
+              const desc = htmlToExcerpt(blog.desc, 180);
 
               return (
                 <motion.div
