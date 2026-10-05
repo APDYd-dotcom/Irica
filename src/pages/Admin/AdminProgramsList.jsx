@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { handleDelete } from "../../utils/formHandles";
+import axiosClient from "../../api/axiosClient";
 import Loader from "../../components/Loader";
 import ErrorMessage from "../../components/ErrorMessage";
 import { GraduationCap } from "lucide-react";
@@ -12,29 +13,31 @@ const STATUS_COLORS = {
   completed: "bg-slate-50 text-slate-700",
 };
 
-const PROGRAMS_VISIBLE_KEY = "irica_programs_visible";
-
-function readProgramsVisible() {
-  if (typeof window === "undefined") return true;
-  return window.localStorage.getItem(PROGRAMS_VISIBLE_KEY) !== "false";
-}
-
 function AdminProgramsList() {
   const { data, loading, error } = useFetch("/programs/");
   const [items, setItems] = useState(null);
   const [deleteError, setDeleteError] = useState(null);
-  const [programsVisible, setProgramsVisible] = useState(readProgramsVisible);
+  const [updatingId, setUpdatingId] = useState(null);
 
-  function handleProgramsVisibilityToggle() {
-    const next = !programsVisible;
-
-    setProgramsVisible(next);
-    window.localStorage.setItem(PROGRAMS_VISIBLE_KEY, String(next));
-    window.dispatchEvent(new Event("programs-visibility-changed"));
-  }
-
-  // Handle both paginated { count, results: [] } and flat array responses
   const programs = items ?? data?.results ?? data ?? [];
+
+  async function handleToggleOpen(program) {
+    setUpdatingId(program.id);
+    try {
+      await axiosClient.patch(`/programs/${program.id}/`, {
+        is_open: !program.is_open,
+      });
+      setItems((prev) =>
+        (prev ?? programs).map((p) =>
+          p.id === program.id ? { ...p, is_open: !p.is_open } : p
+        )
+      );
+    } catch (err) {
+      setDeleteError("Impossible de mettre à jour la visibilité.");
+    } finally {
+      setUpdatingId(null);
+    }
+  }
 
   function handleRemove(id) {
     if (!window.confirm("Delete this program? This can't be undone.")) return;
@@ -83,49 +86,14 @@ function AdminProgramsList() {
               Keep your curriculum current
             </p>
           </div>
-
-          <div className="mt-5 flex flex-col gap-3 border-t border-ink/10 pt-5 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <p className="text-xs uppercase tracking-[0.24em] text-ink-soft/70 font-semibold">
-                Section Programmes du site public
-              </p>
-              <p className="mt-1 text-xs text-ink-soft">
-                Afficher les vrais programmes, ou la section « à venir ».
-              </p>
-            </div>
-            <div className="flex items-center gap-3">
-              <button
-                type="button"
-                role="switch"
-                aria-checked={programsVisible}
-                aria-label="Toggle la visibilité des programmes sur le site public"
-                onClick={handleProgramsVisibilityToggle}
-                className={`relative inline-flex h-6 w-11 flex-none items-center rounded-full transition ${
-                  programsVisible ? "bg-primary-500" : "bg-slate-300"
-                }`}
-              >
-                <span
-                  className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition ${
-                    programsVisible ? "translate-x-6" : "translate-x-1"
-                  }`}
-                />
-              </button>
-              <span
-                className={`text-xs font-semibold ${
-                  programsVisible ? "text-primary-700" : "text-ink-soft/70"
-                }`}
-              >
-                {programsVisible ? "Programmes visibles sur le site" : "Programmes masqués"}
-              </span>
-            </div>
-          </div>
         </div>
 
         <div className="overflow-x-auto rounded-3xl border border-ink/10 bg-white shadow-sm">
-          <div className="hidden md:grid grid-cols-[56px_1.8fr_1fr_120px_100px] gap-4 px-5 py-4 text-xs uppercase tracking-[0.25em] text-ink-soft bg-slate-50 border-b border-ink/10">
+          <div className="hidden md:grid grid-cols-[56px_1.6fr_1fr_120px_100px_100px] gap-4 px-5 py-4 text-xs uppercase tracking-[0.25em] text-ink-soft bg-slate-50 border-b border-ink/10">
             <span>#</span>
             <span>Program</span>
             <span>Status</span>
+            <span>Visibility</span>
             <span className="text-right">Update</span>
             <span className="text-right">Delete</span>
           </div>
@@ -134,35 +102,49 @@ function AdminProgramsList() {
             <div className="px-5 py-10 text-center text-xs text-ink-soft">No programs yet — add your first one.</div>
           ) : (
             programs.map((program) => (
-                  <div key={program.id} className="grid gap-4 px-5 py-4 border-b border-ink/5 last:border-0 hover:bg-slate-50 transition md:grid-cols-[56px_1.8fr_1fr_120px_100px] md:items-center">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary-50 text-primary-700">
-                      <GraduationCap className="h-5 w-5" />
-                    </div>
-                    <div className="min-w-0">
-                      <p className="font-medium text-ink">{program.title}</p>
-                      <p className="text-xs text-ink-soft/70 line-clamp-1">{program.descr || "No description"}</p>
-                    </div>
-                    <span className={`w-fit inline-flex rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${STATUS_COLORS[program.status] || "bg-slate-50 text-slate-700"}`}>
-                      {program.status || "Draft"}
-                    </span>
-                    <div className="flex gap-3 md:justify-end">
-                      <Link
-                        to={`/admin/programs/${program.id}/edit`}
-                        className="inline-flex items-center justify-center rounded-full bg-forest-50 px-4 py-2 text-xs font-semibold text-forest-800 hover:bg-forest-100"
-                      >
-                        Update
-                      </Link>
-                    </div>
-                    <div className="flex md:justify-end">
-                      <button
-                        onClick={() => handleRemove(program.id)}
-                        className="inline-flex items-center justify-center rounded-full bg-red-50 px-4 py-2 text-xs font-semibold text-red-600 hover:bg-red-100"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-              ))
+              <div key={program.id} className="grid gap-4 px-5 py-4 border-b border-ink/5 last:border-0 hover:bg-slate-50 transition md:grid-cols-[56px_1.6fr_1fr_120px_100px_100px] md:items-center">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary-50 text-primary-700">
+                  <GraduationCap className="h-5 w-5" />
+                </div>
+                <div className="min-w-0">
+                  <p className="font-medium text-ink">{program.title}</p>
+                  <p className="text-xs text-ink-soft/70 line-clamp-1">{program.descr || "No description"}</p>
+                </div>
+                <span className={`w-fit inline-flex rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${STATUS_COLORS[program.status] || "bg-slate-50 text-slate-700"}`}>
+                  {program.status || "Draft"}
+                </span>
+                <button
+                  type="button"
+                  role="switch"
+                  aria-checked={program.is_open}
+                  disabled={updatingId === program.id}
+                  onClick={() => handleToggleOpen(program)}
+                  className={`relative inline-flex h-6 w-11 flex-none items-center rounded-full transition disabled:opacity-50 ${
+                    program.is_open ? "bg-primary-500" : "bg-slate-300"
+                  }`}
+                >
+                  <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition ${
+                    program.is_open ? "translate-x-6" : "translate-x-1"
+                  }`} />
+                </button>
+                <div className="flex gap-3 md:justify-end">
+                  <Link
+                    to={`/admin/programs/${program.id}/edit`}
+                    className="inline-flex items-center justify-center rounded-full bg-forest-50 px-4 py-2 text-xs font-semibold text-forest-800 hover:bg-forest-100"
+                  >
+                    Update
+                  </Link>
+                </div>
+                <div className="flex md:justify-end">
+                  <button
+                    onClick={() => handleRemove(program.id)}
+                    className="inline-flex items-center justify-center rounded-full bg-red-50 px-4 py-2 text-xs font-semibold text-red-600 hover:bg-red-100"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            ))
           )}
         </div>
       </div>

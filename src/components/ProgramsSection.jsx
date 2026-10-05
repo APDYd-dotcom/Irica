@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { CalendarDays, ChevronRight, CreditCard, LockKeyhole } from "lucide-react";
 import { motion } from "framer-motion";
 import useFetch from "../hooks/useFetch";
@@ -7,37 +7,12 @@ import { useLanguage } from "../i18n/LanguageContext";
 import { EASE } from "../animations/variants";
 import ProgramsComingSoon from "./Programs/ProgramsComingSoon";
 
-const PROGRAMS_VISIBLE_KEY = "irica_programs_visible";
-
-function readProgramsVisible() {
-    if (typeof window === "undefined") return true;
-    return window.localStorage.getItem(PROGRAMS_VISIBLE_KEY) !== "false";
-}
-
 function ProgramsSection() {
     const { t, language } = useLanguage();
-    const [programsVisible, setProgramsVisible] = useState(readProgramsVisible);
 
-    useEffect(() => {
-        const syncVisibility = () => setProgramsVisible(readProgramsVisible());
-
-        // Same tab (admin preview): custom event.
-        window.addEventListener("programs-visibility-changed", syncVisibility);
-        // Other tab: native storage event.
-        window.addEventListener("storage", syncVisibility);
-
-        // Re-sync on mount in case it changed before this component mounted.
-        syncVisibility();
-
-        return () => {
-            window.removeEventListener("programs-visibility-changed", syncVisibility);
-            window.removeEventListener("storage", syncVisibility);
-        };
-    }, []);
-
-    // Pass null when hidden so useFetch skips the request entirely.
-    const { data, loading, error } = useFetch(programsVisible ? "/programs/" : null);
-    const programs = data?.results || [];
+    const { data, loading, error } = useFetch("/programs/");
+    const allPrograms = data?.results || data || [];
+    const programs = allPrograms.filter((p) => p.is_open === true);
     const rowRef = useRef(null);
 
     function scrollNext() {
@@ -87,14 +62,6 @@ function ProgramsSection() {
             year: "numeric",
         });
 
-    if (!programsVisible) {
-        return (
-            <section id="programs">
-                <ProgramsComingSoon />
-            </section>
-        );
-    }
-
     if (loading) {
         return (
             <section id="programs" className="bg-neutral-50 py-24 md:py-32">
@@ -111,6 +78,14 @@ function ProgramsSection() {
                 <Container className="text-center text-red-600">
                     {t("programs.errorPrefix")}: {error.message || t("programs.errorFallback")}
                 </Container>
+            </section>
+        );
+    }
+
+    if (!loading && !error && programs.length === 0) {
+        return (
+            <section id="programs">
+                <ProgramsComingSoon />
             </section>
         );
     }
@@ -252,7 +227,7 @@ function ProgramsSection() {
                             </motion.div>
                         );
                     })}
-                </div>
+                    </div>
             </Container>
         </section>
     );
