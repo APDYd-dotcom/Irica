@@ -47,7 +47,7 @@ const translations = {
       terms: "Conditions",
     },
     hero: {
-      badge: "Institut de Recherche et d'Innovation",
+      badge: "Institute Of Research and Immersive Career Advancement",
       titlePart1: "Conseil, recherche et innovation pour un",
       titlePart2: "impact durable en Afrique.",
       description:
@@ -95,8 +95,9 @@ const translations = {
           description:
             "Votre partenaire pour l'information de qualité et l'ouverture au monde.",
           points: [
-            "Recherche et Étude : Études approfondies sur les défis du développement socio-économique",
-            "Service Linguistique : Traduction et Interprétariat de documents techniques et scientifiques",
+            "Recherche & Études : Études approfondies sur les défis du développement socio-économique",
+            "Analyse de données & Statistiques : Collecte, traitement et analyse de données pour appuyer des décisions fondées sur des preuves",
+            "Services d'interprétation : Interprétation consécutive et simultanée pour conférences, ateliers et réunions",
           ],
         },
       },
@@ -462,7 +463,7 @@ const translations = {
       terms: "Terms",
     },
     hero: {
-      badge: "Research and Innovation Institute",
+      badge: "Institute Of Research and Immersive Career Advancement",
       titlePart1: "Advisory, research and innovation for",
       titlePart2: "sustainable impact in Africa.",
       description:
@@ -511,7 +512,8 @@ const translations = {
             "Your partner for quality information and global openness.",
           points: [
             "Research & Study: In-depth studies on socio-economic development challenges",
-            "Language Services: Translation and interpretation of technical and scientific documents",
+            "Data Analysis & Statistics: Collection, processing and analysis of data to support evidence-based decisions",
+            "Interpretation Services: Consecutive and simultaneous interpretation for conferences, workshops and meetings"
           ],
         },
       },

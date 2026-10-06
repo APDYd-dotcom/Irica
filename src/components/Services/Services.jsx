@@ -12,7 +12,7 @@ const serviceDefs = [
 ];
 
 // Upper bound for bullet slots; pillars declare fewer than this (some have 2).
-const MAX_POINTS = 4;
+  const MAX_POINTS = 7;
 
 function Services() {
   const { t } = useLanguage();

@@ -32,7 +32,7 @@ function ServiceCard({ icon: Icon, title, description, points = [] }) {
 
       <a
         href="#contact"
-        className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-primary-700 hover:gap-3 hover:text-primary-800"
+        className="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-primary-700 hover:gap-3 hover:text-primary-800"
       >
         {t("services.card.readMore")}
         <ArrowRight className="h-4 w-4" />
