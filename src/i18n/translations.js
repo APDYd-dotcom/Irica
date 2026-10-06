@@ -29,7 +29,7 @@ const translations = {
     },
     footer: {
       description:
-        "Institut de recherche et d'innovation pour le conseil en Afrique, au service de décisions plus claires et plus utiles.",
+        "Institute Of Research and Immersive Career Advancement  pour le conseil en Afrique, au service de décisions plus claires et plus utiles.",
       navTitle: "Navigation",
       contactTitle: "Contact",
       email: "info.irica@gmail.com",
@@ -186,6 +186,8 @@ const translations = {
       emailLabel: "Envoyer un email à {name}",
       linkedinLabel: "Profil professionnel de {name}",
       contactLabel: "Contacter {name}",
+      readMore: "Lire la suite",
+      readLess: "Voir moins",
     },
     contact: {
       eyebrow: "Contact",
@@ -599,6 +601,8 @@ const translations = {
       emailLabel: "Send an email to {name}",
       linkedinLabel: "{name}'s professional profile",
       contactLabel: "Contact {name}",
+      readMore: "Read more",
+      readLess: "Show less",
     },
     contact: {
       eyebrow: "Contact",

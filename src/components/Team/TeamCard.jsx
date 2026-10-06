@@ -1,16 +1,39 @@
+import { useRef, useState, useLayoutEffect } from "react";
 import { Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLanguage } from "../../i18n/LanguageContext";
 import { EASE } from "../../animations/variants";
+import { htmlToExcerpt } from "../../utils/htmlToExcerpt";
 
 function TeamCard({ member, featured = false }) {
   const { t } = useLanguage();
+  const [expanded, setExpanded] = useState(false);
+  const [isClamped, setIsClamped] = useState(false);
+  const bioRef = useRef(null);
+
+  const bio = htmlToExcerpt(member.bio || "", 99999);
+
+  useLayoutEffect(() => {
+    if (expanded) return;
+    const el = bioRef.current;
+    if (!el) {
+      setIsClamped(false);
+      return;
+    }
+    setIsClamped(el.scrollHeight > el.clientHeight + 1);
+  }, [expanded, bio]);
+
+  const handleToggle = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setExpanded((prev) => !prev);
+  };
 
   return (
     <motion.article
       whileHover={{ y: -4, scale: 1.015 }}
       transition={{ duration: 0.25, ease: EASE }}
-      className={`group relative flex h-full flex-col overflow-hidden rounded-2xl border border-neutral-200/80 bg-white/80 shadow-sm backdrop-blur-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-primary-200 hover:shadow-[0_20px_50px_-20px_rgba(0,90,40,0.25)] hover:shadow-primary-900/10 ${
+      className={`group relative flex flex-col overflow-hidden rounded-2xl border border-neutral-200/80 bg-white/80 shadow-sm backdrop-blur-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-primary-200 hover:shadow-[0_20px_50px_-20px_rgba(0,90,40,0.25)] hover:shadow-primary-900/10 ${
         featured ? "lg:scale-[1.03]" : ""
       }`}
     >
@@ -42,15 +65,32 @@ function TeamCard({ member, featured = false }) {
         )}
       </div>
 
-      <div className="relative flex flex-1 flex-col px-5 pt-4 pb-4">
+      <div className="relative flex flex-col px-5 pt-4 pb-4">
         <h3 className="text-base font-semibold leading-snug text-neutral-900 break-words">
           {member.name}
         </h3>
 
         {member.bio && (
-          <p className="mt-2 text-sm leading-relaxed text-neutral-600 line-clamp-3">
-            {member.bio}
-          </p>
+          <div>
+            <p
+              ref={bioRef}
+              className={`mt-2 text-sm leading-relaxed text-neutral-600 ${
+                expanded ? "whitespace-pre-line" : "line-clamp-3"
+              }`}
+            >
+              {bio}
+            </p>
+            {(isClamped || expanded) && (
+              <button
+                type="button"
+                aria-expanded={expanded}
+                onClick={handleToggle}
+                className="mt-1 text-xs font-semibold text-primary-700 hover:text-primary-800 hover:underline"
+              >
+                {expanded ? t("team.readLess") : t("team.readMore")}
+              </button>
+            )}
+          </div>
         )}
 
         {member.email && (
@@ -64,7 +104,7 @@ function TeamCard({ member, featured = false }) {
           </a>
         )}
 
-        <div className="mt-auto border-t border-neutral-200/70 pt-3 flex items-center justify-end gap-1">
+        <div className="border-t border-neutral-200/70 pt-3 flex items-center justify-end gap-1">
           <a
             href={member.linkedin}
             aria-label={t("team.linkedinLabel", { name: member.name })}

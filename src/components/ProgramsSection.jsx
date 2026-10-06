@@ -119,7 +119,7 @@ function ProgramCard({ prog, t, language, index }) {
                 )}
             </div>
 
-            <div className="flex flex-1 flex-col p-6">
+            <div className="flex flex-col p-6">
                 <p
                     ref={descRef}
                     className={`text-sm leading-6 text-neutral-600 ${
@@ -161,7 +161,7 @@ function ProgramCard({ prog, t, language, index }) {
                     </div>
                 </div>
 
-                <div className="mt-auto pt-6">
+                <div className="border-t border-neutral-200/70 pt-6">
                     <a
                         href={isFree ? link : `/programs/${prog.id}/pay`}
                         className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary-500 px-4 py-3 text-sm font-semibold text-white hover:-translate-y-0.5 hover:bg-primary-600 focus:outline-none focus:ring-4 focus:ring-primary-500/25"
@@ -245,7 +245,7 @@ function ProgramsSection() {
 
                     <div
                         ref={rowRef}
-                        className="scrollbar-hidden flex snap-x snap-mandatory gap-6 overflow-x-auto pb-6"
+                        className="scrollbar-hidden flex items-start snap-x snap-mandatory gap-6 overflow-x-auto pb-6"
                         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
                     >
                         {programs.map((prog, index) => (
