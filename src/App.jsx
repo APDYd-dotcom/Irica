@@ -99,6 +99,7 @@ function App() {
 
               <Route path="certificates" element={<AdminCertificatesList />} />
               <Route path="certificates/new" element={<AdminCertificateForm />} />
+              <Route path="certificates/:id/edit" element={<AdminCertificateForm />} />
 
               <Route path="partners" element={<AdminPartnersList />} />
               <Route path="partners/new" element={<AdminPartnerForm />} />

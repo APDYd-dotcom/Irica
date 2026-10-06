@@ -30,6 +30,7 @@ function AdminCertificateForm() {
 
   const [formData, setFormData] = useState(initialFormState);
   const [sending, setSending] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
   const [created, setCreated] = useState(null);
   const [copied, setCopied] = useState(false);
@@ -59,7 +60,13 @@ function AdminCertificateForm() {
       })
       .catch((err) => {
         if (!active) return;
-        setChoicesError(err?.response?.data?.detail || err?.message || "Unable to load program types.");
+        setChoices([]);
+        const status = err?.response?.status;
+        setChoicesError(
+          status
+            ? `Unable to load program types (${status}).`
+            : err?.response?.data?.detail || err?.message || "Unable to load program types."
+        );
       });
     return () => {
       active = false;
@@ -108,6 +115,7 @@ function AdminCertificateForm() {
     setError(null);
     setCreated(null);
     setCopied(false);
+    setSuccess(false);
 
     if (formData.end_date && formData.start_date && formData.end_date < formData.start_date) {
       const msg = "End date must not be before the start date.";
@@ -118,7 +126,7 @@ function AdminCertificateForm() {
     setDateError(null);
 
     const action = isEditing
-      ? handlePatchMultipart(`/certified/${id}/`, setSending, () => {}, setError, formData)
+      ? handlePatchMultipart(`/certified/${id}/`, setSending, setSuccess, setError, formData)
       : handleSubmit(
           "/certified/",
           setSending,
@@ -131,7 +139,10 @@ function AdminCertificateForm() {
 
     action
       .then((data) => {
-        if (isEditing) return;
+        if (isEditing) {
+          setTimeout(() => navigate("/admin/certificates"), 700);
+          return;
+        }
         setCreated(data);
       })
       .catch(() => {
@@ -169,6 +180,12 @@ function AdminCertificateForm() {
           ? "Update the certificate details below."
           : "Creates a certificate and its public verification page."}
       </p>
+
+      {success && (
+        <div className="mb-4">
+          <SuccessMessage message="Certificate updated successfully!" />
+        </div>
+      )}
 
       {created && (
         <div className="mb-4 space-y-3">

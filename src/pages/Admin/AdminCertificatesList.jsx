@@ -140,13 +140,14 @@ function AdminCertificatesList() {
       </div>
 
       <div className="overflow-x-auto rounded-3xl border border-ink/10 bg-white shadow-sm">
-        <div className="grid grid-cols-[56px_1.6fr_1fr_1.4fr_1.2fr_150px_70px] gap-4 px-5 py-4 text-xs uppercase tracking-[0.25em] text-ink-soft bg-slate-50 border-b border-ink/10">
+        <div className="grid grid-cols-[56px_1.6fr_1fr_1.4fr_1.2fr_150px_80px_80px] gap-4 px-5 py-4 text-xs uppercase tracking-[0.25em] text-ink-soft bg-slate-50 border-b border-ink/10">
           <span>#</span>
           <span>Full name</span>
           <span>Type</span>
           <span>Period</span>
           <span>Email</span>
           <span className="text-right">Link</span>
+          <span className="text-right">Update</span>
           <span className="text-right">Delete</span>
         </div>
 
@@ -161,7 +162,7 @@ function AdminCertificatesList() {
             return (
               <div
                 key={certificate.id}
-                className="grid grid-cols-[56px_1.6fr_1fr_1.4fr_1.2fr_150px_70px] gap-4 items-center px-5 py-4 hover:bg-slate-50 transition"
+                className="grid grid-cols-[56px_1.6fr_1fr_1.4fr_1.2fr_150px_80px_80px] gap-4 items-center px-5 py-4 hover:bg-slate-50 transition"
               >
                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary-50 text-primary-700">
                   <BadgeCheck className="h-5 w-5" />
@@ -195,12 +196,22 @@ function AdminCertificatesList() {
                     )}
                   </button>
                 </div>
-                <button
-                  onClick={() => handleRemove(certificate.id)}
-                  className="text-xs font-medium text-red-600 hover:underline text-right"
-                >
-                  Delete
-                </button>
+                <div className="flex justify-end">
+                  <Link
+                    to={`/admin/certificates/${certificate.id}/edit`}
+                    className="inline-flex items-center justify-center rounded-full bg-forest-50 px-4 py-2 text-xs font-semibold text-forest-800 hover:bg-forest-100"
+                  >
+                    Update
+                  </Link>
+                </div>
+                <div className="flex justify-end">
+                  <button
+                    onClick={() => handleRemove(certificate.id)}
+                    className="inline-flex items-center justify-center rounded-full bg-red-50 px-4 py-2 text-xs font-semibold text-red-600 hover:bg-red-100"
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             );
           })
