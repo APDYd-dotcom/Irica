@@ -27,8 +27,9 @@ export function htmlToExcerpt(content = "", maxLength = 160) {
     : source;
 
   const clean = raw
-    // Wingdings/Symbol bullets pasted from Word (private-use area)
-    .replace(/[\uE000-\uF8FF]/g, "")
+    // Wingdings/Symbol bullets pasted from Word (private-use area) and the
+    // replacement character U+FFFD that appears when bytes are mis-decoded.
+    .replace(/[\uFFFD\uE000-\uF8FF]/g, "")
     .replace(/[\u00A0\u200B]/g, " ")
     .replace(/\s+/g, " ")
     .trim();

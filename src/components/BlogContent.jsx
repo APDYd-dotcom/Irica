@@ -4,11 +4,12 @@ import { stripReplacementChars } from "../utils/sanitizeText";
 // Anything that is not a known HTML tag => the content is plain text (old posts).
 const HAS_HTML = /<\/?[a-z][\s\S]*>/i;
 
-// Wingdings/Symbol bullets (U+E000–U+F8FF) and non-breaking spaces, which show up
-// when text was pasted from Word into an old plain-text post.
+// Wingdings/Symbol bullets (U+E000–U+F8FF), the replacement character U+FFFD,
+// and non-breaking spaces, which show up when text was pasted from Word into an
+// old plain-text post.
 function normalizeLegacyText(text) {
   return stripReplacementChars(text)
-    .replace(/[\uE000-\uF8FF]/g, "\u2022")
+    .replace(/[\uFFFD\uE000-\uF8FF]/g, "\u2022")
     .replace(/\u00A0/g, " ")
     .replace(/\u2007|\u202F/g, " ");
 }

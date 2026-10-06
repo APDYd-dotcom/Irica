@@ -74,11 +74,11 @@ function BlogDetail() {
         </Link>
 
         {blog.photo && (
-          <div className="mt-8 overflow-hidden rounded-2xl max-h-[420px]">
+          <div className="mt-8 w-full overflow-hidden rounded-2xl bg-slate-100">
             <img
               src={blog.photo}
               alt={title}
-              className="h-[420px] w-full object-cover object-top"
+              className="mx-auto block h-auto max-h-[75vh] w-full object-contain"
             />
           </div>
         )}
