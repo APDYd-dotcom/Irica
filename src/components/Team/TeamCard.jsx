@@ -46,7 +46,7 @@ function TeamCard({ member, featured = false }) {
         }}
       />
 
-      <div className="relative aspect-[4/5] overflow-hidden bg-neutral-100">
+      <div className="relative aspect-[3/4] w-full overflow-hidden rounded-t-2xl bg-neutral-100">
         <img
           src={member.image}
           alt={member.name}
@@ -65,8 +65,8 @@ function TeamCard({ member, featured = false }) {
         )}
       </div>
 
-      <div className="relative flex flex-col px-5 pt-4 pb-4">
-        <h3 className="text-base font-semibold leading-snug text-neutral-900 break-words">
+      <div className="relative flex min-h-[220px] flex-col px-5 pt-4 pb-4">
+        <h3 className="text-base font-semibold leading-snug text-neutral-900 break-words line-clamp-1">
           {member.name}
         </h3>
 

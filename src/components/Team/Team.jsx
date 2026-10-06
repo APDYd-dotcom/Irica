@@ -89,7 +89,7 @@ function Team() {
                 hidden: { opacity: 0, y: 22 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
               }}
-              className={index === 0 ? "lg:translate-y-6" : ""}
+              className=""
             >
               <TeamCard member={member} featured={index === 0} />
             </motion.div>
