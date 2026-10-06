@@ -9,8 +9,8 @@ import { EASE } from "../../animations/variants";
 import Container from "../Layout/Container";
 
 const navLinks = [
-  { to: "/#services", labelKey: "nav.services", id: "services" },
   { to: "/#about", labelKey: "nav.about", id: "about" },
+  { to: "/#services", labelKey: "nav.services", id: "services" },
   { to: "/#programs", labelKey: "nav.programs", id: "programs" },
   { to: "/blog", labelKey: "nav.blog", id: "blog" },
   { to: "/#team", labelKey: "nav.team", id: "team" },
@@ -52,7 +52,6 @@ function LanguageToggle() {
 
 function Navbar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [activeId, setActiveId] = useState("");
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -60,6 +59,18 @@ function Navbar() {
   const { t } = useLanguage();
 
   const dashboardLink = user && !user.is_staff ? "/dashboard/programs" : "/login";
+
+  // Drive the active underline from the current route instead of an
+  // IntersectionObserver, which used to freeze on the last section seen
+  // once the page left the Home layout (e.g. /blog).
+  function isLinkActive(link) {
+    if (link.to === "/blog") return location.pathname === "/blog";
+    if (link.to.startsWith("/#")) {
+      if (location.pathname !== "/") return false;
+      return location.hash === link.to.slice(1);
+    }
+    return location.pathname === link.to;
+  }
 
   function handleLogout() {
     logout();
@@ -85,28 +96,6 @@ function Navbar() {
       document.body.style.overflow = "";
     };
   }, [drawerOpen]);
-
-  useEffect(() => {
-    const sections = navLinks
-      .map((link) => document.getElementById(link.id))
-      .filter(Boolean);
-
-    if (!sections.length) return undefined;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
-        if (visible) setActiveId(visible.target.id);
-      },
-      { rootMargin: "-35% 0px -55% 0px", threshold: [0.1, 0.4, 0.7] }
-    );
-
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
-  }, [location.pathname]);
 
   const closeDrawer = () => setDrawerOpen(false);
 
@@ -145,7 +134,7 @@ function Navbar() {
 
 <div className="hidden lg:flex items-center gap-0.5">
           {navLinks.map((link) => {
-            const active = activeId === link.id;
+            const active = isLinkActive(link);
             return (
               <Link
                 key={link.to}

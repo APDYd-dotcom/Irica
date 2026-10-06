@@ -14,8 +14,8 @@ export default function Home() {
   return (
     <div className="overflow-x-hidden bg-neutral-50 text-neutral-900">
       <Hero />
-      <Services />
       <About />
+      <Services />
       <ProgramsSection />
       <LatestBlogSection />
       <TestimoniesSection />
