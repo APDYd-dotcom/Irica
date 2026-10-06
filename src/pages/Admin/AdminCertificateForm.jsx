@@ -1,7 +1,8 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { BadgeCheck, Copy } from "lucide-react";
-import { handleChange, handleSubmit } from "../../utils/formHandles";
+import axiosClient from "../../api/axiosClient";
+import { handleChange, handleSubmit, handlePatchMultipart } from "../../utils/formHandles";
 import ErrorMessage from "../../components/ErrorMessage";
 import SuccessMessage from "../../components/SuccessMessage";
 
@@ -14,7 +15,7 @@ const initialFormState = {
   email: "",
   start_date: "",
   end_date: "",
-  type_of_program: "certification",
+  type_of_program: "",
 };
 
 function verifyUrlFor(id) {
@@ -23,6 +24,8 @@ function verifyUrlFor(id) {
 }
 
 function AdminCertificateForm() {
+  const { id } = useParams();
+  const isEditing = Boolean(id);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState(initialFormState);
@@ -30,6 +33,75 @@ function AdminCertificateForm() {
   const [error, setError] = useState(null);
   const [created, setCreated] = useState(null);
   const [copied, setCopied] = useState(false);
+  const [dateError, setDateError] = useState(null);
+  const [choices, setChoices] = useState(null);
+  const [choicesError, setChoicesError] = useState(null);
+
+  // Load the program type choices from the API (OPTIONS request) so the
+  // dropdown always reflects the model's real choices.
+  useEffect(() => {
+    let active = true;
+    axiosClient
+      .options("/certified/")
+      .then((response) => {
+        const field = response?.data?.actions?.POST?.type_of_program;
+        const list = Array.isArray(field?.choices) ? field.choices : null;
+        if (!active) return;
+        if (list) {
+          setChoices(list);
+          setChoicesError(null);
+        } else {
+          setChoices([]);
+          setChoicesError(
+            "Program type choices are unavailable. Check the Django serializer for type_of_program."
+          );
+        }
+      })
+      .catch((err) => {
+        if (!active) return;
+        setChoicesError(err?.response?.data?.detail || err?.message || "Unable to load program types.");
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  // Edit mode: load the existing certificate so the form can be prefilled.
+  useEffect(() => {
+    if (!id) return;
+    let active = true;
+    axiosClient.get(`/certified/${id}/`).then((response) => {
+      const data = response?.data;
+      if (!active || !data) return;
+      setFormData({
+        first_name: data.first_name || "",
+        last_name: data.last_name || "",
+        telephone: data.telephone || "",
+        email: data.email || "",
+        start_date: data.start_date || "",
+        end_date: data.end_date || "",
+        type_of_program: data.type_of_program || "",
+      });
+    });
+    return () => {
+      active = false;
+    };
+  }, [id]);
+
+  function programTypeOptions() {
+    const known = new Set(choices?.map((c) => c.value));
+    const options = (choices || []).map((c) => (
+      <option key={c.value} value={c.value}>
+        {c.display_name}
+      </option>
+    ));
+    // Edit mode: keep an unknown saved value visible instead of clearing it.
+    const saved = formData.type_of_program;
+    if (saved && !known.has(saved)) {
+      options.unshift(<option key={saved} value={saved}>{saved}</option>);
+    }
+    return options;
+  }
 
   function handleFormSubmit(e) {
     e.preventDefault();
@@ -37,18 +109,31 @@ function AdminCertificateForm() {
     setCreated(null);
     setCopied(false);
 
-    // handleSubmit shares the state setters; we resolve the created record
-    // ourselves so we can show its verification link.
-    handleSubmit(
-      "/certified/",
-      setSending,
-      () => {},
-      setError,
-      formData,
-      setFormData,
-      initialFormState
-    )
-      .then((data) => setCreated(data))
+    if (formData.end_date && formData.start_date && formData.end_date < formData.start_date) {
+      const msg = "End date must not be before the start date.";
+      setDateError(msg);
+      setError(msg);
+      return;
+    }
+    setDateError(null);
+
+    const action = isEditing
+      ? handlePatchMultipart(`/certified/${id}/`, setSending, () => {}, setError, formData)
+      : handleSubmit(
+          "/certified/",
+          setSending,
+          () => {},
+          setError,
+          formData,
+          setFormData,
+          initialFormState
+        );
+
+    action
+      .then((data) => {
+        if (isEditing) return;
+        setCreated(data);
+      })
       .catch(() => {
         // error already surfaced via setError
       });
@@ -76,9 +161,13 @@ function AdminCertificateForm() {
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-ink/10 p-6 max-w-lg">
-      <h1 className="text-base font-serif text-ink mb-1">Add New Certificate</h1>
+      <h1 className="text-base font-serif text-ink mb-1">
+        {isEditing ? "Edit Certificate" : "Add New Certificate"}
+      </h1>
       <p className="text-xs text-ink-soft mb-4">
-        Creates a certificate and its public verification page.
+        {isEditing
+          ? "Update the certificate details below."
+          : "Creates a certificate and its public verification page."}
       </p>
 
       {created && (
@@ -185,29 +274,33 @@ function AdminCertificateForm() {
               value={formData.end_date}
               onChange={(e) => handleChange(e, setFormData)}
               required
-              className={fieldClass}
+              min={formData.start_date || undefined}
+              className={`${fieldClass} ${dateError ? "border-red-400 focus:ring-2 focus:ring-red-500/40" : ""}`}
             />
+            {dateError && (
+              <p className="text-xs text-red-600 mt-1">{dateError}</p>
+            )}
           </div>
         </div>
 
         <div>
           <label className="block text-xs font-medium text-ink mb-1">Type of program</label>
-          <input
+          <select
             name="type_of_program"
             value={formData.type_of_program}
             onChange={(e) => handleChange(e, setFormData)}
             required
-            list="program-types"
+            disabled={!choices}
             className={fieldClass}
-          />
-          <datalist id="program-types">
-            <option value="certification" />
-            <option value="internship" />
-            <option value="capstone" />
-          </datalist>
-          <p className="text-xs text-ink-soft/70 mt-1">
-            Free text, e.g. "certification", "internship", "capstone".
-          </p>
+          >
+            <option value="" disabled>
+              {choices ? "Select a program type" : "Loading..."}
+            </option>
+            {programTypeOptions()}
+          </select>
+          {choicesError && (
+            <p className="text-xs text-red-600 mt-1">{choicesError}</p>
+          )}
         </div>
 
         <button
@@ -215,7 +308,7 @@ function AdminCertificateForm() {
           disabled={sending}
           className="w-full mt-2 bg-forest-800 hover:bg-forest-700 disabled:opacity-50 text-white font-semibold py-2.5 rounded-lg"
         >
-          {sending ? "Saving..." : "Create Certificate"}
+          {sending ? "Saving..." : isEditing ? "Save Changes" : "Create Certificate"}
         </button>
       </form>
     </div>
