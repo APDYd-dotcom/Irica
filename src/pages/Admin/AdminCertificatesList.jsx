@@ -4,23 +4,7 @@ import { BadgeCheck, Copy, Plus } from "lucide-react";
 import Loader from "../../components/Loader";
 import ErrorMessage from "../../components/ErrorMessage";
 import { getCertificates, deleteCertificate } from "../../api/certified";
-
-// Display pages don't fetch the OPTIONS metadata, so map known values to
-// their display_name and fall back to a capitalized value otherwise.
-const PROGRAM_TYPE_LABELS = {
-  certification: "Certification",
-  internship: "Internship",
-  training: "Training",
-  workshop: "Workshop",
-  capstone: "Capstone",
-  other: "Other",
-};
-
-function programTypeLabel(value) {
-  if (!value) return "—";
-  if (PROGRAM_TYPE_LABELS[value]) return PROGRAM_TYPE_LABELS[value];
-  return value.charAt(0).toUpperCase() + value.slice(1);
-}
+import { programTypeLabel } from "../../utils/programType";
 
 function verifyUrlFor(id) {
   const origin = typeof window === "undefined" ? "" : window.location.origin;
@@ -172,7 +156,7 @@ function AdminCertificatesList() {
                   <p className="text-xs text-ink-soft/70 truncate">{certificate.telephone}</p>
                 </div>
                 <div className="text-xs text-ink-soft truncate">
-                  {programTypeLabel(certificate.type_of_program)}
+                  {programTypeLabel(certificate) || "—"}
                 </div>
                 <div className="text-xs text-ink-soft">
                   {formatDate(certificate.start_date)} → {formatDate(certificate.end_date)}

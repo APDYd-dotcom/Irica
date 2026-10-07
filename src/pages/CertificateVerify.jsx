@@ -4,23 +4,7 @@ import { CalendarDays, CheckCircle2, Mail, Phone, UserRound, XCircle } from "luc
 import { getCertificate } from "../api/certified";
 import { useLanguage } from "../i18n/LanguageContext";
 import Loader from "../components/Loader";
-
-// Display pages don't fetch the OPTIONS metadata, so map known values to
-// their display_name and fall back to a capitalized value otherwise.
-const PROGRAM_TYPE_LABELS = {
-  certification: "Certification",
-  internship: "Internship",
-  training: "Training",
-  workshop: "Workshop",
-  capstone: "Capstone",
-  other: "Other",
-};
-
-function programTypeLabel(value) {
-  if (!value) return null;
-  if (PROGRAM_TYPE_LABELS[value]) return PROGRAM_TYPE_LABELS[value];
-  return value.charAt(0).toUpperCase() + value.slice(1);
-}
+import { programTypeLabel } from "../utils/programType";
 
 /** Parse date-only strings (YYYY-MM-DD) as local time to avoid a UTC off-by-one day. */
 function formatDate(value, locale) {
@@ -138,7 +122,7 @@ function CertificateVerify() {
             <Field
               icon={CalendarDays}
               label={t("certificate.programType")}
-              value={programTypeLabel(certificate.type_of_program)}
+              value={programTypeLabel(certificate)}
             />
             <Field icon={CalendarDays} label={t("certificate.period")} value={period} />
           </div>
